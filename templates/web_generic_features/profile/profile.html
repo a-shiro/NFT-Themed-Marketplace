@@ -1,0 +1,64 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section style="margin: 80px 0 50px 0">
+        <div class="container">
+            <div class="text-center">
+                {% if profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}"
+                         style="border: 2px solid #b3b3b3; border-radius: 50%; object-fit: cover; height: 180px; width: 180px"
+                         alt="profile-image">
+                {% else %}
+                    <img src="{% static 'images/default_profile_pic.png' %}"
+                         style="border: 2px solid #b3b3b3; border-radius: 50%; object-fit: cover; height: 180px; width: 180px"
+                         alt="profile-image">
+                {% endif %}
+            </div>
+            <div class="text-center my-4">
+                <div>
+                    <h1>{{ profile.username }}</h1>
+                </div>
+                <div>
+                    <h5>Joined: {{ request.user.date_joined }}</h5>
+                </div>
+
+
+                <div class="mt-5">
+                    <button type="button" class="btn btn-lg" style="border-bottom: 5px solid #F2B851;">
+                        <a class="text-dark text-decoration-none"
+                           href="{% url 'my collection' request.user.id %}">
+                            <span>
+                                <i class="bi bi-folder-check"></i>
+                                Collected
+                            </span>
+                        </a>
+                    </button>
+                    <button type="button" class="btn btn-lg mx-1 mx-sm-3" style="border-bottom: 5px solid #F2B851;">
+                        <a class="text-dark text-decoration-none"
+                           href="{% url 'profile workshop' request.user.id %}">
+                            <span>
+                                <i class="bi bi-brush"></i>
+                                Created
+                            </span>
+                        </a>
+                    </button>
+                    <button type="button" class="btn btn-lg" style="border-bottom: 5px solid #F2B851;">
+                        <a class="text-dark text-decoration-none"
+                           href="#">
+                            <span>
+                                <i class="bi bi-bookmark-heart"></i>
+                                Favorited
+                            </span>
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="custom-bg-shadow" style="min-height: 350px">
+        {% block profile_content %}
+        {% endblock %}
+    </section>
+{% endblock %}

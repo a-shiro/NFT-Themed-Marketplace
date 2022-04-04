@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="custom-section-home">
+        <div class="row text-center">
+            <div class="mb-2">
+                <h1>Explore Collections</h1>
+            </div>
+
+            <div class="col-1 col-md-2 col-lg-3"></div>
+            <div class="col-10 col-md-8 col-lg-6">
+                <hr>
+            </div>
+            <div class="col-1 col-md-2 col-lg-3"></div>
+
+
+            <div class="col-12 my-3">
+                <h2>
+                    <i class="bi bi-folder"></i>
+                    <span>Collections: {{ collections_count }}</span>
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="custom-section-home custom-bg-shadow">
+        <div class="container-fluid">
+            <div class="row p-3">
+                {% for collection, profile in collection_profile_pair %}
+                    {% if collection.posted_for_sale %}
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
+                            <a class="text-decoration-none" href="{% url 'collection details' collection.pk %}">
+                                <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
+                                    <img class="custom-img-height-marketplace"
+                                         style="border-radius: 10px 10px 0 0;"
+                                         alt="100%x280"
+                                         src="{{ collection.image.url }}">
+
+                                    <div class="card-body text-center">
+                                        <h4 class="text-warning mt-2"> {{ collection.title|truncatechars:22 }}</h4>
+                                        <p class="mb-4 text-secondary">by
+                                            <span class="text-warning">{{ profile.username }}</span>
+                                        </p>
+                                        <hr class="text-secondary">
+                                        <p class="card-text text-secondary">{{ collection.description|truncatechars:30 }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

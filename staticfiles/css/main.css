@@ -1,0 +1,37 @@
+.custom-section-home {
+    padding: 50px 0 70px;
+}
+
+.custom-bg-shadow {
+    background-color: #ebebeb;
+    box-shadow: 0 1px 10px #b5b5b5
+}
+
+
+@media (max-width: 400px) {
+    .custom-button-size {
+        margin-top: 3px;
+        font-size: 17px;
+        width: 80%;
+        height: 43px;
+        padding: 0;
+    }
+}
+
+.custom-btn-desert {
+    background-color: #F2B851;
+    border-radius: 10px;
+}
+
+.custom-btn-desert:hover {
+    background-color: #d2a046;
+}
+
+.custom-link-desert {
+    text-decoration: none;
+    color: #F2B851;
+}
+
+.custom-link-desert:hover {
+    color: #d2a046;
+}

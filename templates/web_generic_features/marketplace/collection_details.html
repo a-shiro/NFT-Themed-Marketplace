@@ -1,0 +1,74 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="text-center mt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>{{ collection.title }}</h1>
+                    <h5 class="mb-4 text-secondary"> Created by
+                        <span class="text-warning">{{ profile.username }}</span>
+                    </h5>
+                </div>
+
+                <div class="col-1 col-md-2 col-lg-3"></div>
+                <div class="col-10 col-md-8 col-lg-6">
+                    <hr>
+                </div>
+                <div class="col-1 col-md-2 col-lg-3"></div>
+
+                <div class="col-12 my-3">
+                    <h2>
+                        <i class="bi bi-images"></i>
+                        <span>NFTs: {{ nfts_count }}</span>
+                    </h2>
+                </div>
+
+                <div class="col-1 col-md-2 col-lg-3"></div>
+                <div class="col-10 col-md-8 col-lg-6">
+                    <hr>
+                </div>
+                <div class="col-1 col-md-2 col-lg-3"></div>
+
+                <div class="col-1 col-md-2 col-lg-3"></div>
+                <div class="col text-center mt-3">
+                    <p>{{ collection.description }}</p>
+                </div>
+                <div class="col-1 col-md-2 col-lg-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: #ebebeb; box-shadow: 0 1px 10px #a3a3a3">
+        <div class="container-fluid">
+            <div class="row p-3">
+                {% for nft in nfts %}
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
+                        <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
+                            <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;" alt="100%x280"
+                                 src="{{ nft.image.url }}">
+                            <div class="card-body text-center">
+                                <h4 class="text-warning mt-2"> {{ nft.title|truncatechars:22 }}</h4>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <button class="btn btn-warning" style="border-radius: 10px">
+                                            <a class="text-decoration-none text-white" href="{% url 'buy nft' nft.pk %}">Buy</a>
+                                        </button>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <p class="m-0">Blockchain: {{ nft.currency_type }}</p>
+                                        <p class="m-0">Quantity left: {{ nft.quantity }}</p>
+                                        <p class="m-0">Price: {{ nft.price }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
