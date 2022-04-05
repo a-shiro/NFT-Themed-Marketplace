@@ -14,7 +14,7 @@ class ProfileWorkshopView(mixins.LoginRequiredMixin, generic_views.DetailView):
     model = Profile
 
     def get_context_data(self, **kwargs):
-        user = self.request.user
+        user = self.object.user
         collections = Collection.objects.filter(user=user)
 
         context = super().get_context_data(**kwargs)
@@ -29,10 +29,13 @@ class MyCollectionView(mixins.LoginRequiredMixin, generic_views.DetailView):
     model = Profile
 
     def get_context_data(self, **kwargs):
+        user = self.request.user
+        collections = Collection.objects.filter(user=user)
         my_nfts_and_nft_quantity_pair = get_tuple_my_nfts_with_nft_quantity(self.object)
 
         context = super().get_context_data(**kwargs)
 
+        context['collections'] = collections
         context['my_nfts_and_nft_quantity_pair'] = my_nfts_and_nft_quantity_pair
         context['hide_footer'] = True
         return context
