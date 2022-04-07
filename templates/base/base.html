@@ -62,7 +62,7 @@
                         <h2>
                             <a class="nav-link px-2"
                                style="padding-top: 12px"
-                               href="{% url 'profile workshop' request.user.id %}"
+                               href="{% url 'personal profile' request.user.pk %}"
                                title="Profile">
                                 <i class="bi bi-person-fill"></i>
                             </a>
@@ -87,7 +87,7 @@
 {% block content %}
 {% endblock %}
 
-{% if not hide_footer %}
+{% if show_footer %}
     <footer class="bg-light" style="box-shadow: 0 -1px 10px lightgrey">
         <div class="container-fluid px-5 py-3">
             <div class="row align-items-center">

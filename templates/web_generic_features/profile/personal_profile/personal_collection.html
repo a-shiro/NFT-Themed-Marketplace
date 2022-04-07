@@ -1,4 +1,4 @@
-{% extends 'web_generic_features/profile/profile.html' %}
+{% extends 'web_generic_features/profile/personal_profile/personal_profile_details.html' %}
 
 {% block profile_content %}
     {% if my_nfts_and_nft_quantity_pair %}
@@ -10,8 +10,9 @@
                             <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;" alt="100%x280"
                                  src="{{ nft.image.url }}">
                             <div class="card-body text-center">
-                                <h4 class="text-warning mt-2"> {{ nft.title|truncatechars:22 }}</h4>
-                                <h5 title="Owned quantity" class="text-secondary my-2">x{{ nft_quantity }}</h5>
+                                <h4 class="text-warning mt-2"> {{ nft.title|truncatechars:22 }}
+                                    <span title="Owned quantity" class="text-secondary">&nbsp x{{ nft_quantity }}</span>
+                                </h4>
                             </div>
                         </div>
                     </div>
@@ -21,7 +22,7 @@
     {% else %}
         <div class="container">
             <div class="text-center">
-                <h1>No collections added yet</h1>
+                <h1>No NFTs collected yet</h1>
             </div>
         </div>
     {% endif %}

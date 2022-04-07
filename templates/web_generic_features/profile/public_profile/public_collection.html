@@ -1,0 +1,28 @@
+{% extends 'web_generic_features/profile/public_profile/public_profile_details.html' %}
+
+{% block profile_content %}
+    {% if my_nfts_and_nft_quantity_pair %}
+        {% for nft, nft_quantity in my_nfts_and_nft_quantity_pair %}
+            <div class="container-fluid">
+                <div class="row p-3">
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
+                        <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
+                            <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;" alt="100%x280"
+                                 src="{{ nft.image.url }}">
+                            <div class="card-body text-center">
+                                <h4 class="text-warning mt-2"> {{ nft.title|truncatechars:22 }}</h4>
+                                <h5 title="Owned quantity" class="text-secondary my-2">x{{ nft_quantity }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="container">
+            <div class="text-center">
+                <h1>No NFTs collected yet</h1>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

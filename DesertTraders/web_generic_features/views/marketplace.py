@@ -17,7 +17,6 @@ class MarketplaceView(generic_views.TemplateView):
 
         context['collections_count'] = collections_count
         context['collection_profile_pair'] = collection_profile_pair
-        context['hide_footer'] = True
         return context
 
 
@@ -34,7 +33,6 @@ class CollectionDetailsView(generic_views.TemplateView):
         context['collection'] = collection
         context['nfts'] = nfts
         context['nfts_count'] = nfts_count
-        context['hide_footer'] = True
         if self.request.user.is_authenticated:
             profile = Profile.objects.get(user=self.request.user)
             context['profile'] = profile

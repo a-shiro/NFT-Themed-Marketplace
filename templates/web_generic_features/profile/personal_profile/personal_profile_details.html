@@ -26,7 +26,7 @@
                 <div class="mt-5">
                     <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
                         <a class="text-dark text-decoration-none"
-                           href="{% url 'my collection' request.user.id %}">
+                           href="{% url 'personal collection' request.user.id %}">
                             <span>
                                 <i class="bi bi-folder-check"></i>
                                 Collected
@@ -36,7 +36,7 @@
 
                     <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
                         <a class="text-dark text-decoration-none"
-                           href="{% url 'profile workshop' request.user.id %}">
+                           href="{% url 'personal profile' request.user.pk %}">
                             <span>
                                 <i class="bi bi-brush"></i>
                                 Created

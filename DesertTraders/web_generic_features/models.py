@@ -107,6 +107,9 @@ class Profile(models.Model):
         through='Collected'
     )
 
+    def __str__(self):
+        return self.username
+
 
 class Collected(models.Model):
     profile = models.ForeignKey(

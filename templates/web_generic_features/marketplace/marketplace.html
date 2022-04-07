@@ -32,23 +32,27 @@
                 {% for collection, profile in collection_profile_pair %}
                     {% if collection.posted_for_sale %}
                         <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
-                            <a class="text-decoration-none" href="{% url 'collection details' collection.pk %}">
-                                <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
-                                    <img class="custom-img-height-marketplace"
-                                         style="border-radius: 10px 10px 0 0;"
-                                         alt="100%x280"
-                                         src="{{ collection.image.url }}">
+                            <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
+                                <img class="custom-img-height-marketplace"
+                                     style="border-radius: 10px 10px 0 0;"
+                                     alt="100%x280"
+                                     src="{{ collection.image.url }}">
 
-                                    <div class="card-body text-center">
+                                <div class="card-body text-center">
+                                    <a class="text-decoration-none"
+                                       href="{% url 'collection details' collection.pk %}" title="View collection">
                                         <h4 class="text-warning mt-2"> {{ collection.title|truncatechars:22 }}</h4>
-                                        <p class="mb-4 text-secondary">by
+                                    </a>
+                                    <p class="mb-4 text-secondary">by
+                                        <a class="text-decoration-none"
+                                           href="{% url 'public profile' profile.pk %}" title="View owner's profile">
                                             <span class="text-warning">{{ profile.username }}</span>
-                                        </p>
-                                        <hr class="text-secondary">
-                                        <p class="card-text text-secondary">{{ collection.description|truncatechars:30 }}</p>
-                                    </div>
+                                        </a>
+                                    </p>
+                                    <hr class="text-secondary">
+                                    <p class="card-text text-secondary">{{ collection.description|truncatechars:30 }}</p>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     {% endif %}
                 {% endfor %}
