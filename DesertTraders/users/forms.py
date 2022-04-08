@@ -2,7 +2,7 @@ from django.contrib.auth import forms as auth_forms
 from django import forms as input_forms
 
 from DesertTraders.users.models import CustomUser
-from DesertTraders.web_generic_features.models import Profile
+from DesertTraders.web_generic_features.models import Profile, Balance
 
 
 class CustomUserRegisterForm(auth_forms.UserCreationForm):
@@ -49,8 +49,13 @@ class CustomUserRegisterForm(auth_forms.UserCreationForm):
             user=user,
         )
 
+        balance = Balance(
+            profile=profile
+        )
+
         if commit:
             profile.save()
+            balance.save()
 
         return user
 

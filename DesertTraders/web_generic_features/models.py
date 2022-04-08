@@ -112,6 +112,8 @@ class Profile(models.Model):
 
 
 class Collected(models.Model):
+    DEFAULT_COLLECTED_QUANTITY = 0
+
     profile = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
@@ -123,6 +125,19 @@ class Collected(models.Model):
     )
 
     quantity = models.IntegerField(
-        default=0
+        default=DEFAULT_COLLECTED_QUANTITY
     )
 
+
+class Balance(models.Model):
+    DEFAULT_PROFILE_BALANCE = 10
+
+    balance = models.FloatField(
+        default=DEFAULT_PROFILE_BALANCE
+    )
+
+    profile = models.OneToOneField(
+        Profile,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
