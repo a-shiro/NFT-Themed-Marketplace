@@ -1,6 +1,24 @@
 from django import forms
 
-from DesertTraders.web_generic_features.models import Collection, NFT
+from DesertTraders.web_generic_features.models import Collection, NFT, Profile
+
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ('user', 'my_collection')
+        widgets = {
+            'username': forms.TextInput(
+                attrs={
+                    'class': "form-control",
+                }
+            ),
+            'profile_image': forms.FileInput(
+                attrs={
+                    'class': "form-control",
+                }
+            ),
+        }
 
 
 class CreateCollectionForm(forms.ModelForm):
@@ -20,14 +38,66 @@ class CreateCollectionForm(forms.ModelForm):
     class Meta:
         model = Collection
         exclude = ('user', 'posted_for_sale')
+        widgets = {
+            'title': forms.TextInput(
+                attrs={
+                    'class': "form-control",
+                    'placeholder': 'Give your collection a title...'
+                }
+            ),
+            'image': forms.FileInput(
+                attrs={
+                    'class': "form-control",
+                }
+            ),
+            'description': forms.Textarea(
+                attrs={
+                    'class': "form-control",
+                    'rows': 5,
+                    'placeholder': "Add a customized description...",
+                }
+            )
+        }
 
 
 class CreateNFTForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(CreateNFTForm, self).__init__(*args, **kwargs)
         self.user = user
-        self.fields['collection'].queryset = Collection.objects.filter(user=user)
+        self.fields['collection'].queryset = Collection.objects.filter(user=user, posted_for_sale=False)
 
     class Meta:
         model = NFT
         fields = '__all__'
+        widgets = {
+            'title': forms.TextInput(
+                attrs={
+                    'class': "form-control",
+                }
+            ),
+            'image': forms.FileInput(
+                attrs={
+                    'class': "form-control",
+                }
+            ),
+            'quantity': forms.NumberInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'price': forms.NumberInput(
+                attrs={
+                    'class': "form-control"
+                }
+            ),
+            'blockchain': forms.Select(
+                attrs={
+                    'class': "form-control"
+                }
+            ),
+            'collection': forms.Select(
+                attrs={
+                    'class': "form-control"
+                }
+            ),
+        }

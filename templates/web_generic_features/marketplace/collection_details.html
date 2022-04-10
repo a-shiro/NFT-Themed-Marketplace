@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-    <section class="text-center mt-3">
+    <section class="text-center mt-3 custom-section-home">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -40,7 +40,7 @@
         </div>
     </section>
 
-    <section style="background-color: #ebebeb; box-shadow: 0 1px 10px #a3a3a3">
+    <section class="custom-section-home custom-bg-shadow">
         <div class="container-fluid">
             <div class="row p-3">
                 {% for nft in nfts %}
@@ -59,7 +59,7 @@
                                         </button>
                                     </div>
                                     <div class="col-6 text-end">
-                                        <p class="m-0">Blockchain: {{ nft.currency_type }}</p>
+                                        <p class="m-0">Blockchain: {{ nft.blockchain }}</p>
                                         <p class="m-0">Quantity left: {{ nft.quantity }}</p>
                                         <p class="m-0">Price: {{ nft.price }}</p>
                                     </div>

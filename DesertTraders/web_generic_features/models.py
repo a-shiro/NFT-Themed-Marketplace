@@ -59,7 +59,7 @@ class NFT(models.Model):
         ),
     )
 
-    currency_type = models.CharField(
+    blockchain = models.CharField(
         max_length=CURRENCY_TYPE_MAX_LEN,
         choices=CURRENCY_TYPE_CHOICES,
     )

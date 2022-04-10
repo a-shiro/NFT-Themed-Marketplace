@@ -1,9 +1,31 @@
 {% extends 'web_generic_features/base/base.html' %}
 
 {% block content %}
-    <form method="post" action="{% url 'create collection' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <button>Create</button>
-    </form>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10 col-sm-9 col-md-7 col-lg-5 col-xl-4 py-4 p-sm-5 custom-form-box">
+                <div class="text-center mb-3 mb-sm-4">
+                    <h2>Create Collection</h2>
+                </div>
+                <form method="post" action="{% url 'create collection' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div>
+                        <label for="title" class="form-label">Collection Title:</label>
+                        {{ form.title }}
+                    </div>
+                    <div class="mt-3">
+                        <label for="image" class="form-label">Collection Image:</label>
+                        {{ form.image }}
+                    </div>
+                    <div class="mt-3">
+                        <label for="description" class="form-label">Collection Description:</label>
+                        {{ form.description }}
+                    </div>
+                    <div class="my-4 text-center">
+                        <button class="btn text-white custom-btn-desert" type="submit">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -22,3 +22,9 @@ def get_tuple_my_nfts_with_nft_quantity(profile):
 
     return result
 
+
+def check_if_button_active(collections):
+    for collection in collections:
+        if not collection.posted_for_sale:
+            return True
+    return False

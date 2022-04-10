@@ -7,11 +7,13 @@
             <div>
                 {% if profile.profile_image %}
                     <img src="{{ profile.profile_image.url }}"
-                         style="border: 2px solid #b3b3b3; border-radius: 50%; object-fit: cover; height: 180px; width: 180px"
+                         style="border-radius: 50%; object-fit: cover; height: 180px; width: 180px;
+                          box-shadow: 0 1px 10px #666666"
                          alt="profile-image">
                 {% else %}
                     <img src="{% static 'images/default_profile_pic.png' %}"
-                         style="border: 2px solid #b3b3b3; border-radius: 50%; object-fit: cover; height: 180px; width: 180px"
+                         style="border-radius: 50%; object-fit: cover; height: 180px; width: 180px;
+                          box-shadow: 0 1px 10px #666666"
                          alt="profile-image">
                 {% endif %}
             </div>
@@ -20,7 +22,7 @@
                     <h1>{{ profile.username }}</h1>
                 </div>
                 <div>
-                    <h5>Joined: {{ request.user.date_joined }}</h5>
+                    <h5 class="text-secondary">Joined {{ request.user.date_joined|date:'F Y' }}</h5>
                 </div>
 
                 <div class="mt-5">

@@ -5,7 +5,7 @@ from DesertTraders.web_generic_features.views.main import HomeView, PrivacyPolic
 from DesertTraders.web_generic_features.views.marketplace import MarketplaceView, CollectionDetailsView, buy_nft
 from DesertTraders.web_generic_features.views.profile import PersonalCollectionView, CreateCollectionView, \
     CreateNFTView, mint_collection, PersonalProfileView, PublicProfileView, PublicProfileCollectionView, \
-    remove_collection
+    remove_collection, EditProfileView
 
 urlpatterns = [
     # Main tied urls
@@ -22,7 +22,9 @@ urlpatterns = [
 
     # Personal Profile tied urls
     path('profile/<int:pk>/workshop', PersonalProfileView.as_view(), name='personal profile'),
-    path('profile/<int:pk>/my-collection', PersonalCollectionView.as_view(), name='personal collection'),
+    path('profile/<int:pk>/collection', PersonalCollectionView.as_view(), name='personal collection'),
+
+    path('profile/<int:pk>/edit', EditProfileView.as_view(),  name='edit profile'),
 
     path('profile/create-collection', CreateCollectionView.as_view(), name='create collection'),
     path('profile/create-nft', CreateNFTView.as_view(), name='create nft'),

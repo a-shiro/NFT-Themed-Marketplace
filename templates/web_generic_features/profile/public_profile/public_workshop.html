@@ -15,65 +15,18 @@
                                      src="{{ collection.image.url }}">
                                 <div class="card-body text-center">
                                     <h4 class="text-warning mt-2">
-                                        <a class="custom-link-desert text-decoration-none"
+                                        <a class="text-decoration-none custom-link-desert"
                                            href="{% url 'collection details' collection.pk %}">
                                             {{ collection.title|truncatechars:22 }}
                                         </a>
                                     </h4>
-                                    <p class="mb-2 text-secondary">by
-                                        <span class="text-warning">{{ profile.username }}</span>
+                                    <p class="mb-2 text-secondary">
+                                        by <span class="text-warning">{{ profile.username }}</span>
                                     </p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="text-center">
                                         <p class="card-text text-secondary">{{ collection.description|truncatechars:30 }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% else %}
-                        <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
-                            <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
-                                <img class="custom-img-height-marketplace"
-                                     style="border-radius: 10px 10px 0 0;"
-                                     alt="100%x280"
-                                     src="{{ collection.image.url }}">
-                                <div class="card-body text-center">
-                                    <h4 class="text-warning mt-2">
-                                        <a class="custom-link-desert text-decoration-none"
-                                           href="{% url 'collection details' collection.pk %}">
-                                            {{ collection.title|truncatechars:22 }}
-                                        </a>
-                                    </h4>
-                                    <p class="mb-2 text-secondary">by
-                                        <span class="text-warning">{{ profile.username }}</span>
-                                    </p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="row my-1">
-                                        {% if collection.nft_set.all %}
-                                            <div class="col-8 text-start">
-                                                <button class="btn btn-sm btn-success text-light"
-                                                        style="border-radius: 10px">
-                                                    <a class="text-light text-decoration-none" href="">
-                                                        Post On Market
-                                                    </a>
-                                                </button>
-                                            </div>
-                                            <div class="col-4 text-end">
-                                                <button class="btn btn-sm btn-danger text-light"
-                                                        style="border-radius: 10px">
-                                                    <a class="text-light text-decoration-none" href="">Remove</a>
-                                                </button>
-                                            </div>
-                                        {% else %}
-                                            <div class="col-12 text-end">
-                                                <button class="btn btn-sm btn-danger text-light"
-                                                        style="border-radius: 10px">
-                                                    <a class="text-light text-decoration-none" href="">Remove</a>
-                                                </button>
-                                            </div>
-                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
