@@ -53,6 +53,8 @@ def buy_nft(request, pk):
         profile_collection = Collected(profile=profile, NFT=nft, quantity=1)
         profile_collection.save()
 
+    profile.balance.balance -= nft.price
+    profile.balance.save()
     nft.quantity -= 1
     nft.save()
-    return redirect('marketplace')
+    return redirect('collection details', nft.collection.pk)
