@@ -7,7 +7,7 @@ from DesertTraders.users.forms import CustomUserRegisterForm, CustomUserLoginFor
 
 
 class UserRegistrationView(generic_views.CreateView):
-    template_name = 'users/register.html'
+    template_name = 'users/user_auth/register.html'
     form_class = CustomUserRegisterForm
     success_url = reverse_lazy('home')
 
@@ -19,7 +19,7 @@ class UserRegistrationView(generic_views.CreateView):
 
 
 class UserLoginView(auth_views.LoginView):
-    template_name = 'users/login.html'
+    template_name = 'users/user_auth/login.html'
     form_class = CustomUserLoginForm
 
     def get_success_url(self):

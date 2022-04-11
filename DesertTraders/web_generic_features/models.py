@@ -92,8 +92,6 @@ class Profile(models.Model):
 
     username = models.CharField(
         max_length=USERNAME_MAX_LEN,
-        blank=True,
-        null=True,
     )
 
     profile_image = models.ImageField(
