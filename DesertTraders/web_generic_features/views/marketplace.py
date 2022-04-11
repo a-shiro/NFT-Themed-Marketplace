@@ -24,7 +24,7 @@ class CollectionDetailsView(generic_views.TemplateView):
     template_name = 'web_generic_features/marketplace/collection_details.html'
 
     def get_context_data(self, **kwargs):
-        collection = Collection.objects.filter(pk=self.kwargs['pk'])[0]
+        collection = Collection.objects.filter(pk=self.kwargs['pk']).first()
         nfts = NFT.objects.filter(collection=collection)
         nfts_count = len(nfts)
 
@@ -50,7 +50,7 @@ def buy_nft(request, pk):
         collected_nft.quantity += 1
         collected_nft.save()
     else:
-        profile_collection = Collected(profile=profile, NFT=nft)
+        profile_collection = Collected(profile=profile, NFT=nft, quantity=1)
         profile_collection.save()
 
     nft.quantity -= 1

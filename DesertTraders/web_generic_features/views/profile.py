@@ -6,10 +6,10 @@ from django.views import generic as generic_views
 
 from DesertTraders.web_generic_features.forms import CreateCollectionForm, CreateNFTForm, EditProfileForm
 from DesertTraders.web_generic_features.helpers import get_tuple_my_nfts_with_nft_quantity, check_if_button_active
-from DesertTraders.web_generic_features.models import Collection, Profile
+from DesertTraders.web_generic_features.models import Collection, Profile, NFT
 
 
-class PersonalProfileView(mixins.LoginRequiredMixin, generic_views.DetailView):
+class PersonalProfileView(generic_views.DetailView, mixins.LoginRequiredMixin):
     template_name = 'web_generic_features/profile/personal_profile/personal_workshop.html'
     model = Profile
 
@@ -24,22 +24,45 @@ class PersonalProfileView(mixins.LoginRequiredMixin, generic_views.DetailView):
         return context
 
 
-class PersonalCollectionView(mixins.LoginRequiredMixin, generic_views.DetailView):
+class WorkshopCollectionDetailsView(generic_views.DetailView, mixins.LoginRequiredMixin):
+    template_name = 'web_generic_features/profile/personal_profile/workshop_collection_details.html'
+    model = Collection
+
+    def get_context_data(self, **kwargs):
+        collection = Collection.objects.filter(pk=self.kwargs['pk']).first()
+        nfts = NFT.objects.filter(collection=collection)
+        nfts_count = len(nfts)
+
+        context = super().get_context_data()
+
+        context['collection'] = collection
+        context['nfts'] = nfts
+        context['nfts_count'] = nfts_count
+        if self.request.user.is_authenticated:
+            profile = Profile.objects.get(user=self.request.user)
+            context['profile'] = profile
+
+        return context
+
+
+class PersonalCollectionView(generic_views.DetailView, mixins.LoginRequiredMixin):
     template_name = 'web_generic_features/profile/personal_profile/personal_collection.html'
     model = Profile
 
     def get_context_data(self, **kwargs):
         collections = Collection.objects.filter(user=self.object.user)
         my_nfts_and_nft_quantity_pair = get_tuple_my_nfts_with_nft_quantity(self.object)
+        add_nft_button_active = check_if_button_active(collections)
 
         context = super().get_context_data(**kwargs)
 
         context['collections'] = collections
         context['my_nfts_and_nft_quantity_pair'] = my_nfts_and_nft_quantity_pair
+        context['add_nft_button_active'] = add_nft_button_active
         return context
 
 
-class EditProfileView(generic_views.UpdateView):
+class EditProfileView(generic_views.UpdateView, mixins.LoginRequiredMixin):
     template_name = 'web_generic_features/profile/personal_profile/edit_profile.html'
     model = Profile
     form_class = EditProfileForm
@@ -48,7 +71,7 @@ class EditProfileView(generic_views.UpdateView):
         return reverse_lazy('personal profile', kwargs={'pk': self.request.user.pk})
 
 
-class CreateCollectionView(mixins.LoginRequiredMixin, generic_views.CreateView):
+class CreateCollectionView(generic_views.CreateView, mixins.LoginRequiredMixin):
     template_name = 'web_generic_features/profile/personal_profile/create_collection.html'
     form_class = CreateCollectionForm
 
@@ -61,7 +84,7 @@ class CreateCollectionView(mixins.LoginRequiredMixin, generic_views.CreateView):
         return reverse_lazy('personal profile', kwargs={'pk': self.request.user.pk})
 
 
-class CreateNFTView(mixins.LoginRequiredMixin, generic_views.CreateView):
+class CreateNFTView(generic_views.CreateView, mixins.LoginRequiredMixin):
     template_name = 'web_generic_features/profile/personal_profile/create_nft.html'
     form_class = CreateNFTForm
 
@@ -89,6 +112,16 @@ def remove_collection(request, pk):
     collection.delete()
 
     # implement logic that removes collection image and the nft images when collection is deleted
+
+    return redirect('personal profile', request.user.pk)
+
+
+@login_required
+def remove_nft(request, pk):
+    nft = NFT.objects.get(pk=pk)
+    nft.delete()
+
+    # implement logic that removes nft image from collection when is deleted
 
     return redirect('personal profile', request.user.pk)
 

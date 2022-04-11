@@ -54,13 +54,13 @@
                             <div class="card-footer">
                                 <div class="row align-items-center">
                                     <div class="col-6">
-                                        <button class="btn btn-warning" style="border-radius: 10px">
+                                        <button class="btn custom-btn-desert">
                                             <a class="text-decoration-none text-white" href="{% url 'buy nft' nft.pk %}">Buy</a>
                                         </button>
                                     </div>
                                     <div class="col-6 text-end">
                                         <p class="m-0">Blockchain: {{ nft.blockchain }}</p>
-                                        <p class="m-0">Quantity left: {{ nft.quantity }}</p>
+                                        <p class="m-0">Quantity: {{ nft.quantity }}</p>
                                         <p class="m-0">Price: {{ nft.price }}</p>
                                     </div>
                                 </div>

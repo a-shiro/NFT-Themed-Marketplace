@@ -40,7 +40,7 @@
                                 <div class="card-body text-center">
                                     <h4 class="text-warning mt-2">
                                         <a class="custom-link-desert text-decoration-none"
-                                           href="{% url 'collection details' collection.pk %}">
+                                           href="{% url 'workshop collection' collection.pk %}">
                                             {{ collection.title|truncatechars:22 }}
                                         </a>
                                     </h4>
@@ -105,8 +105,9 @@
                                             </div>
                                         {% endif %}
                                         <div class="col-4 text-end">
-                                            <button class="btn btn-sm btn-danger text-light"
-                                                    style="border-radius: 10px" data-bs-toggle="modal"
+                                            <button class="btn btn-sm text-light"
+                                                    style="border-radius: 10px; background-color: rgb(255,64,64)"
+                                                    data-bs-toggle="modal"
                                                     data-bs-target="#remove-modal">
                                                 Remove
                                             </button>
@@ -130,7 +131,9 @@
                                                             </p>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button class="btn text-light custom-btn-desert">
+                                                            <button class="btn text-light"
+                                                                    style="border-radius: 10px;
+                                                                    background-color: rgb(255,64,64)">
                                                                 <a class="text-decoration-none text-light"
                                                                    href="{% url 'remove collection' collection.pk %}">
                                                                     Remove
@@ -156,7 +159,7 @@
         </div>
     {% else %}
         <div class="container">
-            <div class="text-center">
+            <div class="text-center" style="margin-top: 80px">
                 <h1>No collections added yet</h1>
             </div>
         </div>
