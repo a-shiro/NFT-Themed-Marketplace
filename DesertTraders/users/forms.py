@@ -4,9 +4,22 @@ from django import forms
 from DesertTraders.users.models import CustomUser
 from DesertTraders.web_generic_features.models import Profile, Balance
 
+from DesertTraders.users.validators import alphanumeric_validator
+
 
 class CustomUserRegisterForm(auth_forms.UserCreationForm):
-    username = forms.CharField(max_length=25)
+    USERNAME_MAX_LENGTH_VALUE = 25
+
+    username = forms.CharField(
+        max_length=USERNAME_MAX_LENGTH_VALUE,
+        widget=forms.TextInput(
+            attrs={
+                'class': "form-control",
+                'placeholder': 'e.g. George27',
+            }
+        ),
+        validators=(alphanumeric_validator,)
+    )
 
     def __init__(self, *args, **kwargs):
         super(CustomUserRegisterForm, self).__init__(*args, **kwargs)

@@ -28,6 +28,11 @@
                         </span>
                                 {{ form.password }}
                             </div>
+                            <div class="text-danger mt-3">
+                                {% if form.errors %}
+                                    <p>&#8226; &#160;Username or password is not correct.</p>
+                                {% endif %}
+                            </div>
                         </div>
                         <div class="my-4 text-center">
                             <button class="btn text-white custom-btn-desert" type="submit">Sign In</button>
