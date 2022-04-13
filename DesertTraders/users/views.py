@@ -1,6 +1,6 @@
 from django.contrib.auth import login
-from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
+from django.contrib.auth import views as auth_views
 from django.views import generic as generic_views
 
 from DesertTraders.users.forms import CustomUserRegisterForm, CustomUserLoginForm

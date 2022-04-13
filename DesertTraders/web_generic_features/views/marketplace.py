@@ -1,41 +1,52 @@
 from django.contrib.auth.decorators import login_required
+from django.core import exceptions as django_exceptions
+from django import http
 from django.shortcuts import redirect
 from django.views import generic as generic_views
 
-from DesertTraders.web_generic_features.helpers import get_tuple_collection_with_profile
-from DesertTraders.web_generic_features.models import Collection, NFT, Profile, Collected
+from DesertTraders.web_generic_features.helpers import get_collection_with_pk, get_collections_on_market, transaction
+from DesertTraders.web_generic_features.models import NFT, Profile, Collection
 
 
 class MarketplaceView(generic_views.TemplateView):
     template_name = 'web_generic_features/marketplace/marketplace.html'
 
     def get_context_data(self, **kwargs):
-        collection_profile_pair = get_tuple_collection_with_profile()
-        collections_count = len(Collection.objects.filter(posted_for_sale=True))
+        total_collections = get_collections_on_market()
+        total_collections_count = len(total_collections)
 
         context = super().get_context_data(**kwargs)
 
-        context['collections_count'] = collections_count
-        context['collection_profile_pair'] = collection_profile_pair
+        context['total_collections'] = total_collections
+        context['total_collections_count'] = total_collections_count
         return context
 
 
 class CollectionDetailsView(generic_views.TemplateView):
     template_name = 'web_generic_features/marketplace/collection_details.html'
 
+    def get(self, request, *args, **kwargs):
+        try:
+            Collection.objects.get(pk=kwargs['pk'], posted_for_sale=True)
+        except django_exceptions.ObjectDoesNotExist:
+            raise http.Http404('Does not exist.')  # Return Custom 404 Page
+
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
-        collection = Collection.objects.filter(pk=self.kwargs['pk']).first()
-        nfts = NFT.objects.filter(collection=collection)
-        nfts_count = len(nfts)
+        collection = get_collection_with_pk(**kwargs)
+        total_nfts = NFT.objects.filter(collection=collection)
+        total_nfts_count = len(total_nfts)
 
         context = super().get_context_data()
 
-        context['collection'] = collection
-        context['nfts'] = nfts
-        context['nfts_count'] = nfts_count
         if self.request.user.is_authenticated:
             profile = Profile.objects.get(user=self.request.user)
             context['profile'] = profile
+
+        context['collection'] = collection
+        context['total_nfts'] = total_nfts
+        context['total_nfts_count'] = total_nfts_count
 
         return context
 
@@ -45,16 +56,6 @@ def buy_nft(request, pk):
     profile = Profile.objects.get(user=request.user)
     nft = NFT.objects.get(pk=pk)
 
-    if nft in profile.my_collection.all():
-        collected_nft = Collected.objects.filter(profile=profile, NFT=nft).first()
-        collected_nft.quantity += 1
-        collected_nft.save()
-    else:
-        profile_collection = Collected(profile=profile, NFT=nft, quantity=1)
-        profile_collection.save()
+    transaction(profile, nft)
 
-    profile.balance.balance -= nft.price
-    profile.balance.save()
-    nft.quantity -= 1
-    nft.save()
     return redirect('collection details', nft.collection.pk)

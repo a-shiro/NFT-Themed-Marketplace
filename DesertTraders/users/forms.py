@@ -3,7 +3,6 @@ from django import forms
 
 from DesertTraders.users.models import CustomUser
 from DesertTraders.web_generic_features.models import Profile, Balance
-
 from DesertTraders.users.validators import alphanumeric_validator
 
 
