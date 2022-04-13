@@ -128,7 +128,7 @@ class Collected(models.Model):
 
 
 class Balance(models.Model):
-    DEFAULT_PROFILE_BALANCE = 10
+    DEFAULT_PROFILE_BALANCE = 10000
 
     balance = models.FloatField(
         default=DEFAULT_PROFILE_BALANCE

@@ -1,12 +1,13 @@
 from django import forms
 
+from DesertTraders.web_generic_features.helpers import get_profile_collections
 from DesertTraders.web_generic_features.models import Collection, NFT, Profile
 
 
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ('user', 'my_collection')
+        fields = ('username', 'profile_image')
         widgets = {
             'username': forms.TextInput(
                 attrs={
@@ -64,7 +65,7 @@ class CreateNFTForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(CreateNFTForm, self).__init__(*args, **kwargs)
         self.user = user
-        self.fields['collection'].queryset = Collection.objects.filter(user=user, posted_for_sale=False)
+        self.fields['collection'].queryset = get_profile_collections(user=user).filter(posted_for_sale=False)
 
     class Meta:
         model = NFT

@@ -1,10 +1,8 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
+from django.shortcuts import redirect
 
-from DesertTraders.web_generic_features.models import Collection, Collected
+from DesertTraders.web_generic_features.models import Collection, Collected, NFT
 
 
-# For marketplace views
 def get_collections_on_market():
     collections = Collection.objects.filter(posted_for_sale=True)
 
@@ -14,6 +12,11 @@ def get_collections_on_market():
 def get_collection_with_pk(**kwargs):
     collection = Collection.objects.get(pk=kwargs['pk'])
     return collection
+
+
+def get_nft_with_pk(**kwargs):
+    nft = NFT.objects.get(pk=kwargs['pk'])
+    return nft
 
 
 def transaction(profile, nft):
@@ -32,19 +35,32 @@ def transaction(profile, nft):
     nft.save()
 
 
-def get_tuple_my_nfts_with_nft_quantity(profile):
+def get_profile_collections(user):
+    collections = Collection.objects.filter(user=user).order_by('-posted_for_sale')
+
+    return collections
+
+
+def check_if_button_active(user):
+    collections = Collection.objects.filter(user=user, posted_for_sale=False)
+
+    if len(collections) > 0:
+        return True
+    return False
+
+
+def get_profile_nfts_and_nft_quantity(profile):
     result = []
 
-    my_collection = profile.my_collection.all()
-    for collected_nft in my_collection:
-        nft_quantity = Collected.objects.filter(profile=profile, NFT=collected_nft).first().quantity
+    collections = profile.my_collection.all()
+    for collected_nft in collections:
+        nft_quantity = Collected.objects.get(profile=profile, NFT=collected_nft).quantity
         result.append((collected_nft, nft_quantity))
 
     return result
 
 
-def check_if_button_active(collections):
-    for collection in collections:
-        if not collection.posted_for_sale:
-            return True
+def users_match(session_user_pk, **kwargs):
+    if session_user_pk == kwargs['pk']:
+        return True
     return False

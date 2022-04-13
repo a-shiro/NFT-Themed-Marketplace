@@ -62,7 +62,7 @@
                                         </div>
                                     {% else %}
                                         <div class="col-6">
-                                            {% if profile.balance.balance >= nft.price %}
+                                            {% if request.user.profile.balance.balance >= nft.price %}
                                                 <button class="btn text-light custom-btn-desert"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#buy-modal">
@@ -84,7 +84,7 @@
                                                                 <p class="text-start">
                                                                     Are you sure you want to purchase this NFT?
                                                                 </p>
-                                                                <h4 class="mt-5">Balance: {{ profile.balance.balance }}</h4>
+                                                                <h4 class="mt-5">Balance: {{ request.user.profile.balance.balance }}</h4>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button class="btn text-light custom-btn-desert">

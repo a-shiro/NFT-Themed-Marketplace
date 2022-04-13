@@ -8,7 +8,7 @@
                 <div class="col-12">
                     <h1>{{ collection.title }}</h1>
                     <h5 class="mb-4 text-secondary"> Created by
-                        <span class="text-warning">{{ profile.username }}</span>
+                        <span class="text-warning">{{ collection.user.profile.username }}</span>
                     </h5>
                 </div>
 
@@ -21,7 +21,7 @@
                 <div class="col-12 my-3">
                     <h2>
                         <i class="bi bi-images"></i>
-                        <span>NFTs: {{ nfts_count }}</span>
+                        <span>NFTs: {{ total_nfts_count }}</span>
                     </h2>
                 </div>
 
@@ -43,7 +43,7 @@
     <section class="custom-section-home custom-bg-shadow">
         <div class="container-fluid">
             <div class="row p-3">
-                {% for nft in nfts %}
+                {% for nft in total_nfts %}
                     <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
                         <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
                             <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;"
@@ -93,7 +93,7 @@
                                                         <button class="btn text-light"
                                                                 style="border-radius: 10px; background-color: rgb(255,64,64)">
                                                             <a class="text-decoration-none text-light"
-                                                               href="{% url 'remove collection' collection.pk %}">
+                                                               href="{% url 'remove nft' nft.pk %}">
                                                                 Remove
                                                             </a>
                                                         </button>

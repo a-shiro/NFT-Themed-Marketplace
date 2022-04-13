@@ -28,7 +28,7 @@
                 <div class="mt-5">
                     <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
                         <a class="text-dark text-decoration-none"
-                           href="{% url 'personal collection' request.user.id %}">
+                           href="{% url 'personal profile collection' request.user.id %}">
                             <span>
                                 <i class="bi bi-folder-check"></i>
                                 Collected
@@ -38,7 +38,7 @@
 
                     <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
                         <a class="text-dark text-decoration-none"
-                           href="{% url 'personal profile' request.user.pk %}">
+                           href="{% url 'personal profile workshop' request.user.pk %}">
                             <span>
                                 <i class="bi bi-brush"></i>
                                 Created
@@ -67,7 +67,7 @@
                         </a>
                     </button>
 
-                    {% if add_nft_button_active %}
+                    {% if nft_add_button_active %}
                         <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
                             <a class="text-dark text-decoration-none"
                                href="{% url 'create nft' %}">
