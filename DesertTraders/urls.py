@@ -8,3 +8,4 @@ urlpatterns = [
                   path('', include('DesertTraders.web_generic_features.urls')),
                   path('accounts/', include('DesertTraders.users.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

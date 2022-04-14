@@ -1,6 +1,5 @@
 from django import forms
 
-from DesertTraders.web_generic_features.helpers import get_profile_collections
 from DesertTraders.web_generic_features.models import Collection, NFT, Profile
 
 

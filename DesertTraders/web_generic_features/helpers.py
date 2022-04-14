@@ -1,22 +1,4 @@
-from django.shortcuts import redirect
-
 from DesertTraders.web_generic_features.models import Collection, Collected, NFT
-
-
-def get_collections_on_market():
-    collections = Collection.objects.filter(posted_for_sale=True)
-
-    return collections
-
-
-def get_collection_with_pk(**kwargs):
-    collection = Collection.objects.get(pk=kwargs['pk'])
-    return collection
-
-
-def get_nft_with_pk(**kwargs):
-    nft = NFT.objects.get(pk=kwargs['pk'])
-    return nft
 
 
 def transaction(profile, nft):
@@ -35,16 +17,10 @@ def transaction(profile, nft):
     nft.save()
 
 
-def get_profile_collections(user):
-    collections = Collection.objects.filter(user=user).order_by('-posted_for_sale')
-
-    return collections
-
-
 def check_if_button_active(user):
-    collections = Collection.objects.filter(user=user, posted_for_sale=False)
+    sellable_collections = len(Collection.objects.filter(user=user, posted_for_sale=False))
 
-    if len(collections) > 0:
+    if sellable_collections > 0:
         return True
     return False
 
@@ -60,7 +36,24 @@ def get_profile_nfts_and_nft_quantity(profile):
     return result
 
 
-def users_match(session_user_pk, **kwargs):
+def match_users(session_user_pk, **kwargs):
     if session_user_pk == kwargs['pk']:
+        return True
+    return False
+
+
+def validate_info(profile, nft):
+    nft_quantity_left = nft.quantity
+    transaction_cost = profile.balance.balance - nft.price
+
+    if nft_quantity_left == 0 or transaction_cost < 0:
+        return True  # Invalid
+    return False  # Valid
+
+
+def is_owner(request, collection):
+    collection_owner_pk = collection.user.pk
+
+    if collection_owner_pk != request.user.pk:
         return True
     return False

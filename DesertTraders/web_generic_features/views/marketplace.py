@@ -1,23 +1,24 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.views import generic as generic_views
+from django.core import exceptions as django_exceptions
 
-from DesertTraders.web_generic_features.helpers import get_collections_on_market, transaction, get_nft_with_pk
-from DesertTraders.web_generic_features.models import Profile
-from DesertTraders.web_generic_features.views.abstract import AbstractCollectionDetailsView
+from DesertTraders.web_generic_features.helpers import transaction, validate_info
+from DesertTraders.web_generic_features.models import Profile, NFT, Collection
+from DesertTraders.web_generic_features.views.abstract.abstract import AbstractCollectionDetailsView
 
 
 class MarketplaceView(generic_views.TemplateView):
     template_name = 'web_generic_features/marketplace/marketplace.html'
 
     def get_context_data(self, **kwargs):
-        total_collections = get_collections_on_market()
-        total_collections_count = len(total_collections)
+        marketplace_collections = Collection.objects.filter(posted_for_sale=True)
+        marketplace_collections_count = len(marketplace_collections)
 
         context = super().get_context_data(**kwargs)
 
-        context['total_collections'] = total_collections
-        context['total_collections_count'] = total_collections_count
+        context['marketplace_collections'] = marketplace_collections
+        context['marketplace_collections_count'] = marketplace_collections_count
         return context
 
 
@@ -34,8 +35,15 @@ class CollectionDetailsView(AbstractCollectionDetailsView):
 @login_required
 def buy_nft(request, pk):
     profile = Profile.objects.get(user=request.user)
-    nft = get_nft_with_pk(pk=pk)
 
-    transaction(profile, nft)
+    try:
+        nft = NFT.objects.get(pk=pk, collection__posted_for_sale=True)
 
-    return redirect('collection details', nft.collection.pk)
+        if validate_info(profile, nft):
+            return redirect('400')
+
+        transaction(profile, nft)
+
+        return redirect('collection details', nft.collection.pk)
+    except django_exceptions.ObjectDoesNotExist:
+        return redirect('404')

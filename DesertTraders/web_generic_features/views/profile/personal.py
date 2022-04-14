@@ -3,31 +3,33 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic as generic_views
+from django.core import exceptions as django_exceptions
 
 from DesertTraders.web_generic_features.forms import CreateCollectionForm, CreateNFTForm, EditProfileForm
-from DesertTraders.web_generic_features.helpers import get_profile_collections, check_if_button_active, \
-    get_profile_nfts_and_nft_quantity, get_collection_with_pk, get_nft_with_pk
-from DesertTraders.web_generic_features.models import Profile
-from DesertTraders.web_generic_features.views.abstract import AbstractCollectionDetailsView
+from DesertTraders.web_generic_features.helpers import check_if_button_active, \
+    get_profile_nfts_and_nft_quantity, is_owner
+from DesertTraders.web_generic_features.mixins import OwnerAccessMixin, CollectionAccessMixin
+from DesertTraders.web_generic_features.models import Profile, Collection, NFT
+from DesertTraders.web_generic_features.views.abstract.abstract import AbstractCollectionDetailsView
 
 
-class PersonalProfileWorkshopView(generic_views.DetailView, mixins.LoginRequiredMixin):
+class PersonalProfileWorkshopView(generic_views.DetailView, mixins.LoginRequiredMixin, OwnerAccessMixin):
     template_name = 'web_generic_features/profile/personal_profile/personal_workshop.html'
     model = Profile
 
     def get_context_data(self, **kwargs):
-        collections = get_profile_collections(self.request.user)
+        profile_collections = Collection.objects.filter(user=self.request.user).order_by('-posted_for_sale')
         nft_add_button_active = check_if_button_active(self.request.user)
 
         context = super().get_context_data(**kwargs)
 
-        context['collections'] = collections
+        context['profile_collections'] = profile_collections
         context['nft_add_button_active'] = nft_add_button_active
 
         return context
 
 
-class PersonalProfileCollectionView(generic_views.DetailView, mixins.LoginRequiredMixin):
+class PersonalProfileCollectionView(generic_views.DetailView, mixins.LoginRequiredMixin, OwnerAccessMixin):
     template_name = 'web_generic_features/profile/personal_profile/personal_collection.html'
     model = Profile
 
@@ -43,7 +45,7 @@ class PersonalProfileCollectionView(generic_views.DetailView, mixins.LoginRequir
         return context
 
 
-class WorkshopCollectionDetailsView(AbstractCollectionDetailsView, mixins.LoginRequiredMixin):
+class WorkshopCollectionDetailsView(AbstractCollectionDetailsView, mixins.LoginRequiredMixin, CollectionAccessMixin):
     template_name = 'web_generic_features/profile/personal_profile/workshop_collection_details.html'
 
     def get(self, request, *args, **kwargs):
@@ -53,7 +55,7 @@ class WorkshopCollectionDetailsView(AbstractCollectionDetailsView, mixins.LoginR
         return super().get_context_data(**kwargs)
 
 
-class EditProfileView(generic_views.UpdateView, mixins.LoginRequiredMixin):
+class EditProfileView(generic_views.UpdateView, mixins.LoginRequiredMixin, OwnerAccessMixin):
     template_name = 'web_generic_features/profile/personal_profile/edit_profile.html'
     model = Profile
     form_class = EditProfileForm
@@ -94,30 +96,50 @@ class CreateNFTView(generic_views.CreateView, mixins.LoginRequiredMixin):
 
 @login_required
 def post_on_market(request, pk):
-    collection = get_collection_with_pk(pk=pk)
-    collection.posted_for_sale = True
+    try:
+        collection = Collection.objects.get(pk=pk, posted_for_sale=False)
 
-    collection.save()
+        if is_owner(request, collection):
+            return redirect('400')
 
-    return redirect('personal profile workshop', request.user.pk)
+        collection.posted_for_sale = True
+
+        collection.save()
+
+        return redirect('personal profile workshop', request.user.pk)
+    except django_exceptions.ObjectDoesNotExist:
+        return redirect('404')
 
 
 @login_required
 def remove_collection(request, pk):
-    collection = get_collection_with_pk(pk=pk)
-    collection.delete()
+    try:
+        collection = Collection.objects.get(pk=pk, posted_for_sale=False)
 
-    # implement logic that removes collection image and the nft images when collection is deleted
+        if is_owner(request, collection):
+            return redirect('400')
 
-    return redirect('personal profile workshop', request.user.pk)
+        collection.delete()  # implement logic that removes collection image and the nft images when deleted
+
+        return redirect('personal profile workshop', request.user.pk)
+    except django_exceptions.ObjectDoesNotExist:
+        return redirect('404')
 
 
 @login_required
 def remove_nft(request, pk):
-    nft = get_nft_with_pk(pk=pk)
-    nft.delete()
+    try:
+        nft = NFT.objects.get(pk=pk, collection__posted_for_sale=False)
+        collection = nft.collection
 
-    # implement logic that removes nft image from collection when is deleted
+        if is_owner(request, collection):
+            return redirect('400')
 
-    return redirect('personal profile workshop', request.user.pk)
+        nft.delete()  # implement logic that removes nft image from collection when its deleted
+
+        return redirect('personal profile workshop', request.user.pk)
+    except django_exceptions.ObjectDoesNotExist:
+        return redirect('404')
+
+
 

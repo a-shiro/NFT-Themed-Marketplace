@@ -18,7 +18,7 @@
                 <div class="col-12 my-3">
                     <h2>
                         <i class="bi bi-folder"></i>
-                        <span>Collections: {{ total_collections_count }}</span>
+                        <span>Collections: {{ marketplace_collections_count }}</span>
                     </h2>
                 </div>
             </div>
@@ -28,7 +28,7 @@
     <section class="custom-section-home custom-bg-shadow">
         <div class="container-fluid">
             <div class="row p-3">
-                {% for collection in total_collections %}
+                {% for collection in marketplace_collections %}
                     {% if collection.posted_for_sale %}
                         <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
                             <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">

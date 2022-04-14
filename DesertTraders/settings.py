@@ -6,7 +6,7 @@ SECRET_KEY = 'django-insecure-@x5l+sw3ia4z72@kz^dp&7+(+*awu)74isv71dys*ct$qg(9-*
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 MY_APPS = [
     'DesertTraders.users',
@@ -40,8 +40,7 @@ ROOT_URLCONF = 'DesertTraders.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
