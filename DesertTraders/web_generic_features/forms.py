@@ -64,7 +64,7 @@ class CreateNFTForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(CreateNFTForm, self).__init__(*args, **kwargs)
         self.user = user
-        self.fields['collection'].queryset = get_profile_collections(user=user).filter(posted_for_sale=False)
+        self.fields['collection'].queryset = Collection.objects.filter(user=user, posted_for_sale=False)
 
     class Meta:
         model = NFT

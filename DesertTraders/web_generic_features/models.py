@@ -75,6 +75,9 @@ class NFT(models.Model):
         on_delete=models.CASCADE,
     )
 
+    class Meta:
+        verbose_name = 'NFT'
+
     def __str__(self):
         return self.title
 
@@ -125,6 +128,9 @@ class Collected(models.Model):
     quantity = models.IntegerField(
         default=DEFAULT_COLLECTED_QUANTITY
     )
+
+    class Meta:
+        verbose_name_plural = "Profile's collection"
 
 
 class Balance(models.Model):

@@ -1,4 +1,6 @@
-from DesertTraders.web_generic_features.models import Collection, Collected, NFT
+from django.core import exceptions as django_exceptions
+
+from DesertTraders.web_generic_features.models import Collection, Collected
 
 
 def transaction(profile, nft):
@@ -51,9 +53,9 @@ def validate_info(profile, nft):
     return False  # Valid
 
 
-def is_owner(request, collection):
+def validate_user_info(request, collection):
     collection_owner_pk = collection.user.pk
 
     if collection_owner_pk != request.user.pk:
-        return True
-    return False
+        raise django_exceptions.BadRequest
+    return None

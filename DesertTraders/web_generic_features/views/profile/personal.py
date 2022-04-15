@@ -7,7 +7,7 @@ from django.core import exceptions as django_exceptions
 
 from DesertTraders.web_generic_features.forms import CreateCollectionForm, CreateNFTForm, EditProfileForm
 from DesertTraders.web_generic_features.helpers import check_if_button_active, \
-    get_profile_nfts_and_nft_quantity, is_owner
+    get_profile_nfts_and_nft_quantity, validate_user_info
 from DesertTraders.web_generic_features.mixins import OwnerAccessMixin, CollectionAccessMixin
 from DesertTraders.web_generic_features.models import Profile, Collection, NFT
 from DesertTraders.web_generic_features.views.abstract.abstract import AbstractCollectionDetailsView
@@ -99,8 +99,7 @@ def post_on_market(request, pk):
     try:
         collection = Collection.objects.get(pk=pk, posted_for_sale=False)
 
-        if is_owner(request, collection):
-            return redirect('400')
+        validate_user_info(request, collection)
 
         collection.posted_for_sale = True
 
@@ -110,20 +109,25 @@ def post_on_market(request, pk):
     except django_exceptions.ObjectDoesNotExist:
         return redirect('404')
 
+    except django_exceptions.BadRequest:
+        return redirect('400')
+
 
 @login_required
 def remove_collection(request, pk):
     try:
         collection = Collection.objects.get(pk=pk, posted_for_sale=False)
 
-        if is_owner(request, collection):
-            return redirect('400')
+        validate_user_info(request, collection)
 
-        collection.delete()  # implement logic that removes collection image and the nft images when deleted
+        collection.delete()
 
         return redirect('personal profile workshop', request.user.pk)
     except django_exceptions.ObjectDoesNotExist:
         return redirect('404')
+
+    except django_exceptions.BadRequest:
+        return redirect('400')
 
 
 @login_required
@@ -132,14 +136,16 @@ def remove_nft(request, pk):
         nft = NFT.objects.get(pk=pk, collection__posted_for_sale=False)
         collection = nft.collection
 
-        if is_owner(request, collection):
-            return redirect('400')
+        validate_user_info(request, collection)
 
-        nft.delete()  # implement logic that removes nft image from collection when its deleted
+        nft.delete()
 
         return redirect('personal profile workshop', request.user.pk)
     except django_exceptions.ObjectDoesNotExist:
         return redirect('404')
+
+    except django_exceptions.BadRequest:
+        return redirect('400')
 
 
 
