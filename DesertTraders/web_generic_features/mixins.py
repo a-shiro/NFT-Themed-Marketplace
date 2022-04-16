@@ -52,6 +52,7 @@ class CollectionAccessMixin(generic_views.View):
                 raise django_exceptions.BadRequest
         except django_exceptions.BadRequest:
             return redirect('400')
+
         except django_exceptions.ObjectDoesNotExist:
             return redirect('404')
 

@@ -24,7 +24,6 @@ DJANGO_APPS = [
 
 INSTALLED_APPS = MY_APPS + DJANGO_APPS
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from DesertTraders.web_generic_features.models import Collection, NFT, Profile, Balance, Collected
+from DesertTraders.web_generic_features.models import Collection, NFT, Profile, Balance
 
 
 @admin.register(Collection)
