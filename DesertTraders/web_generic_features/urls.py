@@ -42,7 +42,7 @@ urlpatterns = [
     # Public Profile tied urls
     path('public-profile/<int:pk>/workshop', PublicProfileWorkshopView.as_view(), name='public profile'),  # Public
     path('public-profile/<int:pk>/collection', PublicProfileCollectionView.as_view(), name='public collection'),  # Public
-    path('public-profile/<int:pk>/collection', PublicProfileFavoriteView.as_view(), name='public favorites'),
+    path('public-profile/<int:pk>/favorites', PublicProfileFavoriteView.as_view(), name='public favorites'),
     # Public
 
 ]
