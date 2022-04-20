@@ -40,68 +40,70 @@
         </div>
     </section>
 
-    <section class="custom-section-home custom-bg-shadow">
-        <div class="container-fluid">
-            <div class="row p-3">
-                {% for nft in total_nfts %}
-                    <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
-                        <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
-                            <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;"
-                                 alt="100%x280"
-                                 src="{{ nft.image.url }}">
-                            <div class="card-body text-center">
-                                <h4 class="mt-2" style="color: #F2B851">
-                                    {{ nft.title|truncatechars:22 }}
-                                </h4>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row align-items-center">
-                                    <div class="col-6">
-                                        <p class="m-0">Blockchain: {{ nft.blockchain }}</p>
-                                        <p class="m-0">Quantity: {{ nft.quantity }}</p>
-                                        <p class="m-0">Price: {{ nft.price }}</p>
-                                    </div>
-                                    <div class="col-6 text-end">
-                                        <button class="btn text-light"
-                                                style="border-radius: 10px; background-color: rgb(255,64,64)"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#remove-modal">
-                                            Remove
-                                        </button>
+    <section class="custom-section-home custom-bg-shadow" style="min-height: 350px">
+        {% if total_nfts %}
+            <div class="container-fluid">
+                <div class="row p-3">
+                    {% for nft in total_nfts %}
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
+                            <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
+                                <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;"
+                                     alt="100%x280"
+                                     src="{{ nft.image.url }}">
+                                <div class="card-body text-center">
+                                    <h4 class="mt-2" style="color: #F2B851">
+                                        {{ nft.title|truncatechars:22 }}
+                                    </h4>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row align-items-center">
+                                        <div class="col-6">
+                                            <p class="m-0">Blockchain: {{ nft.blockchain }}</p>
+                                            <p class="m-0">Quantity: {{ nft.quantity }}</p>
+                                            <p class="m-0">Price: {{ nft.price }}</p>
+                                        </div>
+                                        <div class="col-6 text-end">
+                                            <button class="btn text-light"
+                                                    style="border-radius: 10px; background-color: rgb(255,64,64)"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#remove-modal">
+                                                Remove
+                                            </button>
 
-                                        <div class="modal fade" id="remove-modal" tabindex="-1"
-                                             aria-labelledby="modal-title" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="modal-title">
-                                                            Remove Collection?
-                                                        </h5>
-                                                        <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close">
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p class="text-start">
-                                                            Are you sure you want to remove this NFT from the
-                                                            collection? This process is irreversible. If you'd
-                                                            like to add it again in the future you can do that
-                                                            from your profile.
-                                                        </p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button class="btn text-light"
-                                                                style="border-radius: 10px; background-color: rgb(255,64,64)">
-                                                            <a class="text-decoration-none text-light"
-                                                               href="{% url 'remove nft' nft.pk %}">
-                                                                Remove
-                                                            </a>
-                                                        </button>
-                                                        <button class="btn btn-secondary"
-                                                                style="border-radius: 10px"
-                                                                data-bs-dismiss="modal">
-                                                            Close
-                                                        </button>
+                                            <div class="modal fade" id="remove-modal" tabindex="-1"
+                                                 aria-labelledby="modal-title" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modal-title">
+                                                                Remove Collection?
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close">
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p class="text-start">
+                                                                Are you sure you want to remove this NFT from the
+                                                                collection? This process is irreversible. If you'd
+                                                                like to add it again in the future you can do that
+                                                                from your profile.
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn text-light"
+                                                                    style="border-radius: 10px; background-color: rgb(255,64,64)">
+                                                                <a class="text-decoration-none text-light"
+                                                                   href="{% url 'remove nft' nft.pk %}">
+                                                                    Remove
+                                                                </a>
+                                                            </button>
+                                                            <button class="btn btn-secondary"
+                                                                    style="border-radius: 10px"
+                                                                    data-bs-dismiss="modal">
+                                                                Close
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,9 +112,16 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
+        {% else %}
+            <div class="container" style="min-height: 215px">
+                <div class="text-center" style="margin-top: 80px">
+                    <h1>No NFTs added yet</h1>
+                </div>
+            </div>
+        {% endif %}
     </section>
 {% endblock %}
+

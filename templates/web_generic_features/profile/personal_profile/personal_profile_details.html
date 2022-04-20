@@ -48,10 +48,10 @@
 
                     <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
                         <a class="text-dark text-decoration-none"
-                           href="#">
+                           href="{% url 'personal favorites' request.user.pk %}">
                             <span>
                                 <i class="bi bi-bookmark-heart"></i>
-                                Favorited
+                                Favorite
                             </span>
                         </a>
                     </button>

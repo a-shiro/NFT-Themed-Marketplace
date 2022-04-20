@@ -9,7 +9,7 @@ from DesertTraders.web_generic_features.forms import CreateCollectionForm, Creat
 from DesertTraders.web_generic_features.helpers import check_if_button_active, \
     get_profile_nfts_and_nft_quantity, validate_user_info
 from DesertTraders.web_generic_features.mixins import OwnerAccessMixin, CollectionAccessMixin
-from DesertTraders.web_generic_features.models import Profile, Collection, NFT
+from DesertTraders.web_generic_features.models import Profile, Collection, NFT, Favorite
 from DesertTraders.web_generic_features.views.abstract.abstract import AbstractCollectionDetailsView
 
 
@@ -53,6 +53,20 @@ class WorkshopCollectionDetailsView(AbstractCollectionDetailsView, mixins.LoginR
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(**kwargs)
+
+
+class PersonalProfileFavoriteView(generic_views.DetailView, OwnerAccessMixin):
+    template_name = 'web_generic_features/profile/personal_profile/personal_favorite.html'
+    model = Profile
+
+    def get_context_data(self, **kwargs):
+        favorite_nfts = NFT.objects.filter(favorite__profile_id=self.object, favorite__favorite=True)
+
+        context = super().get_context_data(**kwargs)
+
+        context['favorite_nfts'] = favorite_nfts
+
+        return context
 
 
 class EditProfileView(generic_views.UpdateView, mixins.LoginRequiredMixin, OwnerAccessMixin):

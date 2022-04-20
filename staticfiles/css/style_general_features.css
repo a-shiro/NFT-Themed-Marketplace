@@ -32,3 +32,12 @@
 .custom-link-desert:hover {
     color: #d2a046;
 }
+
+.custom-like-link {
+    text-decoration: none;
+    color: #5f5f5f;
+}
+
+.custom-like-link:hover {
+    color: #e43f3f;
+}

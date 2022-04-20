@@ -75,6 +75,8 @@ class NFT(models.Model):
         on_delete=models.CASCADE,
     )
 
+    likes = models.IntegerField()
+
     class Meta:
         verbose_name = 'NFT'
 
@@ -87,12 +89,6 @@ class Profile(models.Model):
 
     UPLOAD_TO_PATH = 'profile/'
 
-    user = models.OneToOneField(
-        UserModel,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
-
     username = models.CharField(
         max_length=USERNAME_MAX_LEN,
     )
@@ -103,7 +99,13 @@ class Profile(models.Model):
         null=True,
     )
 
-    my_collection = models.ManyToManyField(
+    user = models.OneToOneField(
+        UserModel,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+
+    collection = models.ManyToManyField(
         NFT,
         through='Collected'
     )
@@ -112,8 +114,30 @@ class Profile(models.Model):
         return self.username
 
 
+class Favorite(models.Model):
+    __FAVORITE_DEFAULT = False
+
+    profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE
+    )
+
+    nft = models.ForeignKey(
+        NFT,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    favorite = models.BooleanField(
+        default=__FAVORITE_DEFAULT
+    )
+
+
 class Collected(models.Model):
     DEFAULT_COLLECTED_QUANTITY = 0
+
+    DEFAULT_FAVORITE_VALUE = False
 
     profile = models.ForeignKey(
         Profile,
@@ -127,6 +151,10 @@ class Collected(models.Model):
 
     quantity = models.IntegerField(
         default=DEFAULT_COLLECTED_QUANTITY
+    )
+
+    favorite = models.BooleanField(
+        default=DEFAULT_FAVORITE_VALUE
     )
 
     class Meta:

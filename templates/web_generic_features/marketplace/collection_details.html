@@ -43,12 +43,13 @@
     <section class="custom-section-home custom-bg-shadow">
         <div class="container-fluid">
             <div class="row p-3">
-                {% for nft in total_nfts %}
+                {% for nft, favorite in nfts_and_favorite_pair %}
                     <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
                         <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
                             <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;"
                                  alt="100%x280"
                                  src="{{ nft.image.url }}">
+
                             <div class="card-body text-center">
                                 <h4 class="mt-2" style="color: #F2B851"> {{ nft.title|truncatechars:22 }}</h4>
                             </div>
@@ -68,46 +69,60 @@
                                                         data-bs-target="#buy-modal">
                                                     Buy
                                                 </button>
-                                                <div class="modal fade" id="buy-modal" tabindex="-1"
-                                                     aria-labelledby="modal-title" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modal-title">
-                                                                    Buy NFT?
-                                                                </h5>
-                                                                <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <p class="text-start">
-                                                                    Are you sure you want to purchase this NFT?
-                                                                </p>
-                                                                <h4 class="mt-5">Balance: {{ request.user.profile.balance.balance }}</h4>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button class="btn text-light custom-btn-desert">
-                                                                    <a class="text-decoration-none text-light"
-                                                                       href="{% url 'buy nft' nft.pk %}">
-                                                                        Buy
-                                                                    </a>
-                                                                </button>
-                                                                <button class="btn btn-secondary"
-                                                                        style="border-radius: 10px"
-                                                                        data-bs-dismiss="modal">
-                                                                    Close
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             {% else %}
                                                 <button class="btn btn-secondary text-light" style="border-radius: 10px"
                                                         title="Insufficient Balance">
                                                     Buy
                                                 </button>
                                             {% endif %}
+                                            <button class="btn px-2 pt-3">
+                                                <a class=" custom-like-link" href="{% url 'favorite nft' nft.pk %}">
+                                                    {% if favorite %}
+                                                        <h4>
+                                                            <i class="bi bi-heart-fill" style="color: #e43f3f"></i>
+                                                        </h4>
+                                                    {% else %}
+                                                        <h4>
+                                                            <i class="bi bi-heart"></i>
+                                                        </h4>
+                                                    {% endif %}
+                                                </a>
+                                            </button>
+                                            <div class="modal fade" id="buy-modal" tabindex="-1"
+                                                 aria-labelledby="modal-title" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modal-title">
+                                                                Buy NFT?
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close">
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p class="text-start">
+                                                                Are you sure you want to purchase this NFT?
+                                                            </p>
+                                                            <h4 class="mt-5">
+                                                                Balance: {{ request.user.profile.balance.balance }}</h4>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn text-light custom-btn-desert">
+                                                                <a class="text-decoration-none text-light"
+                                                                   href="{% url 'buy nft' nft.pk %}">
+                                                                    Buy
+                                                                </a>
+                                                            </button>
+                                                            <button class="btn btn-secondary"
+                                                                    style="border-radius: 10px"
+                                                                    data-bs-dismiss="modal">
+                                                                Close
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-6 text-end">
                                             <p class="m-0">Blockchain: {{ nft.blockchain }}</p>
@@ -119,8 +134,8 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                 {% endfor %}
+            </div>
         </div>
     </section>
 {% endblock %}
