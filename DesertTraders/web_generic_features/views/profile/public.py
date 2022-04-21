@@ -2,7 +2,7 @@ from django.views import generic as generic_views
 
 from DesertTraders.web_generic_features.helpers import get_profile_nfts_and_nft_quantity
 from DesertTraders.web_generic_features.mixins import CompareUsersMixin
-from DesertTraders.web_generic_features.models import Profile, Collection, Favorite
+from DesertTraders.web_generic_features.models import Profile, Collection, NFT
 
 
 class PublicProfileWorkshopView(generic_views.DetailView, CompareUsersMixin):
@@ -37,7 +37,7 @@ class PublicProfileFavoriteView(generic_views.DetailView):
     model = Profile
 
     def get_context_data(self, **kwargs):
-        favorite_nfts = Favorite.objects.filter(profile=self.object, favorite=True)
+        favorite_nfts = NFT.objects.filter(favorite__profile_id=self.object, favorite__favorite=True)
 
         context = super().get_context_data(**kwargs)
 

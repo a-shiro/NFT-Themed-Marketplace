@@ -37,6 +37,7 @@ class CollectionDetailsView(AbstractCollectionDetailsView):
 
         return context
 
+
 @login_required
 def buy_nft(request, pk):
     profile = Profile.objects.get(user=request.user)
