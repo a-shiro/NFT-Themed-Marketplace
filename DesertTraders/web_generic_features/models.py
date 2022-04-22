@@ -45,6 +45,8 @@ class NFT(models.Model):
 
     MIN_QUANTITY_VALUE = 1
 
+    DEFAULT_LIKES_VALUE = 0
+
     title = models.CharField(
         max_length=TITLE_MAX_LEN,
     )
@@ -75,7 +77,9 @@ class NFT(models.Model):
         on_delete=models.CASCADE,
     )
 
-    likes = models.IntegerField()
+    likes = models.IntegerField(
+        default=DEFAULT_LIKES_VALUE
+    )
 
     class Meta:
         verbose_name = 'NFT'

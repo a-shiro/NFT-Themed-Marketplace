@@ -148,135 +148,193 @@
                     <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
+
             <div class="col-12">
                 <div id="main-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="row">
-                                <div class="col-md-6 col-lg-4 mb-3">
-                                    <div class="card" style="border-radius: 10px">
-                                        <img class="custom-img-height-carousel" style="border-radius: 10px 10px 0 0;"
-                                             alt="100%x280"
-                                             src="https://media.newyorker.com/photos/61016c1c7a2a603b3075c7b8/master
-                                             /pass/chayka-boredapeclub.jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">With supporting text below as a natural lead-in to
-                                                additional content.</p>
+                                {% for collection in carousel_first_page %}
+                                    {% if forloop.counter == 1 %}
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <div class="card" style="border-radius: 10px">
+                                                <img class="custom-img-height-carousel"
+                                                     style="border-radius: 10px 10px 0 0;"
+                                                     alt="100%x280"
+                                                     src="{{ collection.image.url }}">
+                                                <div class="card-body">
+                                                    <h4 class="card-title" style="color: #F2B851">
+                                                        {{ collection.title|truncatechars:25 }}
+                                                    </h4>
+                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                        {{ collection.description|truncatechars:40 }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 d-none d-md-block mb-3">
-                                    <div class="card" style="border-radius: 10px">
-                                        <img class="custom-img-height-carousel" style="border-radius: 10px 10px 0 0;"
-                                             alt="100%x280"
-                                             src="https://static.news.bitcoin.com/wp-content/uploads/2021/08/cryptopunks-nft-collection-joins-axie-infinity-and-opensea-by-hitting-1-billion-in-sales.jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">With supporting text below as a natural lead-in to
-                                                additional content.</p>
+                                    {% endif %}
+                                    {% if forloop.counter == 2 %}
+                                        <div class="col-md-6 col-lg-4 d-none d-md-block mb-3">
+                                            <div class="card" style="border-radius: 10px">
+                                                <img class="custom-img-height-carousel"
+                                                     style="border-radius: 10px 10px 0 0;"
+                                                     alt="100%x280"
+                                                     src="{{ collection.image.url }}">
+                                                <div class="card-body">
+                                                    <h4 class="card-title" style="color: #F2B851">
+                                                        {{ collection.title|truncatechars:25 }}
+                                                    </h4>
+                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                        {{ collection.description|truncatechars:40 }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 d-none d-lg-block mb-3">
-                                    <div class="card" style="border-radius: 10px">
-                                        <img class="custom-img-height-carousel" style="border-radius: 10px 10px 0 0;"
-                                             alt="100%x280"
-                                             src="https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs/221256663/original/e825a3823b7b7e36de29fdd739497ea4c35ef211/create-a-10-000-nft-collection.png">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">With supporting text below as a natural lead-in to
-                                                additional content.</p>
+                                    {% endif %}
+                                    {% if forloop.counter == 3 %}
+                                        <div class="col-lg-4 d-none d-lg-block mb-3">
+                                            <div class="card" style="border-radius: 10px">
+                                                <img class="custom-img-height-carousel"
+                                                     style="border-radius: 10px 10px 0 0;"
+                                                     alt="100%x280"
+                                                     src="{{ collection.image.url }}">
+                                                <div class="card-body">
+                                                    <h4 class="card-title" style="color: #F2B851">
+                                                        {{ collection.title|truncatechars:25 }}
+                                                    </h4>
+                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                        {{ collection.description|truncatechars:40 }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                         <div class="carousel-item">
                             <div class="row">
-                                <div class="col-md-6 col-lg-4 mb-3">
-                                    <div class="card" style="border-radius: 10px">
-                                        <img class="custom-img-height-carousel" style="border-radius: 10px 10px 0 0;"
-                                             alt="100%x280"
-                                             src="https://global-uploads.webflow.com/5fad86e2327507cecea2d5e8/616d90399c2eef11e2cd360c_31cEP4m6QkLiewvUfioXLvHzZp7eBPb5hdPzD4icmbzuzlBpuytQJehhtWj2wp9HejXNgXVyompt16cXEAgULYEz4bmrR9oWLT4N63IVYwJaoj0sLxtM3aldxFmDwRFI1F5tYcEq%3Ds0.png">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">With supporting text below as a natural lead-in to
-                                                additional content.</p>
+                                {% for collection in carousel_second_page %}
+                                    {% if forloop.counter == 1 %}
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <div class="card" style="border-radius: 10px">
+                                                <img class="custom-img-height-carousel"
+                                                     style="border-radius: 10px 10px 0 0;"
+                                                     alt="100%x280"
+                                                     src="{{ collection.image.url }}">
+                                                <div class="card-body">
+                                                    <h4 class="card-title" style="color: #F2B851">
+                                                        {{ collection.title|truncatechars:25 }}
+                                                    </h4>
+                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                        {{ collection.description|truncatechars:40 }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 d-none d-md-block mb-3">
-                                    <div class="card" style="border-radius: 10px">
-                                        <img class="custom-img-height-carousel" style="border-radius: 10px 10px 0 0;"
-                                             alt="100%x280"
-                                             src="https://itsblockchain.com/wp-content/uploads/2021/09/og-image.png">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">With supporting text below as a natural lead-in to
-                                                additional content.</p>
+                                    {% endif %}
+                                    {% if forloop.counter == 2 %}
+                                        <div class="col-md-6 col-lg-4 d-none d-md-block mb-3">
+                                            <div class="card" style="border-radius: 10px">
+                                                <img class="custom-img-height-carousel"
+                                                     style="border-radius: 10px 10px 0 0;"
+                                                     alt="100%x280"
+                                                     src="{{ collection.image.url }}">
+                                                <div class="card-body">
+                                                    <h4 class="card-title" style="color: #F2B851">
+                                                        {{ collection.title|truncatechars:25 }}
+                                                    </h4>
+                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                        {{ collection.description|truncatechars:40 }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 d-none d-lg-block mb-3">
-                                    <div class="card" style="border-radius: 10px">
-                                        <img class="custom-img-height-carousel" style="border-radius: 10px 10px 0 0;"
-                                             alt="100%x280"
-                                             src="https://media-exp1.licdn.com/dms/image/C4D12AQG3g9IDjrq9Mw/article-cover_image-shrink_600_2000/0/1646069285361?e=1652313600&v=beta&t=jpnnnzWV5w9PzuCVgLymexMCsWxDGtz8Tc7OLRC_WaQ">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">With supporting text below as a natural lead-in to
-                                                additional content.</p>
+                                    {% endif %}
+                                    {% if forloop.counter == 3 %}
+                                        <div class="col-lg-4 d-none d-lg-block mb-3">
+                                            <div class="card" style="border-radius: 10px">
+                                                <img class="custom-img-height-carousel"
+                                                     style="border-radius: 10px 10px 0 0;"
+                                                     alt="100%x280"
+                                                     src="{{ collection.image.url }}">
+                                                <div class="card-body">
+                                                    <h4 class="card-title" style="color: #F2B851">
+                                                        {{ collection.title|truncatechars:25 }}
+                                                    </h4>
+                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                        {{ collection.description|truncatechars:40 }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                         <div class="carousel-item">
                             <div class="row">
-                                <div class="col-md-6 col-lg-4 mb-3">
-                                    <div class="card" style="border-radius: 10px">
-                                        <img class="custom-img-height-carousel" style="border-radius: 10px 10px 0 0;"
-                                             alt="100%x280"
-                                             src="https://cdn.tellimer.com/hmgTXYfvUikNEdtxcFAAuuABQi85eNhCMViDZCbJ.png">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">With supporting text below as a natural lead-in to
-                                                additional content.</p>
+                                {% for collection in carousel_third_page %}
+                                    {% if forloop.counter == 1 %}
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <div class="card" style="border-radius: 10px">
+                                                <img class="custom-img-height-carousel"
+                                                     style="border-radius: 10px 10px 0 0;"
+                                                     alt="100%x280"
+                                                     src="{{ collection.image.url }}">
+                                                <div class="card-body">
+                                                   <h4 class="card-title" style="color: #F2B851">
+                                                        {{ collection.title|truncatechars:25 }}
+                                                    </h4>
+                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                        {{ collection.description|truncatechars:40 }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4 d-none d-md-block mb-3">
-                                    <div class="card" style="border-radius: 10px">
-                                        <img class="custom-img-height-carousel" style="border-radius: 10px 10px 0 0;"
-                                             alt="100%x280"
-                                             src="https://nfts.wtf/wp-content/uploads/2022/01/cover-1024x572.jpg">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">With supporting text below as a natural lead-in to
-                                                additional content.</p>
+                                    {% endif %}
+                                    {% if forloop.counter == 2 %}
+                                        <div class="col-md-6 col-lg-4 d-none d-md-block mb-3">
+                                            <div class="card" style="border-radius: 10px">
+                                                <img class="custom-img-height-carousel"
+                                                     style="border-radius: 10px 10px 0 0;"
+                                                     alt="100%x280"
+                                                     src="{{ collection.image.url }}">
+                                                <div class="card-body">
+                                                    <h4 class="card-title" style="color: #F2B851">
+                                                        {{ collection.title|truncatechars:25 }}
+                                                    </h4>
+                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                        {{ collection.description|truncatechars:40 }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 d-none d-lg-block mb-3">
-                                    <div class="card" style="border-radius: 10px">
-                                        <img class="custom-img-height-carousel" style="border-radius: 10px 10px 0 0;"
-                                             alt="100%x280"
-                                             src="https://www.nftsstreet.com/wp-content/uploads/2021/12/6165f6bd63068b48ea589a19_Screenshot-2021-10-12-at-23.57.30.png">
-                                        <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">With supporting text below as a natural lead-in to
-                                                additional content.</p>
+                                    {% endif %}
+                                    {% if forloop.counter == 3 %}
+                                        <div class="col-lg-4 d-none d-lg-block mb-3">
+                                            <div class="card" style="border-radius: 10px">
+                                                <img class="custom-img-height-carousel"
+                                                     style="border-radius: 10px 10px 0 0;"
+                                                     alt="100%x280"
+                                                     src="{{ collection.image.url }}">
+                                                <div class="card-body">
+                                                    <h4 class="card-title" style="color: #F2B851">
+                                                        {{ collection.title|truncatechars:25 }}
+                                                    </h4>
+                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                        {{ collection.description|truncatechars:40 }}
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 </section>
 
 <section class="custom-section-home">

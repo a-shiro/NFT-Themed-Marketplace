@@ -66,10 +66,14 @@ def favorite_nft(profile, nft_pk):
 
     if nft.favorite:
         nft.favorite = False
+        nft.nft.likes -= 1
     else:
         nft.favorite = True
+        nft.nft.likes += 1
 
     nft.save()
+    nft.nft.save()
+
 
 
 def get_nfts_and_favorite(profile, pk):
@@ -88,3 +92,20 @@ def get_nfts_and_favorite(profile, pk):
         result.append((nft, favorite))
 
     return result
+
+
+def get_collections():
+    result = {}
+
+    collections = Collection.objects.filter(posted_for_sale=True)
+
+    for collection in collections:
+        total_collection_likes = 0
+        for nft in collection.nft_set.all():
+            total_collection_likes += nft.likes
+
+        result[collection] = total_collection_likes
+
+    sorted_result = list({k: v for k, v in sorted(result.items(), key=lambda item: -item[1])})[0:9]
+
+    return sorted_result
