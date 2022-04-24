@@ -6,7 +6,7 @@ from DesertTraders.web_generic_features.models import Collection, NFT, Profile
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('username', 'profile_image')
+        fields = ('username', 'profile_image', 'cover_image')
         widgets = {
             'username': forms.TextInput(
                 attrs={
@@ -14,6 +14,11 @@ class EditProfileForm(forms.ModelForm):
                 }
             ),
             'profile_image': forms.FileInput(
+                attrs={
+                    'class': "form-control",
+                }
+            ),
+            'cover_image': forms.FileInput(
                 attrs={
                     'class': "form-control",
                 }

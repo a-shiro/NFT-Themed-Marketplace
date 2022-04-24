@@ -103,6 +103,12 @@ class Profile(models.Model):
         null=True,
     )
 
+    cover_image = models.ImageField(
+        upload_to=UPLOAD_TO_PATH,
+        blank=True,
+        null=True,
+    )
+
     user = models.OneToOneField(
         UserModel,
         on_delete=models.CASCADE,
