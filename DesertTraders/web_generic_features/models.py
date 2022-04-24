@@ -18,6 +18,12 @@ class Collection(models.Model):
         upload_to=UPLOAD_TO_PATH,
     )
 
+    cover_image = models.ImageField(
+        upload_to=UPLOAD_TO_PATH,
+        blank=True,
+        null=True,
+    )
+
     description = models.TextField()
 
     posted_for_sale = models.BooleanField(

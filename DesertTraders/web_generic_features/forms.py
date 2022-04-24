@@ -55,13 +55,18 @@ class CreateCollectionForm(forms.ModelForm):
                     'class': "form-control",
                 }
             ),
+            'cover_image': forms.FileInput(
+                attrs={
+                    'class': "form-control",
+                }
+            ),
             'description': forms.Textarea(
                 attrs={
                     'class': "form-control",
                     'rows': 5,
                     'placeholder': "Add a customized description...",
                 }
-            )
+            ),
         }
 
 
