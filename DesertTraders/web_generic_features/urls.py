@@ -29,7 +29,7 @@ urlpatterns = [
     path('profile/<int:pk>/workshop', PersonalProfileWorkshopView.as_view(), name='personal profile workshop'),  # Private
     path('profile/<int:pk>/collection', PersonalProfileCollectionView.as_view(), name='personal profile collection'),  # Private
     path('profile/<int:pk>/workshop/collection', WorkshopCollectionDetailsView.as_view(), name='workshop collection'),  # Private
-    path('profile/<int:pk>/favorites', PersonalProfileFavoriteView.as_view(), name='personal favorites'),
+    path('profile/<int:pk>/favorites', PersonalProfileFavoriteView.as_view(), name='personal profile favorites'),
 
     path('profile/<int:pk>/edit', EditProfileView.as_view(), name='edit profile'),  # Private
 
