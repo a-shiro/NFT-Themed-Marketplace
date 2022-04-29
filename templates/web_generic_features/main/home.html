@@ -73,17 +73,23 @@
                         </h2>
                     </li>
                 {% else %}
-                    <li class="nav-item">
+                    <li class="nav-item d-none d-md-block">
                         <h2>
-                            <a class="nav-link"
-                               style="padding: 12px 4px 0 10px"
+                            <a class="nav-link px-2"
+                               style="padding-top: 12px"
                                href="{% url 'personal profile workshop' request.user.pk %}"
                                title="Profile">
                                 <i class="bi bi-person-fill"></i>
                             </a>
                         </h2>
                     </li>
-                    <li>
+                    <li class="nav-item d-md-none">
+                        <a class="nav-link px-2 py-3"
+                           href="{% url 'personal profile workshop' request.user.pk %}">
+                            Profile
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-md-block">
                         <h2>
                             <a class="nav-link"
                                style="padding-top: 12px"
@@ -92,6 +98,12 @@
                                 <i class="bi bi-chevron-bar-right"></i>
                             </a>
                         </h2>
+                    </li>
+                    <li class="nav-item d-md-none">
+                        <a class="nav-link px-2 py-3"
+                           href="{% url 'personal profile workshop' request.user.pk %}">
+                            Sign Out
+                        </a>
                     </li>
                 {% endif %}
             </ul>
@@ -166,7 +178,8 @@
                                                     <h4 class="card-title" style="color: #F2B851">
                                                         {{ collection.title|truncatechars:25 }}
                                                     </h4>
-                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                    <p class="card-text text-secondary"
+                                                       title="{{ collection.description }}">
                                                         {{ collection.description|truncatechars:40 }}
                                                     </p>
                                                 </div>
@@ -184,7 +197,8 @@
                                                     <h4 class="card-title" style="color: #F2B851">
                                                         {{ collection.title|truncatechars:25 }}
                                                     </h4>
-                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                    <p class="card-text text-secondary"
+                                                       title="{{ collection.description }}">
                                                         {{ collection.description|truncatechars:40 }}
                                                     </p>
                                                 </div>
@@ -202,7 +216,8 @@
                                                     <h4 class="card-title" style="color: #F2B851">
                                                         {{ collection.title|truncatechars:25 }}
                                                     </h4>
-                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                    <p class="card-text text-secondary"
+                                                       title="{{ collection.description }}">
                                                         {{ collection.description|truncatechars:40 }}
                                                     </p>
                                                 </div>
@@ -226,7 +241,8 @@
                                                     <h4 class="card-title" style="color: #F2B851">
                                                         {{ collection.title|truncatechars:25 }}
                                                     </h4>
-                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                    <p class="card-text text-secondary"
+                                                       title="{{ collection.description }}">
                                                         {{ collection.description|truncatechars:40 }}
                                                     </p>
                                                 </div>
@@ -244,7 +260,8 @@
                                                     <h4 class="card-title" style="color: #F2B851">
                                                         {{ collection.title|truncatechars:25 }}
                                                     </h4>
-                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                    <p class="card-text text-secondary"
+                                                       title="{{ collection.description }}">
                                                         {{ collection.description|truncatechars:40 }}
                                                     </p>
                                                 </div>
@@ -262,7 +279,8 @@
                                                     <h4 class="card-title" style="color: #F2B851">
                                                         {{ collection.title|truncatechars:25 }}
                                                     </h4>
-                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                    <p class="card-text text-secondary"
+                                                       title="{{ collection.description }}">
                                                         {{ collection.description|truncatechars:40 }}
                                                     </p>
                                                 </div>
@@ -283,10 +301,11 @@
                                                      alt="100%x280"
                                                      src="{{ collection.image.url }}">
                                                 <div class="card-body">
-                                                   <h4 class="card-title" style="color: #F2B851">
+                                                    <h4 class="card-title" style="color: #F2B851">
                                                         {{ collection.title|truncatechars:25 }}
                                                     </h4>
-                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                    <p class="card-text text-secondary"
+                                                       title="{{ collection.description }}">
                                                         {{ collection.description|truncatechars:40 }}
                                                     </p>
                                                 </div>
@@ -304,7 +323,8 @@
                                                     <h4 class="card-title" style="color: #F2B851">
                                                         {{ collection.title|truncatechars:25 }}
                                                     </h4>
-                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                    <p class="card-text text-secondary"
+                                                       title="{{ collection.description }}">
                                                         {{ collection.description|truncatechars:40 }}
                                                     </p>
                                                 </div>
@@ -322,7 +342,8 @@
                                                     <h4 class="card-title" style="color: #F2B851">
                                                         {{ collection.title|truncatechars:25 }}
                                                     </h4>
-                                                    <p class="card-text text-secondary" title="{{ collection.description }}">
+                                                    <p class="card-text text-secondary"
+                                                       title="{{ collection.description }}">
                                                         {{ collection.description|truncatechars:40 }}
                                                     </p>
                                                 </div>
