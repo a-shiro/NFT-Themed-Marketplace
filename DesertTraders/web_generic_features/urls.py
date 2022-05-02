@@ -3,7 +3,7 @@ from django.urls import path
 from DesertTraders.web_generic_features.views.main import HomeView, PrivacyPolicyView, \
     TermsOfServiceView, bad_request_view, not_found_view
 from DesertTraders.web_generic_features.views.marketplace import MarketplaceView, CollectionDetailsView, buy_nft, \
-    FavoriteNFTView
+    FavoriteNFTView, SortCollectionView
 from DesertTraders.web_generic_features.views.profile.personal import PersonalProfileCollectionView, \
     CreateCollectionView, \
     CreateNFTView, post_on_market, PersonalProfileWorkshopView, remove_collection, EditProfileView, \
@@ -24,6 +24,7 @@ urlpatterns = [
     path('collection/details/<int:pk>', CollectionDetailsView.as_view(), name='collection details'),  # Public
     path('buy/<int:pk>', buy_nft, name='buy nft'),  # Private
     path('favorite/<int:pk>', FavoriteNFTView.as_view(), name='favorite nft'),  # Private
+    path('sort/<int:pk>', SortCollectionView.as_view(), name='sort collection'),  # Private
 
     # Personal Profile tied urls
     path('profile/<int:pk>/workshop', PersonalProfileWorkshopView.as_view(), name='personal profile workshop'),  # Private
@@ -42,9 +43,7 @@ urlpatterns = [
     # Public Profile tied urls
     path('public-profile/<int:pk>/workshop', PublicProfileWorkshopView.as_view(), name='public profile'),  # Public
     path('public-profile/<int:pk>/collection', PublicProfileCollectionView.as_view(), name='public collection'),  # Public
-    path('public-profile/<int:pk>/favorites', PublicProfileFavoriteView.as_view(), name='public favorites'),
-    # Public
-
+    path('public-profile/<int:pk>/favorites', PublicProfileFavoriteView.as_view(), name='public favorites'), # Public
 ]
 
 

@@ -5,7 +5,9 @@ from django.core import exceptions as django_exceptions
 from DesertTraders.web_generic_features.models import Collection
 
 
-class AbstractCollectionDetailsView(generic_views.TemplateView):
+class AbstractCollectionDetailsView(generic_views.DetailView):
+    model = Collection
+
     def get(self, request, *args, **kwargs):
         try:
             Collection.objects.get(pk=kwargs['pk'], posted_for_sale=kwargs['posted_for_sale'])  # Checks if the user exists
@@ -15,7 +17,7 @@ class AbstractCollectionDetailsView(generic_views.TemplateView):
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        collection = Collection.objects.get(pk=kwargs['pk'])
+        collection = self.object
         total_nfts = collection.nft_set.all()
         total_nfts_count = len(total_nfts)
 
@@ -24,5 +26,6 @@ class AbstractCollectionDetailsView(generic_views.TemplateView):
         context['collection'] = collection
         context['total_nfts'] = total_nfts
         context['total_nfts_count'] = total_nfts_count
+
 
         return context

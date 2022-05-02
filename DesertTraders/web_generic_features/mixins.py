@@ -57,3 +57,4 @@ class CollectionAccessMixin(generic_views.View):
             return redirect('404')
 
         return super().dispatch(request, *args, **kwargs)
+

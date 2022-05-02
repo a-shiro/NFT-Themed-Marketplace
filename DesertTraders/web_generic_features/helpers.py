@@ -75,17 +75,21 @@ def favorite_nft(profile, nft_pk):
     nft.nft.save()
 
 
-
-def get_nfts_and_favorite(profile, pk):
+def get_nfts_and_favorite(**kwargs):
     result = []
 
-    collection = Collection.objects.get(pk=pk)
-    for nft in collection.nft_set.all():
+    collection = Collection.objects.get(pk=kwargs['pk'])
+
+    ordering = kwargs.get('ordering')  # get ordering func here
+    if not ordering:
+        ordering = 'title'
+
+    for nft in collection.nft_set.order_by(ordering):
         try:
-            favorite = Favorite.objects.get(profile=profile, nft=nft).favorite
+            favorite = Favorite.objects.get(profile=kwargs['profile'], nft=nft).favorite
 
         except django_exceptions.ObjectDoesNotExist:
-            instance = Favorite(profile=profile, nft=nft)
+            instance = Favorite(profile=kwargs['profile'], nft=nft)
             instance.save()
             favorite = instance.favorite
 

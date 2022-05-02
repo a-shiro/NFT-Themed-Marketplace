@@ -53,8 +53,42 @@
         </div>
     </section>
 
-    <section class="custom-section-home custom-bg-shadow">
+    <section class="custom-section-home custom-bg-shadow pt-4">
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 text-end px-5">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle text-light custom-btn-desert" type="button"
+                                id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            Order By
+                        </button>
+                        <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'sort collection' collection.pk %}?sort=price">
+                                    Price: Low - High
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'sort collection' collection.pk %}?sort=-price">
+                                    Price: High - Low
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'sort collection' collection.pk %}?sort=quantity">
+                                    Quantity
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <div class="row p-3">
                 {% for nft, favorite in nfts_and_favorite_pair %}
                     <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">

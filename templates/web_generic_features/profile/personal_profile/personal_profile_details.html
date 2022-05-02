@@ -48,7 +48,7 @@
                 <button class="btn btn-lg dropdown-toggle" style="border-bottom: 5px solid #F2B851;"
                         type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                    Profile Content
+                    Profile
                 </button>
                 <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
                     <li>
@@ -104,10 +104,10 @@
                             </span>
                             </a>
                         </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                     {% endif %}
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
                     <li>
                         <a class="dropdown-item" href="{% url 'edit profile' request.user.pk %}">
                             <span>

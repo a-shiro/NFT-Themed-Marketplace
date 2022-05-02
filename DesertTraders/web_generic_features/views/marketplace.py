@@ -30,7 +30,7 @@ class CollectionDetailsView(AbstractCollectionDetailsView):
         return super().get(request, pk=kwargs['pk'], posted_for_sale=True)
 
     def get_context_data(self, **kwargs):
-        nfts_and_favorite_pair = get_nfts_and_favorite(pk=kwargs['pk'], profile=self.request.user.profile)
+        nfts_and_favorite_pair = get_nfts_and_favorite(pk=self.object.pk, profile=self.request.user.profile)
 
         context = super().get_context_data(**kwargs)
         context['nfts_and_favorite_pair'] = nfts_and_favorite_pair
@@ -70,3 +70,13 @@ class FavoriteNFTView(generic_views.View, mixins.LoginRequiredMixin):
         collection = NFT.objects.get(pk=kwargs['pk']).collection
 
         return redirect('collection details', collection.pk)
+
+
+class SortCollectionView(CollectionDetailsView):
+    def get_context_data(self, **kwargs):
+        nfts_and_favorite_pair = get_nfts_and_favorite(pk=self.object.pk, profile=self.request.user.profile, ordering=self.request.GET['sort'])
+
+        context = super().get_context_data(**kwargs)
+        context['nfts_and_favorite_pair'] = nfts_and_favorite_pair
+
+        return context
