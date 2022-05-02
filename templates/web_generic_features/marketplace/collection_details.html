@@ -111,48 +111,9 @@
                                     {% else %}
                                         <div class="col-6">
                                             {% if request.user.profile.balance.balance >= nft.price %}
-                                                <button class="btn text-light custom-btn-desert"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#buy-modal">
-                                                    Buy
+                                                <button class="btn custom-btn-desert">
+                                                    <a class="text-decoration-none text-light" href="{% url 'buy nft' nft.pk %}">Buy</a>
                                                 </button>
-
-                                                <div class="modal fade" id="buy-modal" tabindex="-1"
-                                                     aria-labelledby="modal-title" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modal-title">
-                                                                    Buy NFT?
-                                                                </h5>
-                                                                <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <p class="text-start">
-                                                                    Are you sure you want to purchase this NFT?
-                                                                </p>
-                                                                <h4 class="mt-5">
-                                                                    Balance: {{ request.user.profile.balance.balance }}
-                                                                </h4>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button class="btn text-light custom-btn-desert">
-                                                                    <a class="text-decoration-none text-light"
-                                                                       href="{% url 'buy nft' nft.pk %}">
-                                                                        Buy
-                                                                    </a>
-                                                                </button>
-                                                                <button class="btn btn-secondary"
-                                                                        style="border-radius: 10px"
-                                                                        data-bs-dismiss="modal">
-                                                                    Close
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             {% else %}
                                                 <button class="btn btn-secondary text-light" style="border-radius: 10px"
                                                         title="Insufficient Balance">

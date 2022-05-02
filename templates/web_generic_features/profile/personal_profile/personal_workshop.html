@@ -52,48 +52,9 @@
                                     <div class="row my-1">
                                         {% if collection.nft_set.all %}
                                             <div class="col-8 text-start">
-                                                <button class="btn btn-sm custom-btn-desert text-light"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#post-on-market-modal">
-                                                    Post on Market
+                                                <button class="btn btn-sm custom-btn-desert text-light">
+                                                    <a class="text-decoration-none text-light" href="{% url 'sell collection' collection.pk %}">Post on Market</a>
                                                 </button>
-
-                                                <div class="modal fade" id="post-on-market-modal" tabindex="-1"
-                                                     aria-labelledby="modal-title" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modal-title">
-                                                                    Post this Collection on the Market?
-                                                                </h5>
-                                                                <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <p class="text-start">
-                                                                    Are you sure you want to post this collection?
-                                                                    Once the collection is live on the marketplace you
-                                                                    will not be able to make any further changes to it
-                                                                    and you will not be able to remove it.
-                                                                </p>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button class="btn text-light custom-btn-desert">
-                                                                    <a class="text-decoration-none text-light"
-                                                                       href="{% url 'sell collection' collection.pk %}">
-                                                                        Post
-                                                                    </a>
-                                                                </button>
-                                                                <button class="btn btn-secondary"
-                                                                        style="border-radius: 10px"
-                                                                        data-bs-dismiss="modal">
-                                                                    Close
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         {% else %}
                                             <div class="col-8 text-start">
@@ -106,48 +67,9 @@
                                         {% endif %}
                                         <div class="col-4 text-end">
                                             <button class="btn btn-sm text-light"
-                                                    style="border-radius: 10px; background-color: rgb(255,64,64)"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#remove-modal">
-                                                Remove
+                                                    style="border-radius: 10px; background-color: rgb(255,64,64)">
+                                                <a class="text-decoration-none text-light" href="{% url 'remove collection' collection.pk %}">Remove</a>
                                             </button>
-
-                                            <div class="modal fade" id="remove-modal" tabindex="-1"
-                                                 aria-labelledby="modal-title" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="modal-title">
-                                                                Remove Collection?
-                                                            </h5>
-                                                            <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close">
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p class="text-start">
-                                                                Are you sure you want to remove this collection and
-                                                                all of its content? This process is irreversible.
-                                                            </p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button class="btn text-light"
-                                                                    style="border-radius: 10px;
-                                                                    background-color: rgb(255,64,64)">
-                                                                <a class="text-decoration-none text-light"
-                                                                   href="{% url 'remove collection' collection.pk %}">
-                                                                    Remove
-                                                                </a>
-                                                            </button>
-                                                            <button class="btn btn-secondary"
-                                                                    style="border-radius: 10px"
-                                                                    data-bs-dismiss="modal">
-                                                                Close
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
