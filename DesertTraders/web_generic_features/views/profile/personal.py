@@ -110,58 +110,64 @@ class CreateNFTView(generic_views.CreateView, mixins.LoginRequiredMixin):
         return reverse_lazy('personal profile workshop', kwargs={'pk': self.request.user.pk})
 
 
-@login_required
-def post_on_market(request, pk):
-    try:
-        collection = Collection.objects.get(pk=pk, posted_for_sale=False)
+class PostOnMarketView(generic_views.View, mixins.LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            collection = Collection.objects.get(pk=kwargs['pk'], posted_for_sale=False)
 
-        validate_user_info(request, collection)
+            validate_user_info(request, collection)
 
-        collection.posted_for_sale = True
+            collection.posted_for_sale = True
 
-        collection.save()
+            collection.save()
 
-        return redirect('personal profile workshop', request.user.pk)
-    except django_exceptions.ObjectDoesNotExist:
-        return redirect('404')
+            return self.redirect()
+        except django_exceptions.ObjectDoesNotExist:
+            return redirect('404')
 
-    except django_exceptions.BadRequest:
-        return redirect('400')
+        except django_exceptions.BadRequest:
+            return redirect('400')
 
-
-@login_required
-def remove_collection(request, pk):
-    try:
-        collection = Collection.objects.get(pk=pk, posted_for_sale=False)
-
-        validate_user_info(request, collection)
-
-        collection.delete()
-
-        return redirect('personal profile workshop', request.user.pk)
-    except django_exceptions.ObjectDoesNotExist:
-        return redirect('404')
-
-    except django_exceptions.BadRequest:
-        return redirect('400')
+    def redirect(self):
+        return redirect('personal profile workshop', self.request.user.pk)
 
 
-@login_required
-def remove_nft(request, pk):
-    try:
-        nft = NFT.objects.get(pk=pk, collection__posted_for_sale=False)
-        collection = nft.collection
+class RemoveCollectionView(generic_views.View, mixins.LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            collection = Collection.objects.get(pk=kwargs['pk'], posted_for_sale=False)
 
-        validate_user_info(request, collection)
+            validate_user_info(request, collection)
 
-        nft.delete()
+            collection.delete()
 
-        return redirect('personal profile workshop', request.user.pk)
-    except django_exceptions.ObjectDoesNotExist:
-        return redirect('404')
+            return self.redirect()
+        except django_exceptions.ObjectDoesNotExist:
+            return redirect('404')
 
-    except django_exceptions.BadRequest:
-        return redirect('400')
+        except django_exceptions.BadRequest:
+            return redirect('400')
+
+    def redirect(self):
+        return redirect('personal profile workshop', self.request.user.pk)
 
 
+class RemoveNFTView(generic_views.View, mixins.LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            nft = NFT.objects.get(pk=kwargs['pk'], collection__posted_for_sale=False)
+            collection = nft.collection
 
+            validate_user_info(request, collection)
+
+            nft.delete()
+
+            return self.redirect()
+        except django_exceptions.ObjectDoesNotExist:
+            return redirect('404')
+
+        except django_exceptions.BadRequest:
+            return redirect('400')
+
+    def redirect(self):
+        return redirect('personal profile workshop', self.request.user.pk)  # Fix to redirect to collection

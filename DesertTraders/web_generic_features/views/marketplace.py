@@ -39,21 +39,26 @@ class CollectionDetailsView(AbstractCollectionDetailsView):
         return context
 
 
-@login_required
-def buy_nft(request, pk):
-    profile = Profile.objects.get(user=request.user)
+class BuyNFTView(generic_views.View, mixins.LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            try:
+                nft = NFT.objects.get(pk=kwargs['pk'], collection__posted_for_sale=True)
 
-    try:
-        nft = NFT.objects.get(pk=pk, collection__posted_for_sale=True)
+                if validate_info(self.request.user.profile, nft):
+                    return redirect('400')
 
-        if validate_info(profile, nft):
-            return redirect('400')
+                transaction(request.user.profile, nft)
 
-        transaction(profile, nft)
+                return self.redirect(**kwargs)
+            except django_exceptions.ObjectDoesNotExist:
+                return redirect('404')
 
-        return redirect('collection details', nft.collection.pk)
-    except django_exceptions.ObjectDoesNotExist:
-        return redirect('404')
+    @staticmethod
+    def redirect(**kwargs):
+        collection = NFT.objects.get(pk=kwargs['pk']).collection
+
+        return redirect('collection details', collection.pk)
 
 
 class FavoriteNFTView(generic_views.View, mixins.LoginRequiredMixin):
@@ -75,7 +80,8 @@ class FavoriteNFTView(generic_views.View, mixins.LoginRequiredMixin):
 
 class SortCollectionView(CollectionDetailsView):
     def get_context_data(self, **kwargs):
-        nfts_and_favorite_pair = get_nfts_and_favorite(pk=self.object.pk, profile=self.request.user.profile, ordering=self.request.GET['sort'])
+        nfts_and_favorite_pair = get_nfts_and_favorite(pk=self.object.pk, profile=self.request.user.profile,
+                                                       ordering=self.request.GET['sort'])
 
         context = super().get_context_data(**kwargs)
         context['nfts_and_favorite_pair'] = nfts_and_favorite_pair
