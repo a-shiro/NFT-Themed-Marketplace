@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views import generic as generic_views
 
-from DesertTraders.web_generic_features.helpers import get_collections
-from DesertTraders.web_generic_features.mixins import SimpleStaticPageMixin
+from DesertTraders.web_generic_features.views.view_helpers.helpers import get_collections
+from DesertTraders.web_generic_features.views.view_helpers.mixins import SimpleStaticPageMixin
 
 
 class HomeView(generic_views.TemplateView):

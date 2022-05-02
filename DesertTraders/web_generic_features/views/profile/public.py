@@ -1,7 +1,7 @@
 from django.views import generic as generic_views
 
-from DesertTraders.web_generic_features.helpers import get_profile_nfts_and_nft_quantity
-from DesertTraders.web_generic_features.mixins import CompareUsersMixin
+from DesertTraders.web_generic_features.views.view_helpers.helpers import get_profile_nfts_and_nft_quantity
+from DesertTraders.web_generic_features.views.view_helpers.mixins import CompareUsersMixin
 from DesertTraders.web_generic_features.models import Profile, Collection, NFT
 
 

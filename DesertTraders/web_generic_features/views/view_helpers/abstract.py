@@ -27,5 +27,4 @@ class AbstractCollectionDetailsView(generic_views.DetailView):
         context['total_nfts'] = total_nfts
         context['total_nfts_count'] = total_nfts_count
 
-
         return context

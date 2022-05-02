@@ -78,7 +78,7 @@ class CreateNFTForm(forms.ModelForm):
 
     class Meta:
         model = NFT
-        fields = '__all__'
+        exclude = ('likes',)
         widgets = {
             'title': forms.TextInput(
                 attrs={

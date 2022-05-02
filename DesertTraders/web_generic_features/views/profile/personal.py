@@ -6,11 +6,11 @@ from django.views import generic as generic_views
 from django.core import exceptions as django_exceptions
 
 from DesertTraders.web_generic_features.forms import CreateCollectionForm, CreateNFTForm, EditProfileForm
-from DesertTraders.web_generic_features.helpers import check_if_button_active, \
+from DesertTraders.web_generic_features.views.view_helpers.helpers import check_if_button_active, \
     get_profile_nfts_and_nft_quantity, validate_user_info
-from DesertTraders.web_generic_features.mixins import OwnerAccessMixin, CollectionAccessMixin
-from DesertTraders.web_generic_features.models import Profile, Collection, NFT, Favorite
-from DesertTraders.web_generic_features.views.abstract.abstract import AbstractCollectionDetailsView
+from DesertTraders.web_generic_features.views.view_helpers.mixins import OwnerAccessMixin, CollectionAccessMixin
+from DesertTraders.web_generic_features.models import Profile, Collection, NFT
+from DesertTraders.web_generic_features.views.view_helpers.abstract import AbstractCollectionDetailsView
 
 
 class PersonalProfileWorkshopView(generic_views.DetailView, mixins.LoginRequiredMixin, OwnerAccessMixin):

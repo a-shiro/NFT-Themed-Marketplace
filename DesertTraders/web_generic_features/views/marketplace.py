@@ -4,9 +4,10 @@ from django.views import generic as generic_views
 from django.core import exceptions as django_exceptions
 from django.contrib.auth import mixins
 
-from DesertTraders.web_generic_features.helpers import transaction, validate_info, favorite_nft, get_nfts_and_favorite
+from DesertTraders.web_generic_features.views.view_helpers.helpers import transaction, validate_info, favorite_nft, \
+    get_nfts_and_favorite
 from DesertTraders.web_generic_features.models import Profile, NFT, Collection
-from DesertTraders.web_generic_features.views.abstract.abstract import AbstractCollectionDetailsView
+from DesertTraders.web_generic_features.views.view_helpers.abstract import AbstractCollectionDetailsView
 
 
 class MarketplaceView(generic_views.TemplateView):

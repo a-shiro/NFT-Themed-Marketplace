@@ -5,7 +5,7 @@ from django.views.generic import detail
 from django.core import exceptions as django_exceptions
 
 from DesertTraders.users.models import CustomUser
-from DesertTraders.web_generic_features.helpers import match_users
+from DesertTraders.web_generic_features.views.view_helpers.helpers import match_users
 from DesertTraders.web_generic_features.models import Collection
 
 
