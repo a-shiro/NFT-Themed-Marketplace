@@ -75,16 +75,14 @@ def favorite_nft(profile, nft_pk):
     nft.nft.save()
 
 
-def get_nfts_and_favorite(**kwargs):
+def get_nfts_and_favorite(iterable, **kwargs):
     result = []
-
-    collection = Collection.objects.get(pk=kwargs['pk'])
 
     ordering = kwargs.get('ordering')  # get ordering func here
     if not ordering:
         ordering = 'title'
 
-    for nft in collection.nft_set.order_by(ordering):
+    for nft in iterable.order_by(ordering):
         try:
             favorite = Favorite.objects.get(profile=kwargs['profile'], nft=nft).favorite
 

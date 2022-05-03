@@ -30,7 +30,10 @@ class CollectionDetailsView(AbstractCollectionDetailsView):
         return super().get(request, pk=kwargs['pk'], posted_for_sale=True)
 
     def get_context_data(self, **kwargs):
-        nfts_and_favorite_pair = get_nfts_and_favorite(pk=self.object.pk, profile=self.request.user.profile)
+        collection = Collection.objects.get(pk=self.object.pk)
+        nfts = collection.nft_set.all()
+
+        nfts_and_favorite_pair = get_nfts_and_favorite(iterable=nfts, profile=self.request.user.profile)
 
         context = super().get_context_data(**kwargs)
         context['nfts_and_favorite_pair'] = nfts_and_favorite_pair
@@ -79,9 +82,11 @@ class FavoriteNFTView(generic_views.View, mixins.LoginRequiredMixin):
 
 class SortCollectionView(CollectionDetailsView):
     def get_context_data(self, **kwargs):
-        nfts_and_favorite_pair = get_nfts_and_favorite(pk=self.object.pk, profile=self.request.user.profile,
-                                                       ordering=self.request.GET['sort'])
+        collection = Collection.objects.get(pk=kwargs['pk'])
+        nfts = collection.nft_set.all()
 
+        nfts_and_favorite_pair = get_nfts_and_favorite(iterable=nfts, profile=self.request.user.profile,
+                                                       ordering=self.request.GET['sort'])
         context = super().get_context_data(**kwargs)
         context['nfts_and_favorite_pair'] = nfts_and_favorite_pair
 
@@ -97,9 +102,11 @@ class SearchMarketplaceView(generic_views.TemplateView):
         searched_results = NFT.objects.filter(title__contains=searched, collection__posted_for_sale=True)
         searched_results_count = len(searched_results)
 
+        nfts_and_favorite_pair = get_nfts_and_favorite(iterable=searched_results, profile=self.request.user.profile)
+
         context = super().get_context_data(**kwargs)
 
-        context['searched_results'] = searched_results
+        context['nfts_and_favorite_pair'] = nfts_and_favorite_pair
         context['searched_results_count'] = searched_results_count
 
         return context

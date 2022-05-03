@@ -27,10 +27,10 @@
     </section>
 
     <section class="custom-section-home custom-bg-shadow">
-        {% if searched_results %}
+        {% if nfts_and_favorite_pair %}
             <div class="container-fluid">
                 <div class="row p-3">
-                    {% for nft in searched_results %}
+                    {% for nft, favorite in nfts_and_favorite_pair %}
                         <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
                             <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
                                 <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;"
