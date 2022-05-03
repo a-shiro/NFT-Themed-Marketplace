@@ -23,7 +23,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-md navbar-light sticky-top custom-bg-shadow p-0">
+<nav class="navbar navbar-expand-md navbar-light sticky-top custom-bg-shadow p-2 p-md-0">
     <div class="container-fluid pl-3 ml-3">
         <div>
             <a class="navbar-brand" href="{% url 'home' %}">
@@ -47,24 +47,37 @@
         </div>
         <div class="collapse navbar-collapse justify-content-end" id="main-nav">
             <ul class="navbar-nav" style="font-size: 20px;">
+                <li class="d-none d-md-block px-0 px-md-3" style="padding-top: 13px">
+                    <form class="d-flex">
+                        <input class="form-control" style="border-radius: 10px; width: 90px" type="search"
+                               placeholder="Search NFTs . . ." aria-label="Search">
+                    </form>
+                </li>
                 {% if request.user.is_staff %}
                     <li class="nav-item">
-                        <a class="nav-link px-2 py-3"
+                        <a class="nav-link pt-3 px-0 px-md-3 py-md-3"
                            href="{% url 'admin:index' %}">
                             Administration
                         </a>
                     </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link px-2 py-3"
+                    {% if request.user.is_staff %}
+                    <a class="nav-link px-0 px-md-3 py-md-3"
                        href="{% url 'marketplace' %}">
                         Marketplace
                     </a>
+                    {% else %}
+                        <a class="nav-link px-0 px-md-3 pt-3 py-md-3"
+                       href="{% url 'marketplace' %}">
+                        Marketplace
+                    </a>
+                    {% endif %}
                 </li>
                 {% if not request.user.is_authenticated %}
-                    <li class="nav-item">
+                    <li class="nav-item d-none d-md-block">
                         <h2>
-                            <a class="nav-link px-3"
+                            <a class="nav-link px-2"
                                style="padding: 12px 4px 0 10px"
                                href="{% url 'login' %}"
                                title="Sign In">
@@ -72,10 +85,16 @@
                             </a>
                         </h2>
                     </li>
+                    <li class="nav-item d-md-none">
+                        <a class="nav-link"
+                           href="{% url 'login' %}">
+                            Sign In
+                        </a>
+                    </li>
                 {% else %}
                     <li class="nav-item d-none d-md-block">
                         <h2>
-                            <a class="nav-link px-2"
+                            <a class="nav-link px-md-3"
                                style="padding-top: 12px"
                                href="{% url 'personal profile workshop' request.user.pk %}"
                                title="Profile">
@@ -84,7 +103,7 @@
                         </h2>
                     </li>
                     <li class="nav-item d-md-none">
-                        <a class="nav-link px-2 py-3"
+                        <a class="nav-link"
                            href="{% url 'personal profile workshop' request.user.pk %}">
                             Profile
                         </a>
@@ -100,12 +119,18 @@
                         </h2>
                     </li>
                     <li class="nav-item d-md-none">
-                        <a class="nav-link px-2 py-3"
-                           href="{% url 'personal profile workshop' request.user.pk %}">
+                        <a class="nav-link"
+                           href="{% url 'logout' %}">
                             Sign Out
                         </a>
                     </li>
                 {% endif %}
+                <li class="d-md-none py-3" style="padding-top: 13px">
+                    <form class="d-flex">
+                        <input class="form-control" style="border-radius: 10px; width: 300px" type="search"
+                               placeholder="Search NFTs . . ." aria-label="Search">
+                    </form>
+                </li>
             </ul>
         </div>
     </div>
