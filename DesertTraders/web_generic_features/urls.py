@@ -3,7 +3,7 @@ from django.urls import path
 from DesertTraders.web_generic_features.views.main import HomeView, PrivacyPolicyView, \
     TermsOfServiceView, bad_request_view, not_found_view
 from DesertTraders.web_generic_features.views.marketplace import MarketplaceView, CollectionDetailsView, \
-    FavoriteNFTView, SortCollectionView, BuyNFTView
+    FavoriteNFTView, SortCollectionView, BuyNFTView, SearchMarketplaceView
 from DesertTraders.web_generic_features.views.profile.personal import PersonalProfileCollectionView, \
     CreateCollectionView, CreateNFTView, PersonalProfileWorkshopView, EditProfileView, \
     WorkshopCollectionDetailsView, PersonalProfileFavoriteView, PostOnMarketView, RemoveCollectionView, \
@@ -25,6 +25,7 @@ urlpatterns = [
     path('buy/<int:pk>', BuyNFTView.as_view(), name='buy nft'),  # Private
     path('favorite/<int:pk>', FavoriteNFTView.as_view(), name='favorite nft'),  # Private
     path('sort/<int:pk>', SortCollectionView.as_view(), name='sort collection'),  # Private
+    path('search', SearchMarketplaceView.as_view(), name='search marketplace'),  # Private
 
     # Personal Profile tied urls
     path('profile/<int:pk>/workshop', PersonalProfileWorkshopView.as_view(), name='personal profile workshop'),

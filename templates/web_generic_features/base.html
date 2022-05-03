@@ -43,9 +43,10 @@
         <div class="collapse navbar-collapse justify-content-end" id="main-nav">
             <ul class="navbar-nav" style="font-size: 20px;">
                 <li class="d-none d-md-block px-0 px-md-3" style="padding-top: 13px">
-                    <form class="d-flex">
-                        <input class="form-control" style="border-radius: 10px; width: 90px" type="search"
-                               placeholder="Search NFTs . . ." aria-label="Search">
+                    <form action="{% url 'search marketplace' %}" class="d-flex" method="get">
+                        {% csrf_token %}
+                        <input name="searched" class="form-control" style="border-radius: 10px; width: 90px"
+                               type="search" placeholder="Search NFTs . . ." aria-label="Search">
                     </form>
                 </li>
                 {% if request.user.is_staff %}
@@ -58,15 +59,15 @@
                 {% endif %}
                 <li class="nav-item">
                     {% if request.user.is_staff %}
-                    <a class="nav-link px-0 px-md-3 py-md-3"
-                       href="{% url 'marketplace' %}">
-                        Marketplace
-                    </a>
+                        <a class="nav-link px-0 px-md-3 py-md-3"
+                           href="{% url 'marketplace' %}">
+                            Marketplace
+                        </a>
                     {% else %}
                         <a class="nav-link px-0 px-md-3 pt-3 py-md-3"
-                       href="{% url 'marketplace' %}">
-                        Marketplace
-                    </a>
+                           href="{% url 'marketplace' %}">
+                            Marketplace
+                        </a>
                     {% endif %}
                 </li>
                 {% if not request.user.is_authenticated %}
@@ -121,9 +122,10 @@
                     </li>
                 {% endif %}
                 <li class="d-md-none py-3" style="padding-top: 13px">
-                    <form class="d-flex">
-                        <input class="form-control" style="border-radius: 10px; width: 300px" type="search"
-                               placeholder="Search NFTs . . ." aria-label="Search">
+                    <form action="{% url 'search marketplace' %}" class="d-flex" method="get">
+                        {% csrf_token %}
+                        <input name="searched" class="form-control" style="border-radius: 10px; width: 300px"
+                               type="search" placeholder="Search NFTs . . ." aria-label="Search">
                     </form>
                 </li>
             </ul>

@@ -86,3 +86,20 @@ class SortCollectionView(CollectionDetailsView):
         context['nfts_and_favorite_pair'] = nfts_and_favorite_pair
 
         return context
+
+
+class SearchMarketplaceView(generic_views.TemplateView):
+    template_name = 'web_generic_features/marketplace/marketplace_search.html'
+
+    def get_context_data(self, **kwargs):
+        searched = self.request.GET['searched']
+
+        searched_results = NFT.objects.filter(title__contains=searched, collection__posted_for_sale=True)
+        searched_results_count = len(searched_results)
+
+        context = super().get_context_data(**kwargs)
+
+        context['searched_results'] = searched_results
+        context['searched_results_count'] = searched_results_count
+
+        return context
