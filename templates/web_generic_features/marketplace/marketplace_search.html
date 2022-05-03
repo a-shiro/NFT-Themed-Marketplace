@@ -1,10 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'web_generic_features/base.html' %}
 
-</body>
-</html>
+{% load static %}
+
+{% block content %}
+    <section class="custom-section-home">
+        <div class="container">
+            <div class="row text-center">
+                <div class="mb-2">
+                    <h1>Searched Results</h1>
+                </div>
+
+                <div class="col-1 col-md-2 col-lg-3"></div>
+                <div class="col-10 col-md-8 col-lg-6">
+                    <hr>
+                </div>
+                <div class="col-1 col-md-2 col-lg-3"></div>
+
+                <div class="col-12 my-3">
+                    <h2>
+                        <i class="bi bi-folder"></i>
+                        <span>Results: {{ searched_results_count }}</span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="custom-section-home custom-bg-shadow">
+        {% if searched_results %}
+            <div class="container-fluid">
+                <div class="row p-3">
+                    {% for nft in searched_results %}
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
+                            <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
+                                <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;"
+                                     alt="100%x280"
+                                     src="{{ nft.image.url }}">
+
+                                <div class="card-body text-center">
+                                    <h4 class="mt-2" style="color: #F2B851"> {{ nft.title|truncatechars:22 }}</h4>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row align-items-center">
+                                        {% if nft.quantity == 0 %}
+                                            <div class="col-12 text-center">
+                                                <h4 class="text-secondary my-3">
+                                                    Sold out
+                                                </h4>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-6">
+                                                {% if request.user.profile.balance.balance >= nft.price %}
+                                                    <button class="btn custom-btn-desert">
+                                                        <a class="text-decoration-none text-light"
+                                                           href="{% url 'buy nft' nft.pk %}">Buy</a>
+                                                    </button>
+                                                {% else %}
+                                                    <button class="btn btn-secondary text-light"
+                                                            style="border-radius: 10px"
+                                                            title="Insufficient Balance">
+                                                        Buy
+                                                    </button>
+                                                {% endif %}
+                                                <button class="btn px-2 pt-3">
+                                                    <a class=" custom-like-link" href="{% url 'favorite nft' nft.pk %}">
+                                                        {% if favorite %}
+                                                            <h4>
+                                                                <i class="bi bi-heart-fill" style="color: #e43f3f"></i>
+                                                            </h4>
+                                                        {% else %}
+                                                            <h4>
+                                                                <i class="bi bi-heart"></i>
+                                                            </h4>
+                                                        {% endif %}
+                                                    </a>
+                                                </button>
+                                            </div>
+                                            <div class="col-6 text-end">
+                                                <p class="m-0">Blockchain: {{ nft.blockchain }}</p>
+                                                <p class="m-0">Quantity: {{ nft.quantity }}</p>
+                                                <p class="m-0">Price: {{ nft.price }}</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <div class="container">
+                <div class="text-center" style="padding-top: 200px; min-height: 450px">
+                    <h1>No Results Found</h1>
+                </div>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}
