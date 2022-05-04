@@ -82,7 +82,7 @@ class FavoriteNFTView(generic_views.View, mixins.LoginRequiredMixin):
 
 class SortCollectionView(CollectionDetailsView):
     def get_context_data(self, **kwargs):
-        collection = Collection.objects.get(pk=kwargs['pk'])
+        collection = self.object
         nfts = collection.nft_set.all()
 
         nfts_and_favorite_pair = get_nfts_and_favorite(iterable=nfts, profile=self.request.user.profile,

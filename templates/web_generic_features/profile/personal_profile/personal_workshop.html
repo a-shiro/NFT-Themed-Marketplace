@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="row my-1">
-                                        {% if collection.nft_set.all %}
+                                        {% if collection.nft_set.all|length_is:4 %}
                                             <div class="col-8 text-start">
                                                 <button class="btn btn-sm custom-btn-desert text-light">
                                                     <a class="text-decoration-none text-light" href="{% url 'sell collection' collection.pk %}">Post on Market</a>
@@ -60,7 +60,7 @@
                                             <div class="col-8 text-start">
                                                 <button class="btn btn-sm btn-secondary text-light"
                                                         style="border-radius: 10px"
-                                                        title="Add an NFT in Order to Sell Collection">
+                                                        title="A Total of 4 NFT are Required in Order to Sell this Collection">
                                                     Post On Market
                                                 </button>
                                             </div>
