@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.core.validators import MinValueValidator
 
+from DesertTraders.web_generic_features.validators import max_image_size
+
 UserModel = get_user_model()
 
 
@@ -16,10 +18,16 @@ class Collection(models.Model):
 
     image = models.ImageField(
         upload_to=UPLOAD_TO_PATH,
+        validators=(
+            max_image_size,
+        )
     )
 
     cover_image = models.ImageField(
         upload_to=UPLOAD_TO_PATH,
+        validators=(
+            max_image_size,
+        ),
         blank=True,
         null=True,
     )
@@ -59,6 +67,9 @@ class NFT(models.Model):
 
     image = models.ImageField(
         upload_to=UPLOAD_TO_PATH,
+        validators=(
+            max_image_size,
+        )
     )
 
     price = models.FloatField(

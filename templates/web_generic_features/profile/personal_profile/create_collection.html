@@ -17,10 +17,12 @@
                         <div class="mt-3">
                             <label for="image" class="form-label">Collection Image:</label>
                             {{ form.image }}
+                            <div class="text-danger mt-2">{{ form.image.errors }}</div>
                         </div>
                         <div class="mt-3">
                             <label for="cover_image" class="form-label">Collection Cover Image:</label>
                             {{ form.cover_image }}
+                            <div class="text-danger mt-2">{{ form.cover_image.errors }}</div>
                         </div>
                         <div class="mt-3">
                             <label for="description" class="form-label">Collection Description:</label>

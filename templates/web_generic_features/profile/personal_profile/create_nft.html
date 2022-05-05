@@ -21,18 +21,22 @@
                             <div class="input-group">
                                 {{ form.image }}
                             </div>
+                            <div class="text-danger mt-2">{{ form.image.errors }}</div>
                         </div>
                         <div class="mt-3">
                             <label for="price" class="form-label">Price:</label>
                             <div class="input-group">
                                 {{ form.price }}
                             </div>
+                            <div class="text-danger mt-2">{{ form.price.errors }}</div>
+
                         </div>
                         <div class="mt-3">
                             <label for="quantity" class="form-label">Quantity:</label>
                             <div class="input-group">
                                 {{ form.quantity }}
                             </div>
+                            <div class="text-danger mt-2">{{ form.quantity.errors }}</div>
                         </div>
                         <div class="mt-3">
                             <label for="currency_type" class="form-label">Blockchain:</label>
