@@ -63,7 +63,7 @@
                         <hr class="dropdown-divider">
                     </li>
                     <li>
-                        <a class="dropdown-item" href="{% url 'personal profile workshop' request.user.pk %}">
+                        <a class="dropdown-item" href="{% url 'profile' request.user.pk %}">
                             <span>
                                 <i class="bi bi-brush"></i>
                                 Created
@@ -133,7 +133,7 @@
 
                 <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851">
                     <a class="text-dark text-decoration-none"
-                       href="{% url 'personal profile workshop' request.user.pk %}">
+                       href="{% url 'profile' request.user.pk %}">
                             <span>
                                 <i class="bi bi-brush"></i>
                                 Created

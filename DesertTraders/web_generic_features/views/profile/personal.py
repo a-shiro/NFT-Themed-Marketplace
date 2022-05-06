@@ -1,19 +1,26 @@
 from django.contrib.auth import mixins
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views import generic as generic_views
+from django.views import generic as dj_generic
 from django.core import exceptions as django_exceptions
 
 from DesertTraders.web_generic_features.forms import CreateCollectionForm, CreateNFTForm, EditProfileForm
+from DesertTraders.web_generic_features.views.profile.public import PublicProfileWorkshopView
 from DesertTraders.web_generic_features.views.view_helpers.helpers import check_if_button_active, \
     get_profile_nfts_and_nft_quantity, validate_user_info
-from DesertTraders.web_generic_features.views.view_helpers.mixins import OwnerAccessMixin, CollectionAccessMixin
+from DesertTraders.web_generic_features.views.view_helpers.mixins import CollectionAccessMixin
 from DesertTraders.web_generic_features.models import Profile, Collection, NFT
 from DesertTraders.web_generic_features.views.view_helpers.abstract import AbstractCollectionDetailsView
 
 
-class PersonalProfileWorkshopView(generic_views.DetailView, mixins.LoginRequiredMixin, OwnerAccessMixin):
+class ProfileView(dj_generic.View):
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.pk != kwargs['pk']:
+            return PublicProfileWorkshopView.as_view()(self.request, pk=kwargs['pk'])
+        return PersonalProfileWorkshopView.as_view()(self.request, pk=kwargs['pk'])
+
+
+class PersonalProfileWorkshopView(dj_generic.DetailView, mixins.LoginRequiredMixin):
     template_name = 'web_generic_features/profile/personal_profile/personal_workshop.html'
     model = Profile
 
@@ -29,7 +36,7 @@ class PersonalProfileWorkshopView(generic_views.DetailView, mixins.LoginRequired
         return context
 
 
-class PersonalProfileCollectionView(generic_views.DetailView, mixins.LoginRequiredMixin, OwnerAccessMixin):
+class PersonalProfileCollectionView(dj_generic.DetailView, mixins.LoginRequiredMixin):
     template_name = 'web_generic_features/profile/personal_profile/personal_collection.html'
     model = Profile
 
@@ -55,7 +62,7 @@ class WorkshopCollectionDetailsView(AbstractCollectionDetailsView, mixins.LoginR
         return super().get_context_data(**kwargs)
 
 
-class PersonalProfileFavoriteView(generic_views.DetailView, OwnerAccessMixin):
+class PersonalProfileFavoriteView(dj_generic.DetailView):
     template_name = 'web_generic_features/profile/personal_profile/personal_favorite.html'
     model = Profile
 
@@ -71,7 +78,7 @@ class PersonalProfileFavoriteView(generic_views.DetailView, OwnerAccessMixin):
         return context
 
 
-class EditProfileView(generic_views.UpdateView, mixins.LoginRequiredMixin, OwnerAccessMixin):
+class EditProfileView(dj_generic.UpdateView, mixins.LoginRequiredMixin):
     template_name = 'web_generic_features/profile/personal_profile/edit_profile.html'
     model = Profile
     form_class = EditProfileForm
@@ -80,7 +87,7 @@ class EditProfileView(generic_views.UpdateView, mixins.LoginRequiredMixin, Owner
         return reverse_lazy('personal profile workshop', kwargs={'pk': self.request.user.pk})
 
 
-class CreateCollectionView(generic_views.CreateView, mixins.LoginRequiredMixin):
+class CreateCollectionView(dj_generic.CreateView, mixins.LoginRequiredMixin):
     template_name = 'web_generic_features/profile/personal_profile/create_collection.html'
     form_class = CreateCollectionForm
 
@@ -95,7 +102,7 @@ class CreateCollectionView(generic_views.CreateView, mixins.LoginRequiredMixin):
         return reverse_lazy('personal profile workshop', kwargs={'pk': self.request.user.pk})
 
 
-class CreateNFTView(generic_views.CreateView, mixins.LoginRequiredMixin):
+class CreateNFTView(dj_generic.CreateView, mixins.LoginRequiredMixin):
     template_name = 'web_generic_features/profile/personal_profile/create_nft.html'
     form_class = CreateNFTForm
 
@@ -110,7 +117,7 @@ class CreateNFTView(generic_views.CreateView, mixins.LoginRequiredMixin):
         return reverse_lazy('personal profile workshop', kwargs={'pk': self.request.user.pk})
 
 
-class PostOnMarketView(generic_views.View, mixins.LoginRequiredMixin):
+class PostOnMarketView(dj_generic.View, mixins.LoginRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
         try:
             collection = Collection.objects.get(pk=kwargs['pk'], posted_for_sale=False)
@@ -132,7 +139,7 @@ class PostOnMarketView(generic_views.View, mixins.LoginRequiredMixin):
         return redirect('personal profile workshop', self.request.user.pk)
 
 
-class RemoveCollectionView(generic_views.View, mixins.LoginRequiredMixin):
+class RemoveCollectionView(dj_generic.View, mixins.LoginRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
         try:
             collection = Collection.objects.get(pk=kwargs['pk'], posted_for_sale=False)
@@ -152,7 +159,7 @@ class RemoveCollectionView(generic_views.View, mixins.LoginRequiredMixin):
         return redirect('personal profile workshop', self.request.user.pk)
 
 
-class RemoveNFTView(generic_views.View, mixins.LoginRequiredMixin):
+class RemoveNFTView(dj_generic.View, mixins.LoginRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
         try:
             nft = NFT.objects.get(pk=kwargs['pk'], collection__posted_for_sale=False)

@@ -32,17 +32,6 @@ class CompareUsersMixin(detail.BaseDetailView):
         return super().get(request, *args, **kwargs)
 
 
-class OwnerAccessMixin(generic_views.View):
-    def dispatch(self, request, *args, **kwargs):
-        try:
-            if self.request.user.pk != kwargs['pk']:
-                raise django_exceptions.BadRequest
-        except django_exceptions.BadRequest:
-            return redirect('400')
-
-        return super().dispatch(request, *args, **kwargs)
-
-
 class CollectionAccessMixin(generic_views.View):
     def dispatch(self, request, *args, **kwargs):
         try:

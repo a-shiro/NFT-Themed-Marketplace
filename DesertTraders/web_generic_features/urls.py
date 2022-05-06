@@ -5,11 +5,10 @@ from DesertTraders.web_generic_features.views.main import HomeView, PrivacyPolic
 from DesertTraders.web_generic_features.views.marketplace import MarketplaceView, CollectionDetailsView, \
     FavoriteNFTView, SortCollectionView, BuyNFTView, SearchMarketplaceView
 from DesertTraders.web_generic_features.views.profile.personal import PersonalProfileCollectionView, \
-    CreateCollectionView, CreateNFTView, PersonalProfileWorkshopView, EditProfileView, \
-    WorkshopCollectionDetailsView, PersonalProfileFavoriteView, PostOnMarketView, RemoveCollectionView, \
-    RemoveNFTView
-from DesertTraders.web_generic_features.views.profile.public import PublicProfileWorkshopView, \
-    PublicProfileCollectionView, PublicProfileFavoriteView
+    CreateCollectionView, CreateNFTView, EditProfileView, WorkshopCollectionDetailsView, PersonalProfileFavoriteView, \
+    PostOnMarketView, RemoveCollectionView, RemoveNFTView, ProfileView
+from DesertTraders.web_generic_features.views.profile.public import PublicProfileCollectionView, \
+    PublicProfileFavoriteView
 
 urlpatterns = [
     # Main tied urls
@@ -28,12 +27,10 @@ urlpatterns = [
     path('search', SearchMarketplaceView.as_view(), name='search marketplace'),  # Private
 
     # Personal Profile tied urls
-    path('profile/<int:pk>/workshop', PersonalProfileWorkshopView.as_view(), name='personal profile workshop'),
-    # Private
+    path('profile/<int:pk>/workshop', ProfileView.as_view(), name='profile'),
+
     path('profile/<int:pk>/collection', PersonalProfileCollectionView.as_view(), name='personal profile collection'),
-    # Private
     path('profile/<int:pk>/workshop/collection', WorkshopCollectionDetailsView.as_view(), name='workshop collection'),
-    # Private
     path('profile/<int:pk>/favorites', PersonalProfileFavoriteView.as_view(), name='personal profile favorites'),
 
     path('profile/<int:pk>/edit', EditProfileView.as_view(), name='edit profile'),  # Private
@@ -45,8 +42,6 @@ urlpatterns = [
     path('remove/nft/<int:pk>', RemoveNFTView.as_view(), name='remove nft'),  # Private
 
     # Public Profile tied urls
-    path('public-profile/<int:pk>/workshop', PublicProfileWorkshopView.as_view(), name='public profile'),  # Public
     path('public-profile/<int:pk>/collection', PublicProfileCollectionView.as_view(), name='public collection'),
-    # Public
-    path('public-profile/<int:pk>/favorites', PublicProfileFavoriteView.as_view(), name='public favorites'),  # Public
+    path('public-profile/<int:pk>/favorites', PublicProfileFavoriteView.as_view(), name='public favorites'),
 ]
