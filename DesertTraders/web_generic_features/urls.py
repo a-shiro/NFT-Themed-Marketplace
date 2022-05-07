@@ -4,44 +4,40 @@ from DesertTraders.web_generic_features.views.main import HomeView, PrivacyPolic
     TermsOfServiceView, bad_request_view, not_found_view
 from DesertTraders.web_generic_features.views.marketplace import MarketplaceView, CollectionDetailsView, \
     FavoriteNFTView, SortCollectionView, BuyNFTView, SearchMarketplaceView
-from DesertTraders.web_generic_features.views.profile.personal import PersonalProfileCollectionView, \
-    CreateCollectionView, CreateNFTView, EditProfileView, WorkshopCollectionDetailsView, PersonalProfileFavoriteView, \
-    PostOnMarketView, RemoveCollectionView, RemoveNFTView, ProfileView
-from DesertTraders.web_generic_features.views.profile.public import PublicProfileCollectionView, \
-    PublicProfileFavoriteView
+from DesertTraders.web_generic_features.views.profile.personal import CreateCollectionView, CreateNFTView, \
+    EditProfileView, WorkshopCollectionDetailsView, PostOnMarketView, RemoveCollectionView, \
+    RemoveNFTView, ProfileView, ProfileCollectionView, ProfileFavoriteView
 
 urlpatterns = [
     # Main tied urls
-    path('', HomeView.as_view(), name='home'),  # Public
-    path('privacy-policy', PrivacyPolicyView.as_view(), name='privacy policy'),  # Public
-    path('terms-of-service', TermsOfServiceView.as_view(), name='terms of service'),  # Public
-    path('bad-request', bad_request_view, name='400'),  # Public
-    path('not-found', not_found_view, name='404'),  # Public
+    path('', HomeView.as_view(), name='home'),
+    path('privacy-policy', PrivacyPolicyView.as_view(), name='privacy policy'),
+    path('terms-of-service', TermsOfServiceView.as_view(), name='terms of service'),
+    path('not-found', not_found_view, name='404'),
+    path('bad-request', bad_request_view, name='400'),
 
     # Marketplace tied urls
-    path('marketplace', MarketplaceView.as_view(), name='marketplace'),  # Public
-    path('collection/details/<int:pk>', CollectionDetailsView.as_view(), name='collection details'),  # Public
-    path('buy/<int:pk>', BuyNFTView.as_view(), name='buy nft'),  # Private
-    path('favorite/<int:pk>', FavoriteNFTView.as_view(), name='favorite nft'),  # Private
-    path('sort/<int:pk>', SortCollectionView.as_view(), name='sort collection'),  # Private
-    path('search', SearchMarketplaceView.as_view(), name='search marketplace'),  # Private
+    path('marketplace', MarketplaceView.as_view(), name='marketplace'),
+    path('search', SearchMarketplaceView.as_view(), name='search marketplace'),
+    path('collection/details/<int:pk>', CollectionDetailsView.as_view(), name='collection details'),
 
-    # Personal Profile tied urls
+    path('sort/<int:pk>', SortCollectionView.as_view(), name='sort collection'),
+    path('favorite/<int:pk>', FavoriteNFTView.as_view(), name='favorite nft'),
+    path('buy/<int:pk>', BuyNFTView.as_view(), name='buy nft'),
+
+    # Profile
     path('profile/<int:pk>/workshop', ProfileView.as_view(), name='profile'),
+    path('profile/<int:pk>/collection', ProfileCollectionView.as_view(), name='profile collection'),
+    path('profile/<int:pk>/favorites', ProfileFavoriteView.as_view(), name='profile favorite'),
 
-    path('profile/<int:pk>/collection', PersonalProfileCollectionView.as_view(), name='personal profile collection'),
-    path('profile/<int:pk>/workshop/collection', WorkshopCollectionDetailsView.as_view(), name='workshop collection'),
-    path('profile/<int:pk>/favorites', PersonalProfileFavoriteView.as_view(), name='personal profile favorites'),
+    # Personal Profile
+    path('profile/<int:pk>/workshop/collection', WorkshopCollectionDetailsView.as_view(), name='profile workshop'),
+    path('profile/<int:pk>/edit', EditProfileView.as_view(), name='edit profile'),
 
-    path('profile/<int:pk>/edit', EditProfileView.as_view(), name='edit profile'),  # Private
+    path('profile/create-collection', CreateCollectionView.as_view(), name='create collection'),
+    path('remove/<int:pk>', RemoveCollectionView.as_view(), name='remove collection'),
+    path('sell/<int:pk>', PostOnMarketView.as_view(), name='sell collection'),
 
-    path('profile/create-collection', CreateCollectionView.as_view(), name='create collection'),  # Private
-    path('profile/create-nft', CreateNFTView.as_view(), name='create nft'),  # Private
-    path('sell/<int:pk>', PostOnMarketView.as_view(), name='sell collection'),  # Private
-    path('remove/<int:pk>', RemoveCollectionView.as_view(), name='remove collection'),  # Private
-    path('remove/nft/<int:pk>', RemoveNFTView.as_view(), name='remove nft'),  # Private
-
-    # Public Profile tied urls
-    path('public-profile/<int:pk>/collection', PublicProfileCollectionView.as_view(), name='public collection'),
-    path('public-profile/<int:pk>/favorites', PublicProfileFavoriteView.as_view(), name='public favorites'),
+    path('profile/create-nft', CreateNFTView.as_view(), name='create nft'),
+    path('remove/nft/<int:pk>', RemoveNFTView.as_view(), name='remove nft'),
 ]

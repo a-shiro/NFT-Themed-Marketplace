@@ -5,7 +5,8 @@ from django.views import generic as dj_generic
 from django.core import exceptions as django_exceptions
 
 from DesertTraders.web_generic_features.forms import CreateCollectionForm, CreateNFTForm, EditProfileForm
-from DesertTraders.web_generic_features.views.profile.public import PublicProfileWorkshopView
+from DesertTraders.web_generic_features.views.profile.public import PublicProfileWorkshopView, \
+    PublicProfileCollectionView, PublicProfileFavoriteView
 from DesertTraders.web_generic_features.views.view_helpers.helpers import check_if_button_active, \
     get_profile_nfts_and_nft_quantity, validate_user_info
 from DesertTraders.web_generic_features.views.view_helpers.mixins import CollectionAccessMixin
@@ -18,6 +19,20 @@ class ProfileView(dj_generic.View):
         if self.request.user.pk != kwargs['pk']:
             return PublicProfileWorkshopView.as_view()(self.request, pk=kwargs['pk'])
         return PersonalProfileWorkshopView.as_view()(self.request, pk=kwargs['pk'])
+
+
+class ProfileCollectionView(dj_generic.View):
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.pk != kwargs['pk']:
+            return PublicProfileCollectionView.as_view()(self.request, pk=kwargs['pk'])
+        return PersonalProfileCollectionView.as_view()(self.request, pk=kwargs['pk'])
+
+
+class ProfileFavoriteView(dj_generic.View):
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.pk != kwargs['pk']:
+            return PublicProfileFavoriteView.as_view()(self.request, pk=kwargs['pk'])
+        return PersonalProfileFavoriteView.as_view()(self.request, pk=kwargs['pk'])
 
 
 class PersonalProfileWorkshopView(dj_generic.DetailView, mixins.LoginRequiredMixin):

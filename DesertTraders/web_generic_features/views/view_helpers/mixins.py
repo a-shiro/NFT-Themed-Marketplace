@@ -23,8 +23,8 @@ class CompareUsersMixin(detail.BaseDetailView):
             try:
                 CustomUser.objects.get(pk=kwargs['pk'])  # Checks if the user exists
 
-                session_user_pk = int(self.request.session.get('_auth_user_id'))
-                if match_users(session_user_pk, **kwargs):
+                current_user_pk = self.request.user.pk
+                if match_users(current_user_pk, **kwargs):
                     return redirect('personal profile workshop', pk=kwargs['pk'])
             except django_exceptions.ObjectDoesNotExist:
                 return redirect('404')

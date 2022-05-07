@@ -43,7 +43,7 @@
                 <div class="mt-5">
                     <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
                         <a class="text-dark text-decoration-none"
-                           href="{% url 'public collection' object.pk %}">
+                           href="{% url 'profile collection' object.pk %}">
                             <span>
                                 <i class="bi bi-folder-check"></i>
                                 Collected
@@ -53,7 +53,7 @@
 
                     <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
                         <a class="text-dark text-decoration-none"
-                           href="{% url 'public profile'  object.pk %}">
+                           href="{% url 'profile'  object.pk %}">
                             <span>
                                 <i class="bi bi-brush"></i>
                                 Created
@@ -63,7 +63,7 @@
 
                     <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
                         <a class="text-dark text-decoration-none"
-                           href="{% url 'public favorites' object.pk %}">
+                           href="{% url 'profile favorite' object.pk %}">
                             <span>
                                 <i class="bi bi-bookmark-heart"></i>
                                 Favorite
