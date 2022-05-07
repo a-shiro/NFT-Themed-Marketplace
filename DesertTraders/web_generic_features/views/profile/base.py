@@ -26,4 +26,3 @@ class ProfileFavoriteView(dj_generic.View):
             return PublicProfileFavoriteView.as_view()(self.request, pk=kwargs['pk'])
         return PersonalProfileFavoriteView.as_view()(self.request, pk=kwargs['pk'])
 
-

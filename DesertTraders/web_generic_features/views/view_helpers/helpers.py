@@ -1,6 +1,6 @@
 from django.core import exceptions as django_exceptions
 
-from DesertTraders.web_generic_features.models import Collection, Collected, Favorite
+from DesertTraders.web_generic_features.models import Collection, Collected, Favorite, NFT
 
 
 def transaction(profile, nft):
@@ -47,11 +47,33 @@ def validate_info(profile, nft):
     return False  # Valid
 
 
-def validate_user_info(request, collection):
-    collection_owner_pk = collection.user.pk
-
-    if collection_owner_pk != request.user.pk:
+def validate_user_info(request, owner_pk):
+    if owner_pk != request.user.pk:
         raise django_exceptions.BadRequest
+    return None
+
+
+def validate_and_post(request, collection):
+    owner_pk = collection.user.pk
+
+    validate_user_info(request, owner_pk)
+
+    collection.posted_for_sale = True
+    collection.save()
+
+    return None
+
+
+def validate_and_remove(request, instance):
+    if isinstance(instance, Collection):
+        owner_pk = instance.user.pk
+    else:
+        owner_pk = instance.collection.user.pk
+
+    validate_user_info(request, owner_pk)
+
+    instance.delete()
+
     return None
 
 

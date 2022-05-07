@@ -7,13 +7,14 @@ from django.urls import reverse_lazy
 from DesertTraders.web_generic_features.forms import EditProfileForm, CreateCollectionForm, CreateNFTForm
 from DesertTraders.web_generic_features.models import Profile, Collection, NFT
 from DesertTraders.web_generic_features.views.view_helpers.helpers import check_if_button_active, \
-    get_profile_nfts_and_nft_quantity, validate_user_info
-from DesertTraders.web_generic_features.views.view_helpers.mixins import OwnerAccessMixin, CollectionContentMixin
+    get_profile_nfts_and_nft_quantity, validate_user_info, validate_and_post, validate_and_remove
+from DesertTraders.web_generic_features.views.view_helpers.mixins import OwnerAccessMixin, CollectionContentMixin, \
+    CreateViewMixin, ActionMixin
 
 
 class PersonalProfileWorkshopView(dj_generic.DetailView, dj_mixins.LoginRequiredMixin):
-    template_name = 'web_generic_features/profile/personal_profile/personal_workshop.html'
     model = Profile
+    template_name = 'web_generic_features/profile/personal_profile/personal_workshop.html'
 
     def get_context_data(self, **kwargs):
         profile_collections = Collection.objects.filter(user=self.request.user).order_by('-posted_for_sale')
@@ -28,8 +29,8 @@ class PersonalProfileWorkshopView(dj_generic.DetailView, dj_mixins.LoginRequired
 
 
 class PersonalProfileCollectionView(dj_generic.DetailView, dj_mixins.LoginRequiredMixin):
-    template_name = 'web_generic_features/profile/personal_profile/personal_collection.html'
     model = Profile
+    template_name = 'web_generic_features/profile/personal_profile/personal_collection.html'
 
     def get_context_data(self, **kwargs):
         profile_nfts_and_nft_quantity = get_profile_nfts_and_nft_quantity(self.object)
@@ -43,8 +44,8 @@ class PersonalProfileCollectionView(dj_generic.DetailView, dj_mixins.LoginRequir
 
 
 class PersonalProfileFavoriteView(dj_generic.DetailView):
-    template_name = 'web_generic_features/profile/personal_profile/personal_favorite.html'
     model = Profile
+    template_name = 'web_generic_features/profile/personal_profile/personal_favorite.html'
 
     def get_context_data(self, **kwargs):
         favorite_nfts = NFT.objects.filter(favorite__profile_id=self.object, favorite__favorite=True)
@@ -66,102 +67,69 @@ class WorkshopCollectionDetailsView(dj_mixins.LoginRequiredMixin, CollectionCont
 
 
 class EditProfileView(dj_generic.UpdateView, dj_mixins.LoginRequiredMixin):
-    template_name = 'web_generic_features/profile/personal_profile/edit_profile.html'
     model = Profile
     form_class = EditProfileForm
+    template_name = 'web_generic_features/profile/personal_profile/edit_profile.html'
 
     def get_success_url(self):
         return reverse_lazy('profile', kwargs={'pk': self.request.user.pk})
 
 
-class CreateCollectionView(dj_generic.CreateView, dj_mixins.LoginRequiredMixin):
-    template_name = 'web_generic_features/profile/personal_profile/create_collection.html'
+class CreateCollectionView(CreateViewMixin):
     form_class = CreateCollectionForm
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-
-        kwargs['user'] = self.request.user
-
-        return kwargs
-
-    def get_success_url(self):
-        return reverse_lazy('personal profile workshop', kwargs={'pk': self.request.user.pk})
+    template_name = 'web_generic_features/profile/personal_profile/create_collection.html'
 
 
-class CreateNFTView(dj_generic.CreateView, dj_mixins.LoginRequiredMixin):
-    template_name = 'web_generic_features/profile/personal_profile/create_nft.html'
+class CreateNFTView(CreateViewMixin):
     form_class = CreateNFTForm
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-
-        kwargs['user'] = self.request.user
-
-        return kwargs
-
-    def get_success_url(self):
-        return reverse_lazy('personal profile workshop', kwargs={'pk': self.request.user.pk})
+    template_name = 'web_generic_features/profile/personal_profile/create_nft.html'
 
 
-class PostOnMarketView(dj_generic.View, dj_mixins.LoginRequiredMixin):
+class PostOnMarketView(ActionMixin):
     def dispatch(self, request, *args, **kwargs):
         try:
             collection = Collection.objects.get(pk=kwargs['pk'], posted_for_sale=False)
 
-            validate_user_info(request, collection)
-
-            collection.posted_for_sale = True
-
-            collection.save()
+            super().dispatch(request, instance=collection, action=validate_and_post)
 
             return self.redirect()
+
         except dj_exceptions.ObjectDoesNotExist:
             return redirect('404')
-
         except dj_exceptions.BadRequest:
             return redirect('400')
 
-    def redirect(self):
-        return redirect('personal profile workshop', self.request.user.pk)
 
-
-class RemoveCollectionView(dj_generic.View, dj_mixins.LoginRequiredMixin):
+class RemoveCollectionView(ActionMixin):
     def dispatch(self, request, *args, **kwargs):
         try:
             collection = Collection.objects.get(pk=kwargs['pk'], posted_for_sale=False)
 
-            validate_user_info(request, collection)
-
-            collection.delete()
+            super().dispatch(request, instance=collection, action=validate_and_remove)
 
             return self.redirect()
+
         except dj_exceptions.ObjectDoesNotExist:
             return redirect('404')
-
         except dj_exceptions.BadRequest:
             return redirect('400')
 
-    def redirect(self):
-        return redirect('personal profile workshop', self.request.user.pk)
 
-
-class RemoveNFTView(dj_generic.View, dj_mixins.LoginRequiredMixin):
+class RemoveNFTView(ActionMixin):
     def dispatch(self, request, *args, **kwargs):
         try:
             nft = NFT.objects.get(pk=kwargs['pk'], collection__posted_for_sale=False)
-            collection = nft.collection
+            redirect_to = nft.collection.pk
 
-            validate_user_info(request, collection)
+            super().dispatch(request, instance=nft, action=validate_and_remove)
 
-            nft.delete()
+            return self.redirect(redirect_to)
 
-            return self.redirect()
         except dj_exceptions.ObjectDoesNotExist:
             return redirect('404')
-
         except dj_exceptions.BadRequest:
             return redirect('400')
 
-    def redirect(self):
-        return redirect('personal profile workshop', self.request.user.pk)  # Fix to redirect to collection
+    def redirect(self, redirect_to):
+        return redirect('workshop collection', redirect_to)
+

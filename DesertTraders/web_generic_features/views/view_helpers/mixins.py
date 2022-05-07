@@ -1,9 +1,34 @@
 from django import views as dj_views
-from django.shortcuts import redirect
-from django.views import generic as dj_generic
+from django.contrib.auth import mixins as dj_mixins
 from django.core import exceptions as dj_exceptions
+from django.views import generic as dj_generic
+from django.urls import reverse_lazy
+from django.shortcuts import redirect
 
 from DesertTraders.web_generic_features.models import Collection
+
+
+class ActionMixin(dj_generic.View, dj_mixins.LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        action = kwargs['action']
+        instance = kwargs['instance']
+
+        action(request, instance)
+
+    def redirect(self, *args, **kwargs):
+        return redirect('profile', self.request.user.pk)
+
+
+class CreateViewMixin(dj_generic.CreateView, dj_mixins.LoginRequiredMixin):
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+
+        kwargs['user'] = self.request.user
+
+        return kwargs
+
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs={'pk': self.request.user.pk})
 
 
 class CollectionContentMixin(dj_generic.DetailView):
@@ -54,5 +79,3 @@ class SimpleStaticPageMixin(dj_generic.base.ContextMixin):
 
         context['show_footer'] = True
         return context
-
-

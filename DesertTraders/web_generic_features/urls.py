@@ -33,7 +33,7 @@ urlpatterns = [
     path('profile/<int:pk>/favorites', ProfileFavoriteView.as_view(), name='profile favorite'),
 
     # Personal Profile
-    path('profile/<int:pk>/workshop/collection', WorkshopCollectionDetailsView.as_view(), name='profile workshop'),
+    path('profile/<int:pk>/workshop/collection', WorkshopCollectionDetailsView.as_view(), name='workshop collection'),
     path('profile/<int:pk>/edit', EditProfileView.as_view(), name='edit profile'),
 
     path('profile/create-collection', CreateCollectionView.as_view(), name='create collection'),
