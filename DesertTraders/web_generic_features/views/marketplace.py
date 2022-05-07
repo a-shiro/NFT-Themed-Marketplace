@@ -4,9 +4,9 @@ from django.core import exceptions as django_exceptions
 from django.contrib.auth import mixins
 
 from DesertTraders.web_generic_features.models import NFT, Collection
-from DesertTraders.web_generic_features.views.view_helpers.abstract import AbstractCollectionDetailsView
 from DesertTraders.web_generic_features.views.view_helpers.helpers import transaction, validate_info, favorite_nft, \
     get_nfts_and_favorite
+from DesertTraders.web_generic_features.views.view_helpers.mixins import CollectionContentMixin
 
 
 class MarketplaceView(generic_views.TemplateView):
@@ -23,19 +23,17 @@ class MarketplaceView(generic_views.TemplateView):
         return context
 
 
-class CollectionDetailsView(AbstractCollectionDetailsView):
+class CollectionDetailsView(CollectionContentMixin):
     template_name = 'web_generic_features/marketplace/collection_details.html'
 
     def get(self, request, *args, **kwargs):
         return super().get(request, pk=kwargs['pk'], posted_for_sale=True)
 
     def get_context_data(self, **kwargs):
-        collection = Collection.objects.get(pk=self.object.pk)
-        nfts = collection.nft_set.all()
-
-        nfts_and_favorite_pair = get_nfts_and_favorite(iterable=nfts, profile=self.request.user.profile)
-
         context = super().get_context_data(**kwargs)
+
+        nfts_and_favorite_pair = get_nfts_and_favorite(iterable=context['total_nfts'], profile=self.request.user.profile)
+
         context['nfts_and_favorite_pair'] = nfts_and_favorite_pair
 
         return context

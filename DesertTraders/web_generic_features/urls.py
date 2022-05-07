@@ -6,17 +6,19 @@ from DesertTraders.web_generic_features.views.marketplace import MarketplaceView
     FavoriteNFTView, SortCollectionView, BuyNFTView, SearchMarketplaceView
 from DesertTraders.web_generic_features.views.profile.personal import CreateCollectionView, CreateNFTView, \
     EditProfileView, WorkshopCollectionDetailsView, PostOnMarketView, RemoveCollectionView, \
-    RemoveNFTView, ProfileView, ProfileCollectionView, ProfileFavoriteView
+    RemoveNFTView
+from DesertTraders.web_generic_features.views.profile.base import ProfileView, ProfileCollectionView, \
+    ProfileFavoriteView
 
 urlpatterns = [
-    # Main tied urls
+    # Main
     path('', HomeView.as_view(), name='home'),
     path('privacy-policy', PrivacyPolicyView.as_view(), name='privacy policy'),
     path('terms-of-service', TermsOfServiceView.as_view(), name='terms of service'),
     path('not-found', not_found_view, name='404'),
     path('bad-request', bad_request_view, name='400'),
 
-    # Marketplace tied urls
+    # Marketplace
     path('marketplace', MarketplaceView.as_view(), name='marketplace'),
     path('search', SearchMarketplaceView.as_view(), name='search marketplace'),
     path('collection/details/<int:pk>', CollectionDetailsView.as_view(), name='collection details'),

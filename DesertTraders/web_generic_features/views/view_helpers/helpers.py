@@ -38,12 +38,6 @@ def get_profile_nfts_and_nft_quantity(profile):
     return result
 
 
-def match_users(session_user_pk, **kwargs):
-    if session_user_pk == kwargs['pk']:
-        return True
-    return False
-
-
 def validate_info(profile, nft):
     nft_quantity_left = nft.quantity
     transaction_cost = profile.balance.balance - nft.price
