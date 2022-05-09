@@ -36,5 +36,5 @@ def bad_request_view(request):
     return render(request, 'web_generic_features/main/400.html', status=400)
 
 
-def not_found_view(request):
+def not_found_view(request, exception):
     return render(request, 'web_generic_features/main/404.html', status=404)

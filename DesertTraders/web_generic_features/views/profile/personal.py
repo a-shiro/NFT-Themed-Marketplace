@@ -1,6 +1,5 @@
 from django.contrib.auth import mixins as dj_mixins
 from django.views import generic as dj_generic
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
 from DesertTraders.web_generic_features.models import Profile, Collection, NFT
@@ -58,7 +57,7 @@ class PersonalProfileFavoriteView(dj_generic.DetailView):
         return context
 
 
-class PersonalCollectionDetailsView(dj_mixins.LoginRequiredMixin, CollectionContentMixin, OwnerAccessMixin):
+class PersonalProfileCollectionDetailsView(dj_mixins.LoginRequiredMixin, CollectionContentMixin, OwnerAccessMixin):
     template_name = 'web_generic_features/profile/personal_profile/workshop_collection_details.html'
 
     def get(self, request, *args, **kwargs):

@@ -37,7 +37,7 @@
                     <h1>{{ profile.username }}</h1>
                 </div>
                 <div>
-                    <h5 class="text-secondary">Joined {{ request.user.date_joined|date:'F Y' }}</h5>
+                    <h5 class="text-secondary">Joined {{ profile.user.date_joined|date:'F Y' }}</h5>
                 </div>
                 {% block profile_buttons %}
 

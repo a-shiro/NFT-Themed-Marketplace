@@ -1,6 +1,7 @@
 from django import views as dj_views
 from django.contrib.auth import mixins as dj_mixins
 from django.core import exceptions as dj_exceptions
+from django.http import Http404
 from django.views import generic as dj_generic
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
@@ -8,7 +9,7 @@ from django.shortcuts import redirect
 from DesertTraders.web_generic_features.models import Collection
 
 
-class ActionMixin(dj_generic.View, dj_mixins.LoginRequiredMixin):
+class ActionMixin(dj_generic.View):
     def dispatch(self, request, *args, **kwargs):
         action = kwargs['action']
         instance = kwargs['instance']
@@ -41,12 +42,11 @@ class CollectionContentMixin(dj_generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         try:
-            Collection.objects.get(pk=kwargs['pk'],
-                                   posted_for_sale=kwargs['posted_for_sale'])  # Checks if the user exists
+            Collection.objects.get(pk=kwargs['pk'], posted_for_sale=kwargs['posted_for_sale'])
 
             return super().get(request, *args, **kwargs)
         except dj_exceptions.ObjectDoesNotExist:
-            return redirect('404')  # Return Custom 404 Page
+            raise Http404
 
     def get_context_data(self, **kwargs):
         collection = self.object

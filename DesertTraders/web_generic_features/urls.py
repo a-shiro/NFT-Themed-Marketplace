@@ -5,7 +5,7 @@ from DesertTraders.web_generic_features.views.main import HomeView, PrivacyPolic
 from DesertTraders.web_generic_features.views.marketplace import MarketplaceView, CollectionDetailsView, \
     FavoriteNFTView, SortCollectionView, BuyNFTView, SearchMarketplaceView
 from DesertTraders.web_generic_features.views.profile.personal import CreateCollectionView, CreateNFTView, \
-    EditProfileView, PersonalCollectionDetailsView, SellOnMarketView, RemoveCollectionView, \
+    EditProfileView, PersonalProfileCollectionDetailsView, SellOnMarketView, RemoveCollectionView, \
     RemoveNFTView
 from DesertTraders.web_generic_features.views.profile.base import ProfileView, ProfileCollectionView, \
     ProfileFavoriteView
@@ -33,7 +33,7 @@ urlpatterns = [
     path('profile/<int:pk>/favorites', ProfileFavoriteView.as_view(), name='profile favorite'),
 
     # Personal Profile
-    path('profile/<int:pk>/workshop/collection/details', PersonalCollectionDetailsView.as_view(),
+    path('profile/<int:pk>/workshop/collection/details', PersonalProfileCollectionDetailsView.as_view(),
          name='personal collection details'),
     path('profile/<int:pk>/edit', EditProfileView.as_view(), name='edit profile'),
 

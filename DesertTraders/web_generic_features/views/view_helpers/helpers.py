@@ -113,6 +113,20 @@ def get_nfts_and_favorite(iterable, **kwargs):
     return result
 
 
+def get_nfts_when_user_anonymous(iterable, **kwargs):
+    result = []
+
+    ordering = kwargs.get('ordering')  # get ordering func here
+
+    if not ordering:
+        ordering = 'title'
+
+    for nft in iterable.order_by(ordering):
+        result.append((nft, False))
+
+    return result
+
+
 def get_most_popular():
     result = {}
 
