@@ -4,7 +4,7 @@ from django.core import exceptions as django_exceptions
 from django.contrib.auth import mixins
 
 from DesertTraders.web_generic_features.models import NFT, Collection
-from DesertTraders.web_generic_features.views.view_helpers.helpers import transaction, validate_info, favorite_nft, \
+from DesertTraders.web_generic_features.views.view_helpers.helpers import transaction, favorite_nft, \
     get_nfts_and_favorite
 from DesertTraders.web_generic_features.views.view_helpers.mixins import CollectionContentMixin, ActionMixin
 
