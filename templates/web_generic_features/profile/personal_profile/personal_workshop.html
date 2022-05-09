@@ -1,10 +1,10 @@
 {% extends 'web_generic_features/profile/personal_profile/personal_profile_details.html' %}
 
 {% block profile_content %}
-    {% if profile_collections %}
+    {% if collections %}
         <div class="container-fluid">
             <div class="row p-3">
-                {% for collection in profile_collections %}
+                {% for collection in collections %}
                     {% if collection.posted_for_sale %}
                         <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
                             <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
@@ -40,7 +40,7 @@
                                 <div class="card-body text-center">
                                     <h4 class="mt-2">
                                         <a class="text-decoration-none custom-link-desert "
-                                           href="{% url 'workshop collection' collection.pk %}">
+                                           href="{% url 'workshop collection details' collection.pk %}">
                                             {{ collection.title|truncatechars:22 }}
                                         </a>
                                     </h4>

@@ -1,10 +1,10 @@
 {% extends 'web_generic_features/profile/personal_profile/personal_profile_details.html' %}
 
 {% block profile_content %}
-    {% if profile_nfts_and_nft_quantity %}
+    {% if nft_and_quantity_pair %}
         <div class="container-fluid">
             <div class="row p-3">
-                {% for nft, nft_quantity in profile_nfts_and_nft_quantity %}
+                {% for nft, nft_quantity in nft_and_quantity_pair %}
                     <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
                         <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
                             <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;"

@@ -3,7 +3,9 @@ from django.core import exceptions as django_exceptions
 from DesertTraders.web_generic_features.models import Collection, Collected, Favorite, NFT
 
 
-def transaction(profile, nft):
+def transaction(request, nft):
+    profile = request.user.profile
+
     if nft in profile.collection.all():
         collected_nft = Collected.objects.get(profile=profile, NFT=nft)
         collected_nft.quantity += 1

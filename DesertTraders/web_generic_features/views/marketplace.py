@@ -6,7 +6,7 @@ from django.contrib.auth import mixins
 from DesertTraders.web_generic_features.models import NFT, Collection
 from DesertTraders.web_generic_features.views.view_helpers.helpers import transaction, validate_info, favorite_nft, \
     get_nfts_and_favorite
-from DesertTraders.web_generic_features.views.view_helpers.mixins import CollectionContentMixin
+from DesertTraders.web_generic_features.views.view_helpers.mixins import CollectionContentMixin, ActionMixin
 
 
 class MarketplaceView(generic_views.TemplateView):
@@ -32,27 +32,24 @@ class CollectionDetailsView(CollectionContentMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        nfts_and_favorite_pair = get_nfts_and_favorite(iterable=context['total_nfts'], profile=self.request.user.profile)
+        nfts_and_favorite_pair = get_nfts_and_favorite(iterable=context['total_nfts'],
+                                                       profile=self.request.user.profile)
 
         context['nfts_and_favorite_pair'] = nfts_and_favorite_pair
 
         return context
 
 
-class BuyNFTView(generic_views.View, mixins.LoginRequiredMixin):
+class BuyNFTView(ActionMixin):
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            try:
-                nft = NFT.objects.get(pk=kwargs['pk'], collection__posted_for_sale=True)
+        try:
+            nft = NFT.objects.get(pk=kwargs['pk'], collection__posted_for_sale=True)
 
-                if validate_info(self.request.user.profile, nft):
-                    return redirect('400')
+            super().dispatch(request, instance=nft, action=transaction)
 
-                transaction(request.user.profile, nft)
-
-                return self.redirect(**kwargs)
-            except django_exceptions.ObjectDoesNotExist:
-                return redirect('404')
+            return self.redirect(**kwargs)
+        except django_exceptions.ObjectDoesNotExist:
+            return redirect('404')
 
     @staticmethod
     def redirect(**kwargs):

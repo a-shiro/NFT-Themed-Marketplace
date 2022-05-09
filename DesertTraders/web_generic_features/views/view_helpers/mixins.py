@@ -16,7 +16,9 @@ class ActionMixin(dj_generic.View, dj_mixins.LoginRequiredMixin):
         action(request, instance)
 
     def redirect(self, *args, **kwargs):
-        return redirect('profile', self.request.user.pk)
+        profile_pk = self.request.user.pk
+
+        return redirect('profile', profile_pk)
 
 
 class CreateViewMixin(dj_generic.CreateView, dj_mixins.LoginRequiredMixin):
@@ -28,7 +30,9 @@ class CreateViewMixin(dj_generic.CreateView, dj_mixins.LoginRequiredMixin):
         return kwargs
 
     def get_success_url(self):
-        return reverse_lazy('profile', kwargs={'pk': self.request.user.pk})
+        profile_pk = self.request.user.pk
+
+        return reverse_lazy('profile', kwargs={'pk': profile_pk})
 
 
 class CollectionContentMixin(dj_generic.DetailView):
@@ -38,10 +42,10 @@ class CollectionContentMixin(dj_generic.DetailView):
         try:
             Collection.objects.get(pk=kwargs['pk'],
                                    posted_for_sale=kwargs['posted_for_sale'])  # Checks if the user exists
+
+            return super().get(request, *args, **kwargs)
         except dj_exceptions.ObjectDoesNotExist:
             return redirect('404')  # Return Custom 404 Page
-
-        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         collection = self.object
@@ -64,13 +68,14 @@ class OwnerAccessMixin(dj_views.View):
 
             if collection_owner != self.request.user.pk:
                 raise dj_exceptions.BadRequest
+
+            return super().dispatch(request, *args, **kwargs)
+
         except dj_exceptions.BadRequest:
             return redirect('400')
 
         except dj_exceptions.ObjectDoesNotExist:
             return redirect('404')
-
-        return super().dispatch(request, *args, **kwargs)
 
 
 class SimpleStaticPageMixin(dj_generic.base.ContextMixin):

@@ -54,7 +54,7 @@
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                {% if nft_add_button_active %}
+                {% if add_nft %}
                     <li>
                         <a class="dropdown-item" href="{% url 'create nft' %}">
                             <span>
@@ -121,7 +121,7 @@
                 </a>
             </button>
 
-            {% if nft_add_button_active %}
+            {% if add_nft %}
                 <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
                     <a class="text-dark text-decoration-none"
                        href="{% url 'create nft' %}">
