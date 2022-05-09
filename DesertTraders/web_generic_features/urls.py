@@ -5,7 +5,7 @@ from DesertTraders.web_generic_features.views.main import HomeView, PrivacyPolic
 from DesertTraders.web_generic_features.views.marketplace import MarketplaceView, CollectionDetailsView, \
     FavoriteNFTView, SortCollectionView, BuyNFTView, SearchMarketplaceView
 from DesertTraders.web_generic_features.views.profile.personal import CreateCollectionView, CreateNFTView, \
-    EditProfileView, WorkshopCollectionDetailsView, PostOnMarketView, RemoveCollectionView, \
+    EditProfileView, PersonalCollectionDetailsView, SellOnMarketView, RemoveCollectionView, \
     RemoveNFTView
 from DesertTraders.web_generic_features.views.profile.base import ProfileView, ProfileCollectionView, \
     ProfileFavoriteView
@@ -33,13 +33,13 @@ urlpatterns = [
     path('profile/<int:pk>/favorites', ProfileFavoriteView.as_view(), name='profile favorite'),
 
     # Personal Profile
-    path('profile/<int:pk>/workshop/collection/details', WorkshopCollectionDetailsView.as_view(),
-         name='workshop collection details'),
+    path('profile/<int:pk>/workshop/collection/details', PersonalCollectionDetailsView.as_view(),
+         name='personal collection details'),
     path('profile/<int:pk>/edit', EditProfileView.as_view(), name='edit profile'),
 
     path('profile/create-collection', CreateCollectionView.as_view(), name='create collection'),
     path('remove/<int:pk>', RemoveCollectionView.as_view(), name='remove collection'),
-    path('sell/<int:pk>', PostOnMarketView.as_view(), name='sell collection'),
+    path('sell/<int:pk>', SellOnMarketView.as_view(), name='sell collection'),
 
     path('profile/create-nft', CreateNFTView.as_view(), name='create nft'),
     path('remove/nft/<int:pk>', RemoveNFTView.as_view(), name='remove nft'),

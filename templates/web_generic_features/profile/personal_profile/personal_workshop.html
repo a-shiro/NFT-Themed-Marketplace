@@ -40,7 +40,7 @@
                                 <div class="card-body text-center">
                                     <h4 class="mt-2">
                                         <a class="text-decoration-none custom-link-desert "
-                                           href="{% url 'workshop collection details' collection.pk %}">
+                                           href="{% url 'personal collection details' collection.pk %}">
                                             {{ collection.title|truncatechars:22 }}
                                         </a>
                                     </h4>
@@ -53,7 +53,9 @@
                                         {% if collection.nft_set.all|length_is:4 %}
                                             <div class="col-8 text-start">
                                                 <button class="btn btn-sm custom-btn-desert text-light">
-                                                    <a class="text-decoration-none text-light" href="{% url 'sell collection' collection.pk %}">Post on Market</a>
+                                                    <a class="text-decoration-none text-light"
+                                                       href="{% url 'sell collection' collection.pk %}">Sell on
+                                                        Market</a>
                                                 </button>
                                             </div>
                                         {% else %}
@@ -61,14 +63,15 @@
                                                 <button class="btn btn-sm btn-secondary text-light"
                                                         style="border-radius: 10px"
                                                         title="A Total of 4 NFT are Required in Order to Sell this Collection">
-                                                    Post On Market
+                                                    Sell On Market
                                                 </button>
                                             </div>
                                         {% endif %}
                                         <div class="col-4 text-end">
                                             <button class="btn btn-sm text-light"
                                                     style="border-radius: 10px; background-color: rgb(255,64,64)">
-                                                <a class="text-decoration-none text-light" href="{% url 'remove collection' collection.pk %}">Remove</a>
+                                                <a class="text-decoration-none text-light"
+                                                   href="{% url 'remove collection' collection.pk %}">Remove</a>
                                             </button>
                                         </div>
                                     </div>

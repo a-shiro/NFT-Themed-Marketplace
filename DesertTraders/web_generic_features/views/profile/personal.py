@@ -3,10 +3,10 @@ from django.views import generic as dj_generic
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
-from DesertTraders.web_generic_features.forms import EditProfileForm, CreateCollectionForm, CreateNFTForm
 from DesertTraders.web_generic_features.models import Profile, Collection, NFT
+from DesertTraders.web_generic_features.forms import EditProfileForm, CreateCollectionForm, CreateNFTForm
 from DesertTraders.web_generic_features.views.view_helpers.helpers import check_if_button_active, \
-    get_profile_nfts_and_nft_quantity, validate_and_post, validate_and_remove
+    get_profile_nfts_and_nft_quantity, validate_and_sell, validate_and_remove
 from DesertTraders.web_generic_features.views.view_helpers.mixins import OwnerAccessMixin, CollectionContentMixin, \
     CreateViewMixin, ActionMixin
 
@@ -58,11 +58,21 @@ class PersonalProfileFavoriteView(dj_generic.DetailView):
         return context
 
 
-class WorkshopCollectionDetailsView(dj_mixins.LoginRequiredMixin, CollectionContentMixin, OwnerAccessMixin):
+class PersonalCollectionDetailsView(dj_mixins.LoginRequiredMixin, CollectionContentMixin, OwnerAccessMixin):
     template_name = 'web_generic_features/profile/personal_profile/workshop_collection_details.html'
 
     def get(self, request, *args, **kwargs):
         return super().get(request, pk=kwargs['pk'], posted_for_sale=False)
+
+
+class CreateCollectionView(CreateViewMixin):
+    form_class = CreateCollectionForm
+    template_name = 'web_generic_features/profile/personal_profile/create_collection.html'
+
+
+class CreateNFTView(CreateViewMixin):
+    form_class = CreateNFTForm
+    template_name = 'web_generic_features/profile/personal_profile/create_nft.html'
 
 
 class EditProfileView(dj_generic.UpdateView, dj_mixins.LoginRequiredMixin):
@@ -76,23 +86,18 @@ class EditProfileView(dj_generic.UpdateView, dj_mixins.LoginRequiredMixin):
         return reverse_lazy('profile', kwargs={'pk': profile_pk})
 
 
-class CreateCollectionView(CreateViewMixin):
-    form_class = CreateCollectionForm
-    template_name = 'web_generic_features/profile/personal_profile/create_collection.html'
-
-
-class CreateNFTView(CreateViewMixin):
-    form_class = CreateNFTForm
-    template_name = 'web_generic_features/profile/personal_profile/create_nft.html'
-
-
-class PostOnMarketView(ActionMixin):
+class SellOnMarketView(ActionMixin):
     def dispatch(self, request, *args, **kwargs):
         collection = Collection.objects.get(pk=kwargs['pk'], posted_for_sale=False)
 
-        super().dispatch(request, instance=collection, action=validate_and_post)
+        super().dispatch(request, instance=collection, action=validate_and_sell)
 
-        return self.redirect()
+        return self.redirect(*args, **kwargs)
+
+    def redirect(self, *args, **kwargs):
+        profile_pk = self.request.user.pk
+
+        return super().redirect(redirect_to='profile', redirect_pk=profile_pk)
 
 
 class RemoveCollectionView(ActionMixin):
@@ -101,17 +106,24 @@ class RemoveCollectionView(ActionMixin):
 
         super().dispatch(request, instance=collection, action=validate_and_remove)
 
-        return self.redirect()
+        return self.redirect(*args, **kwargs)
+
+    def redirect(self, *args, **kwargs):
+        profile_pk = self.request.user.pk
+
+        return super().redirect(redirect_to='profile', redirect_pk=profile_pk)
 
 
 class RemoveNFTView(ActionMixin):
     def dispatch(self, request, *args, **kwargs):
         nft = NFT.objects.get(pk=kwargs['pk'], collection__posted_for_sale=False)
-        redirect_to = nft.collection.pk
+        collection_pk = nft.collection.pk
 
         super().dispatch(request, instance=nft, action=validate_and_remove)
 
-        return self.redirect(redirect_to)
+        return self.redirect(collection_pk=collection_pk)
 
-    def redirect(self, redirect_to):
-        return redirect('workshop collection', redirect_to)
+    def redirect(self, *args, **kwargs):
+        collection_pk = kwargs['collection_pk']
+
+        return super().redirect(redirect_to='personal collection details', redirect_pk=collection_pk)

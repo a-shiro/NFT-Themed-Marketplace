@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block profile_content %}
-    {% if profile_collections %}
+    {% if collections %}
         <div class="container-fluid">
             <div class="row p-3">
-                {% for collection in profile_collections %}
+                {% for collection in collections %}
                     {% if collection.posted_for_sale %}
                         <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
                             <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">

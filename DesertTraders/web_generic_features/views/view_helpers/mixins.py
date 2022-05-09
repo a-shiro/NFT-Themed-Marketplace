@@ -16,9 +16,10 @@ class ActionMixin(dj_generic.View, dj_mixins.LoginRequiredMixin):
         action(request, instance)
 
     def redirect(self, *args, **kwargs):
-        profile_pk = self.request.user.pk
+        redirect_to = kwargs['redirect_to']
+        redirect_pk = kwargs['redirect_pk']
 
-        return redirect('profile', profile_pk)
+        return redirect(redirect_to, redirect_pk)
 
 
 class CreateViewMixin(dj_generic.CreateView, dj_mixins.LoginRequiredMixin):

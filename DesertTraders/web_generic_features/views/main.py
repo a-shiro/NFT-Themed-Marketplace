@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic as generic_views
 
-from DesertTraders.web_generic_features.views.view_helpers.helpers import get_collections
+from DesertTraders.web_generic_features.views.view_helpers.helpers import get_most_popular
 from DesertTraders.web_generic_features.views.view_helpers.mixins import SimpleStaticPageMixin
 
 
@@ -9,7 +9,7 @@ class HomeView(generic_views.TemplateView):
     template_name = 'web_generic_features/main/home.html'
 
     def get_context_data(self, **kwargs):
-        most_popular_collections = get_collections()
+        most_popular_collections = get_most_popular()
 
         carousel_first_page = most_popular_collections[0:3]
         carousel_second_page = most_popular_collections[3:6]

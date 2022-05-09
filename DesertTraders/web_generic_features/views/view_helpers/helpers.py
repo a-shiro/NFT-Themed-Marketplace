@@ -55,7 +55,7 @@ def validate_user_info(request, owner_pk):
     return None
 
 
-def validate_and_post(request, collection):
+def validate_and_sell(request, collection):
     owner_pk = collection.user.pk
 
     validate_user_info(request, owner_pk)
@@ -79,8 +79,7 @@ def validate_and_remove(request, instance):
     return None
 
 
-def favorite_nft(profile, nft_pk):
-    nft = Favorite.objects.get(profile=profile, nft=nft_pk)
+def favorite_nft(request, nft):
 
     if nft.favorite:
         nft.favorite = False
@@ -114,7 +113,7 @@ def get_nfts_and_favorite(iterable, **kwargs):
     return result
 
 
-def get_collections():
+def get_most_popular():
     result = {}
 
     collections = Collection.objects.filter(posted_for_sale=True)
