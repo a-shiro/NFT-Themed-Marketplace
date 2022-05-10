@@ -94,6 +94,8 @@ class EditProfileView(dj_mixins.LoginRequiredMixin, OwnerAccessMixin, dj_generic
 
 
 class SellOnMarketView(dj_mixins.LoginRequiredMixin, ActionMixin):
+    REDIRECT_TO = 'profile'
+
     def get_data(self, **kwargs):
         try:
             collection_pk = kwargs['pk']
@@ -106,13 +108,15 @@ class SellOnMarketView(dj_mixins.LoginRequiredMixin, ActionMixin):
             raise dj_http.Http404
 
     def redirect(self, *args, **kwargs):
-        redirect_to = 'profile'
+        redirect_to = self.REDIRECT_TO
         redirect_pk = self.request.user.pk
 
         return redirect(redirect_to, redirect_pk)
 
 
 class RemoveCollectionView(dj_mixins.LoginRequiredMixin, OwnerAccessMixin, ActionMixin):
+    REDIRECT_TO = 'profile'
+
     def get_data(self, **kwargs):
         try:
             collection_pk = kwargs['pk']
@@ -125,21 +129,28 @@ class RemoveCollectionView(dj_mixins.LoginRequiredMixin, OwnerAccessMixin, Actio
             raise dj_http.Http404
 
     def get_requested_user_pk(self, **kwargs):
-        requested_user_pk = Collection.objects.get(pk=kwargs['pk']).user.pk
+        try:
+            requested_user_pk = Collection.objects.get(pk=kwargs['pk']).user.pk
 
-        return requested_user_pk
+            return requested_user_pk
+        except dj_exceptions.ObjectDoesNotExist:
+            raise dj_http.Http404
 
     def redirect(self, *args, **kwargs):
-        redirect_to = 'profile'
+        redirect_to = self.REDIRECT_TO
         redirect_pk = self.request.user.pk
 
         return redirect(redirect_to, redirect_pk)
 
 
 class RemoveNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
+    REDIRECT_TO = 'personal collection details'
+    redirect_pk = None
+
     def get_data(self, **kwargs):
         try:
             nft_pk = self.kwargs['pk']
+            self.redirect_pk = NFT.objects.get(pk=nft_pk).collection.pk
 
             instance = NFT.objects.get(pk=nft_pk, collection__posted_for_sale=False)
             action = validate_and_remove
@@ -149,10 +160,7 @@ class RemoveNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
             raise dj_http.Http404
 
     def redirect(self, *args, **kwargs):
-        nft_pk = self.kwargs['pk']
-        collection_pk = NFT.objects.get(pk=nft_pk).collection.pk
-
-        redirect_to = 'personal collection details'
-        redirect_pk = collection_pk
+        redirect_to = self.REDIRECT_TO
+        redirect_pk = self.redirect_pk
 
         return redirect(redirect_to, redirect_pk)

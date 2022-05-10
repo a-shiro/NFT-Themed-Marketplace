@@ -99,6 +99,8 @@ class SearchMarketplaceView(dj_generic.TemplateView):
 
 
 class BuyNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
+    REDIRECT_TO = 'collection details'
+
     def get_data(self, **kwargs):
         try:
             profile_balance = self.request.user.profile.balance.balance
@@ -118,13 +120,15 @@ class BuyNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
         nft_pk = self.kwargs['pk']
         collection_pk = NFT.objects.get(pk=nft_pk).collection.pk
 
-        redirect_to = 'collection details'
+        redirect_to = self.REDIRECT_TO
         redirect_pk = collection_pk
 
         return redirect(redirect_to, redirect_pk)
 
 
 class FavoriteNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
+    REDIRECT_TO = 'collection details'
+
     def get_data(self, **kwargs):
         try:
             nft_pk = kwargs['pk']
@@ -142,7 +146,7 @@ class FavoriteNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
         nft_pk = self.kwargs['pk']
         collection_pk = NFT.objects.get(pk=nft_pk).collection.pk
 
-        redirect_to = 'collection details'
+        redirect_to = self.REDIRECT_TO
         redirect_pk = collection_pk
 
         return redirect(redirect_to, redirect_pk)
