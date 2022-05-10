@@ -1,7 +1,6 @@
 from django.views import generic as dj_generic
 from django.shortcuts import render
 
-
 from DesertTraders.web_generic_features.views.view_helpers.helpers import get_most_popular
 from DesertTraders.web_generic_features.views.view_helpers.mixins import SimpleStaticPageMixin
 
@@ -33,9 +32,9 @@ class TermsOfServiceView(dj_generic.TemplateView, SimpleStaticPageMixin):
     template_name = 'web_generic_features/main/terms_of_service.html'
 
 
-def bad_request_view(request):
-    return render(request, 'web_generic_features/main/400.html', status=400)
-
-
 def not_found_view(request, exception):
     return render(request, 'web_generic_features/main/404.html', status=404)
+
+
+def bad_request_view(request, exception):
+    return render(request, 'web_generic_features/main/400.html', status=400)

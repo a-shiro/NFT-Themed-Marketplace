@@ -101,10 +101,14 @@ class SearchMarketplaceView(dj_generic.TemplateView):
 class BuyNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
     def get_data(self, **kwargs):
         try:
+            profile_balance = self.request.user.profile.balance.balance
             nft_pk = kwargs['pk']
 
             instance = NFT.objects.get(pk=nft_pk, collection__posted_for_sale=True)
             action = transaction
+
+            if profile_balance < instance.price:
+                raise dj_exceptions.BadRequest
 
             return instance, action
         except dj_exceptions.ObjectDoesNotExist:
