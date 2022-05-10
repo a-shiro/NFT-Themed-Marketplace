@@ -1,7 +1,8 @@
 from django.contrib.auth import mixins as dj_mixins
 from django.core import exceptions as dj_exceptions
 from django import http as dj_http
-from django.views import generic as generic_views
+from django.utils import datastructures as dj_datastructures
+from django.views import generic as dj_generic
 from django.shortcuts import redirect
 
 from DesertTraders.web_generic_features.models import NFT, Collection, Favorite
@@ -10,7 +11,7 @@ from DesertTraders.web_generic_features.views.view_helpers.helpers import transa
 from DesertTraders.web_generic_features.views.view_helpers.mixins import CollectionContentMixin, ActionMixin
 
 
-class MarketplaceView(generic_views.TemplateView):
+class MarketplaceView(dj_generic.TemplateView):
     template_name = 'web_generic_features/marketplace/marketplace.html'
 
     def get_context_data(self, **kwargs):
@@ -50,7 +51,11 @@ class CollectionDetailsView(CollectionContentMixin):
 class SortCollectionView(CollectionDetailsView):
     def get_context_data(self, **kwargs):
         nfts = self.object.nft_set.all()
-        ordering = self.request.GET['sort']
+
+        try:
+            ordering = self.request.GET['sort']
+        except dj_datastructures.MultiValueDictKeyError:
+            ordering = 'title'
 
         if self.request.user.is_authenticated:
             profile = self.request.user.profile
@@ -66,11 +71,14 @@ class SortCollectionView(CollectionDetailsView):
         return context
 
 
-class SearchMarketplaceView(generic_views.TemplateView):
+class SearchMarketplaceView(dj_generic.TemplateView):
     template_name = 'web_generic_features/marketplace/marketplace_search.html'
 
     def get_context_data(self, **kwargs):
-        searched = self.request.GET['searched']
+        try:
+            searched = self.request.GET['searched']
+        except dj_datastructures.MultiValueDictKeyError:
+            raise dj_http.Http404
 
         searched_results = NFT.objects.filter(title__contains=searched, collection__posted_for_sale=True)
         searched_results_count = len(searched_results)

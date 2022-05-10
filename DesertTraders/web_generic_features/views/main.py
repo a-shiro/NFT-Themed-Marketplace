@@ -1,11 +1,12 @@
+from django.views import generic as dj_generic
 from django.shortcuts import render
-from django.views import generic as generic_views
+
 
 from DesertTraders.web_generic_features.views.view_helpers.helpers import get_most_popular
 from DesertTraders.web_generic_features.views.view_helpers.mixins import SimpleStaticPageMixin
 
 
-class HomeView(generic_views.TemplateView):
+class HomeView(dj_generic.TemplateView):
     template_name = 'web_generic_features/main/home.html'
 
     def get_context_data(self, **kwargs):
@@ -24,11 +25,11 @@ class HomeView(generic_views.TemplateView):
         return context
 
 
-class PrivacyPolicyView(generic_views.TemplateView, SimpleStaticPageMixin):
+class PrivacyPolicyView(dj_generic.TemplateView, SimpleStaticPageMixin):
     template_name = 'web_generic_features/main/privacy_policy.html'
 
 
-class TermsOfServiceView(generic_views.TemplateView, SimpleStaticPageMixin):
+class TermsOfServiceView(dj_generic.TemplateView, SimpleStaticPageMixin):
     template_name = 'web_generic_features/main/terms_of_service.html'
 
 

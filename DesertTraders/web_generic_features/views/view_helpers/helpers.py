@@ -1,4 +1,4 @@
-from django.core import exceptions as django_exceptions
+from django.core import exceptions as dj_exceptions
 
 from DesertTraders.web_generic_features.models import Collection, Collected, Favorite
 
@@ -54,7 +54,7 @@ def validate_info(profile, nft):
 
 def validate_user_info(request, owner_pk):
     if owner_pk != request.user.pk:
-        raise django_exceptions.BadRequest
+        raise dj_exceptions.BadRequest
     return None
 
 
@@ -107,7 +107,7 @@ def get_nfts_and_favorite(iterable, **kwargs):
         try:
             favorite = Favorite.objects.get(profile=kwargs['profile'], nft=nft).favorite
 
-        except django_exceptions.ObjectDoesNotExist:
+        except dj_exceptions.ObjectDoesNotExist:
             instance = Favorite(profile=kwargs['profile'], nft=nft)
             instance.save()
             favorite = instance.favorite

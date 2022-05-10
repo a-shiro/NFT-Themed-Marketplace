@@ -1,9 +1,9 @@
 from django.contrib.auth import mixins as dj_mixins
-from django.shortcuts import redirect
 from django.views import generic as dj_generic
 from django.core import exceptions as dj_exceptions
 from django import http as dj_http
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 
 from DesertTraders.web_generic_features.models import Profile, Collection, NFT
 from DesertTraders.web_generic_features.forms import EditProfileForm, CreateCollectionForm, CreateNFTForm

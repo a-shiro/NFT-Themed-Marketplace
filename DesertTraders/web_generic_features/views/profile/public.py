@@ -1,10 +1,10 @@
-from django.views import generic as generic_views
+from django.views import generic as dj_generic
 
 from DesertTraders.web_generic_features.models import Profile, Collection, NFT
 from DesertTraders.web_generic_features.views.view_helpers.helpers import get_profile_nfts_and_nft_quantity
 
 
-class PublicProfileWorkshopView(generic_views.DetailView):
+class PublicProfileWorkshopView(dj_generic.DetailView):
     model = Profile
     template_name = 'web_generic_features/profile/public_profile/public_workshop.html'
 
@@ -18,7 +18,7 @@ class PublicProfileWorkshopView(generic_views.DetailView):
         return context
 
 
-class PublicProfileCollectionView(generic_views.DetailView):
+class PublicProfileCollectionView(dj_generic.DetailView):
     model = Profile
     template_name = 'web_generic_features/profile/public_profile/public_collection.html'
 
@@ -32,7 +32,7 @@ class PublicProfileCollectionView(generic_views.DetailView):
         return context
 
 
-class PublicProfileFavoriteView(generic_views.DetailView):
+class PublicProfileFavoriteView(dj_generic.DetailView):
     model = Profile
     template_name = 'web_generic_features/profile/public_profile/public_favorite.html'
 
