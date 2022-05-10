@@ -1,6 +1,9 @@
 from django.core import exceptions as django_exceptions
 
-from DesertTraders.web_generic_features.models import Collection, Collected, Favorite, NFT
+from DesertTraders.web_generic_features.models import Collection, Collected, Favorite
+
+
+ORDER_BY_VALUES = ['-price', 'price', 'quantity']
 
 
 def transaction(request, nft):
@@ -95,9 +98,10 @@ def favorite_nft(request, nft):
 def get_nfts_and_favorite(iterable, **kwargs):
     result = []
 
-    ordering = kwargs.get('ordering')  # get ordering func here
-    if not ordering:
+    if not kwargs.get('ordering') in ORDER_BY_VALUES:
         ordering = 'title'
+    else:
+        ordering = kwargs.get('ordering')
 
     for nft in iterable.order_by(ordering):
         try:
@@ -116,10 +120,10 @@ def get_nfts_and_favorite(iterable, **kwargs):
 def get_nfts_when_user_anonymous(iterable, **kwargs):
     result = []
 
-    ordering = kwargs.get('ordering')  # get ordering func here
-
-    if not ordering:
+    if not kwargs.get('ordering') in ORDER_BY_VALUES:
         ordering = 'title'
+    else:
+        ordering = kwargs.get('ordering')
 
     for nft in iterable.order_by(ordering):
         result.append((nft, False))

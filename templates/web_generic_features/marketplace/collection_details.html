@@ -21,7 +21,7 @@
                 <div class="col-12">
                     <h1>{{ collection.title }}</h1>
                     <h5 class="mb-4 text-secondary"> Created by
-                        <span style="color: #F2B851">{{ collection.user.profile.username }}</span>
+                        <a class="text-decoration-none" style="color: #F2B851" href="{% url 'profile' collection.user.pk %}">{{ collection.user.profile.username }}</a>
                     </h5>
                 </div>
 
@@ -110,9 +110,10 @@
                                         </div>
                                     {% else %}
                                         <div class="col-6">
-                                        {% if not request.user.is_authenticated or request.user.profile.balance.balance >= nft.price %}
+                                            {% if not request.user.is_authenticated or request.user.profile.balance.balance >= nft.price %}
                                                 <button class="btn custom-btn-desert">
-                                                    <a class="text-decoration-none text-light" href="{% url 'buy nft' nft.pk %}">Buy</a>
+                                                    <a class="text-decoration-none text-light"
+                                                       href="{% url 'buy nft' nft.pk %}">Buy</a>
                                                 </button>
                                             {% else %}
                                                 <button class="btn btn-secondary text-light" style="border-radius: 10px"

@@ -1,5 +1,8 @@
 from django.contrib.auth import mixins as dj_mixins
+from django.shortcuts import redirect
 from django.views import generic as dj_generic
+from django.core import exceptions as dj_exceptions
+from django import http as dj_http
 from django.urls import reverse_lazy
 
 from DesertTraders.web_generic_features.models import Profile, Collection, NFT
@@ -10,7 +13,7 @@ from DesertTraders.web_generic_features.views.view_helpers.mixins import OwnerAc
     CreateViewMixin, ActionMixin
 
 
-class PersonalProfileWorkshopView(dj_generic.DetailView, dj_mixins.LoginRequiredMixin):
+class PersonalProfileWorkshopView(dj_generic.DetailView):
     model = Profile
     template_name = 'web_generic_features/profile/personal_profile/personal_workshop.html'
 
@@ -26,7 +29,7 @@ class PersonalProfileWorkshopView(dj_generic.DetailView, dj_mixins.LoginRequired
         return context
 
 
-class PersonalProfileCollectionView(dj_generic.DetailView, dj_mixins.LoginRequiredMixin):
+class PersonalProfileCollectionView(dj_generic.DetailView):
     model = Profile
     template_name = 'web_generic_features/profile/personal_profile/personal_collection.html'
 
@@ -57,11 +60,16 @@ class PersonalProfileFavoriteView(dj_generic.DetailView):
         return context
 
 
-class PersonalProfileCollectionDetailsView(dj_mixins.LoginRequiredMixin, CollectionContentMixin, OwnerAccessMixin):
+class PersonalProfileCollectionDetailsView(OwnerAccessMixin, CollectionContentMixin):
     template_name = 'web_generic_features/profile/personal_profile/workshop_collection_details.html'
 
     def get(self, request, *args, **kwargs):
         return super().get(request, pk=kwargs['pk'], posted_for_sale=False)
+
+    def get_requested_user_pk(self, **kwargs):
+        requested_user_pk = Collection.objects.get(pk=kwargs['pk']).user.pk
+
+        return requested_user_pk
 
 
 class CreateCollectionView(CreateViewMixin):
@@ -74,7 +82,7 @@ class CreateNFTView(CreateViewMixin):
     template_name = 'web_generic_features/profile/personal_profile/create_nft.html'
 
 
-class EditProfileView(dj_generic.UpdateView, dj_mixins.LoginRequiredMixin):
+class EditProfileView(dj_mixins.LoginRequiredMixin, OwnerAccessMixin, dj_generic.UpdateView):
     model = Profile
     form_class = EditProfileForm
     template_name = 'web_generic_features/profile/personal_profile/edit_profile.html'
@@ -85,44 +93,66 @@ class EditProfileView(dj_generic.UpdateView, dj_mixins.LoginRequiredMixin):
         return reverse_lazy('profile', kwargs={'pk': profile_pk})
 
 
-class SellOnMarketView(ActionMixin):
-    def dispatch(self, request, *args, **kwargs):
-        collection = Collection.objects.get(pk=kwargs['pk'], posted_for_sale=False)
+class SellOnMarketView(dj_mixins.LoginRequiredMixin, ActionMixin):
+    def get_data(self, **kwargs):
+        try:
+            collection_pk = kwargs['pk']
 
-        super().dispatch(request, instance=collection, action=validate_and_sell)
+            instance = Collection.objects.get(pk=collection_pk, posted_for_sale=False)
+            action = validate_and_sell
 
-        return self.redirect(*args, **kwargs)
-
-    def redirect(self, *args, **kwargs):
-        profile_pk = self.request.user.pk
-
-        return super().redirect(redirect_to='profile', redirect_pk=profile_pk)
-
-
-class RemoveCollectionView(ActionMixin):
-    def dispatch(self, request, *args, **kwargs):
-        collection = Collection.objects.get(pk=kwargs['pk'], posted_for_sale=False)
-
-        super().dispatch(request, instance=collection, action=validate_and_remove)
-
-        return self.redirect(*args, **kwargs)
+            return instance, action
+        except dj_exceptions.ObjectDoesNotExist:
+            raise dj_http.Http404
 
     def redirect(self, *args, **kwargs):
-        profile_pk = self.request.user.pk
+        redirect_to = 'profile'
+        redirect_pk = self.request.user.pk
 
-        return super().redirect(redirect_to='profile', redirect_pk=profile_pk)
+        return redirect(redirect_to, redirect_pk)
 
 
-class RemoveNFTView(ActionMixin):
-    def dispatch(self, request, *args, **kwargs):
-        nft = NFT.objects.get(pk=kwargs['pk'], collection__posted_for_sale=False)
-        collection_pk = nft.collection.pk
+class RemoveCollectionView(dj_mixins.LoginRequiredMixin, OwnerAccessMixin, ActionMixin):
+    def get_data(self, **kwargs):
+        try:
+            collection_pk = kwargs['pk']
 
-        super().dispatch(request, instance=nft, action=validate_and_remove)
+            instance = Collection.objects.get(pk=collection_pk, posted_for_sale=False)
+            action = validate_and_remove
 
-        return self.redirect(collection_pk=collection_pk)
+            return instance, action
+        except dj_exceptions.ObjectDoesNotExist:
+            raise dj_http.Http404
+
+    def get_requested_user_pk(self, **kwargs):
+        requested_user_pk = Collection.objects.get(pk=kwargs['pk']).user.pk
+
+        return requested_user_pk
 
     def redirect(self, *args, **kwargs):
-        collection_pk = kwargs['collection_pk']
+        redirect_to = 'profile'
+        redirect_pk = self.request.user.pk
 
-        return super().redirect(redirect_to='personal collection details', redirect_pk=collection_pk)
+        return redirect(redirect_to, redirect_pk)
+
+
+class RemoveNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
+    def get_data(self, **kwargs):
+        try:
+            nft_pk = self.kwargs['pk']
+
+            instance = NFT.objects.get(pk=nft_pk, collection__posted_for_sale=False)
+            action = validate_and_remove
+
+            return instance, action
+        except dj_exceptions.ObjectDoesNotExist:
+            raise dj_http.Http404
+
+    def redirect(self, *args, **kwargs):
+        nft_pk = self.kwargs['pk']
+        collection_pk = NFT.objects.get(pk=nft_pk).collection.pk
+
+        redirect_to = 'personal collection details'
+        redirect_pk = collection_pk
+
+        return redirect(redirect_to, redirect_pk)

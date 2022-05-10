@@ -1,29 +1,29 @@
 from django import views as dj_views
 from django.contrib.auth import mixins as dj_mixins
 from django.core import exceptions as dj_exceptions
-from django.http import Http404
+from django import http as dj_http
 from django.views import generic as dj_generic
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
 
 from DesertTraders.web_generic_features.models import Collection
 
 
 class ActionMixin(dj_generic.View):
     def dispatch(self, request, *args, **kwargs):
-        action = kwargs['action']
-        instance = kwargs['instance']
+        instance, action = self.get_data(pk=kwargs['pk'])
 
         action(request, instance)
 
+        return self.redirect(*args, **kwargs)
+
+    def get_data(self, **kwargs):
+        pass
+
     def redirect(self, *args, **kwargs):
-        redirect_to = kwargs['redirect_to']
-        redirect_pk = kwargs['redirect_pk']
-
-        return redirect(redirect_to, redirect_pk)
+        pass
 
 
-class CreateViewMixin(dj_generic.CreateView, dj_mixins.LoginRequiredMixin):
+class CreateViewMixin(dj_mixins.LoginRequiredMixin, dj_generic.CreateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
 
@@ -42,11 +42,14 @@ class CollectionContentMixin(dj_generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         try:
-            Collection.objects.get(pk=kwargs['pk'], posted_for_sale=kwargs['posted_for_sale'])
+            collection_pk = kwargs['pk']
+            is_posted_for_sale = kwargs['posted_for_sale']
+
+            Collection.objects.get(pk=collection_pk, posted_for_sale=is_posted_for_sale)
 
             return super().get(request, *args, **kwargs)
         except dj_exceptions.ObjectDoesNotExist:
-            raise Http404
+            raise dj_http.Http404
 
     def get_context_data(self, **kwargs):
         collection = self.object
@@ -64,19 +67,18 @@ class CollectionContentMixin(dj_generic.DetailView):
 
 class OwnerAccessMixin(dj_views.View):
     def dispatch(self, request, *args, **kwargs):
-        try:
-            collection_owner = Collection.objects.get(pk=kwargs['pk']).user.pk
+        current_user_pk = self.request.user.pk
+        requested_user_pk = self.get_requested_user_pk(pk=kwargs['pk'])
 
-            if collection_owner != self.request.user.pk:
-                raise dj_exceptions.BadRequest
+        if requested_user_pk != current_user_pk:
+            raise dj_http.Http404
 
-            return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
-        except dj_exceptions.BadRequest:
-            return redirect('400')
+    def get_requested_user_pk(self, **kwargs):
+        requested_user_pk = kwargs['pk']
 
-        except dj_exceptions.ObjectDoesNotExist:
-            return redirect('404')
+        return requested_user_pk
 
 
 class SimpleStaticPageMixin(dj_generic.base.ContextMixin):
