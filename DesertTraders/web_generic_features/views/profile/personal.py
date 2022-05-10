@@ -114,7 +114,7 @@ class SellOnMarketView(dj_mixins.LoginRequiredMixin, ActionMixin):
         return redirect(redirect_to, redirect_pk)
 
 
-class RemoveCollectionView(dj_mixins.LoginRequiredMixin, OwnerAccessMixin, ActionMixin):
+class RemoveCollectionView(dj_mixins.LoginRequiredMixin, ActionMixin):
     REDIRECT_TO = 'profile'
 
     def get_data(self, **kwargs):
@@ -125,14 +125,6 @@ class RemoveCollectionView(dj_mixins.LoginRequiredMixin, OwnerAccessMixin, Actio
             action = validate_and_remove
 
             return instance, action
-        except dj_exceptions.ObjectDoesNotExist:
-            raise dj_http.Http404
-
-    def get_requested_user_pk(self, **kwargs):
-        try:
-            requested_user_pk = Collection.objects.get(pk=kwargs['pk']).user.pk
-
-            return requested_user_pk
         except dj_exceptions.ObjectDoesNotExist:
             raise dj_http.Http404
 
