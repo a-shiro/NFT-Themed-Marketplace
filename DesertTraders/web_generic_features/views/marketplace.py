@@ -5,10 +5,10 @@ from django.utils import datastructures as dj_datastructures
 from django.views import generic as dj_generic
 from django.shortcuts import redirect
 
-from DesertTraders.web_generic_features.models import NFT, Collection, Favorite
-from DesertTraders.web_generic_features.views.view_helpers.helpers import transaction, favorite_nft, \
-    get_nfts_and_favorite, get_nfts_when_user_anonymous
-from DesertTraders.web_generic_features.views.view_helpers.mixins import CollectionContentMixin, ActionMixin
+from DesertTraders.web_generic_features.models import NFT, Collection, Favorite, Collected
+from DesertTraders.web_generic_features.views.helpers import get_nfts_and_favorite, \
+    get_nfts_when_user_anonymous
+from DesertTraders.web_generic_features.views.mixins import CollectionContentMixin, ActionMixin
 
 
 class MarketplaceView(dj_generic.TemplateView):
@@ -101,18 +101,36 @@ class SearchMarketplaceView(dj_generic.TemplateView):
 class BuyNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
     REDIRECT_TO = 'collection details'
 
-    def get_data(self, **kwargs):
+    def action(self, request, nft):
+        profile = request.user.profile
+
+        if nft in profile.collection.all():
+            collected_nft = Collected.objects.get(profile=profile, NFT=nft)
+            collected_nft.quantity += 1
+            collected_nft.save()
+        else:
+            profile_collection = Collected(profile=profile, NFT=nft, quantity=1)
+            profile_collection.save()
+
+        profile.balance.balance -= nft.price
+        nft.quantity -= 1
+
+        profile.balance.save()
+        nft.save()
+
+        return None
+
+    def get_instance(self, **kwargs):
         try:
             profile_balance = self.request.user.profile.balance.balance
             nft_pk = kwargs['pk']
 
             instance = NFT.objects.get(pk=nft_pk, collection__posted_for_sale=True)
-            action = transaction
 
             if profile_balance < instance.price:
                 raise dj_exceptions.BadRequest
 
-            return instance, action
+            return instance
         except dj_exceptions.ObjectDoesNotExist:
             raise dj_http.Http404
 
@@ -129,16 +147,28 @@ class BuyNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
 class FavoriteNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
     REDIRECT_TO = 'collection details'
 
-    def get_data(self, **kwargs):
+    def action(self, request, nft):
+        if nft.favorite:
+            nft.favorite = False
+            nft.nft.likes -= 1
+        else:
+            nft.favorite = True
+            nft.nft.likes += 1
+
+        nft.save()
+        nft.nft.save()
+
+        return None
+
+    def get_instance(self, **kwargs):
         try:
             nft_pk = kwargs['pk']
             nft = NFT.objects.get(pk=nft_pk, collection__posted_for_sale=True)
             profile = self.request.user.profile
 
             instance = Favorite.objects.get(nft=nft, profile=profile)
-            action = favorite_nft
 
-            return instance, action
+            return instance
         except dj_exceptions.ObjectDoesNotExist:
             raise dj_http.Http404
 

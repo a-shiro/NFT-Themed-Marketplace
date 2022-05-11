@@ -7,9 +7,9 @@ from django.shortcuts import redirect
 
 from DesertTraders.web_generic_features.models import Profile, Collection, NFT
 from DesertTraders.web_generic_features.forms import EditProfileForm, CreateCollectionForm, CreateNFTForm
-from DesertTraders.web_generic_features.views.view_helpers.helpers import check_if_button_active, \
-    get_profile_nfts_and_nft_quantity, validate_and_sell, validate_and_remove
-from DesertTraders.web_generic_features.views.view_helpers.mixins import OwnerAccessMixin, CollectionContentMixin, \
+from DesertTraders.web_generic_features.views.helpers import check_if_button_active, validate_user_info, \
+    get_nfts_and_quantity
+from DesertTraders.web_generic_features.views.mixins import OwnerAccessMixin, CollectionContentMixin, \
     CreateViewMixin, ActionMixin
 
 
@@ -34,7 +34,7 @@ class PersonalProfileCollectionView(dj_generic.DetailView):
     template_name = 'web_generic_features/profile/personal_profile/personal_collection.html'
 
     def get_context_data(self, **kwargs):
-        nft_and_quantity_pair = get_profile_nfts_and_nft_quantity(self.object)
+        nft_and_quantity_pair = get_nfts_and_quantity(self.object)
         add_nft = check_if_button_active(self.object.user)
 
         context = super().get_context_data(**kwargs)
@@ -96,14 +96,23 @@ class EditProfileView(dj_mixins.LoginRequiredMixin, OwnerAccessMixin, dj_generic
 class SellOnMarketView(dj_mixins.LoginRequiredMixin, ActionMixin):
     REDIRECT_TO = 'profile'
 
-    def get_data(self, **kwargs):
+    def action(self, request, collection):
+        owner_pk = collection.user.pk
+
+        validate_user_info(request, owner_pk)
+
+        collection.posted_for_sale = True
+        collection.save()
+
+        return None
+
+    def get_instance(self, **kwargs):
         try:
             collection_pk = kwargs['pk']
 
             instance = Collection.objects.get(pk=collection_pk, posted_for_sale=False)
-            action = validate_and_sell
 
-            return instance, action
+            return instance
         except dj_exceptions.ObjectDoesNotExist:
             raise dj_http.Http404
 
@@ -117,14 +126,22 @@ class SellOnMarketView(dj_mixins.LoginRequiredMixin, ActionMixin):
 class RemoveCollectionView(dj_mixins.LoginRequiredMixin, ActionMixin):
     REDIRECT_TO = 'profile'
 
-    def get_data(self, **kwargs):
+    def action(self, request, collection):
+        owner_pk = collection.user.pk
+
+        validate_user_info(request, owner_pk)
+
+        collection.delete()
+
+        return None
+
+    def get_instance(self, **kwargs):
         try:
             collection_pk = kwargs['pk']
 
             instance = Collection.objects.get(pk=collection_pk, posted_for_sale=False)
-            action = validate_and_remove
 
-            return instance, action
+            return instance
         except dj_exceptions.ObjectDoesNotExist:
             raise dj_http.Http404
 
@@ -139,15 +156,23 @@ class RemoveNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
     REDIRECT_TO = 'personal collection details'
     redirect_pk = None
 
-    def get_data(self, **kwargs):
+    def action(self, request, nft):
+        owner_pk = nft.collection.user.pk
+
+        validate_user_info(request, owner_pk)
+
+        nft.delete()
+
+        return None
+
+    def get_instance(self, **kwargs):
         try:
             nft_pk = self.kwargs['pk']
             self.redirect_pk = NFT.objects.get(pk=nft_pk).collection.pk
 
             instance = NFT.objects.get(pk=nft_pk, collection__posted_for_sale=False)
-            action = validate_and_remove
 
-            return instance, action
+            return instance
         except dj_exceptions.ObjectDoesNotExist:
             raise dj_http.Http404
 

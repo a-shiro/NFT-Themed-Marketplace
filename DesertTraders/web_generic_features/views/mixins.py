@@ -10,13 +10,16 @@ from DesertTraders.web_generic_features.models import Collection
 
 class ActionMixin(dj_generic.View):
     def dispatch(self, request, *args, **kwargs):
-        instance, action = self.get_data(pk=kwargs['pk'])
+        instance = self.get_instance(pk=kwargs['pk'])
 
-        action(request, instance)
+        self.action(request, instance)
 
         return self.redirect(*args, **kwargs)
 
-    def get_data(self, **kwargs):
+    def get_instance(self, **kwargs):
+        pass
+
+    def action(self, request, instance):
         pass
 
     def redirect(self, *args, **kwargs):

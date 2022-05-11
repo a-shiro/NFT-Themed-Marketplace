@@ -1,7 +1,7 @@
 from django.views import generic as dj_generic
 
 from DesertTraders.web_generic_features.models import Profile, Collection, NFT
-from DesertTraders.web_generic_features.views.view_helpers.helpers import get_profile_nfts_and_nft_quantity
+from DesertTraders.web_generic_features.views.helpers import get_nfts_and_quantity
 
 
 class PublicProfileWorkshopView(dj_generic.DetailView):
@@ -23,7 +23,7 @@ class PublicProfileCollectionView(dj_generic.DetailView):
     template_name = 'web_generic_features/profile/public_profile/public_collection.html'
 
     def get_context_data(self, **kwargs):
-        nft_and_quantity_pair = get_profile_nfts_and_nft_quantity(self.object)
+        nft_and_quantity_pair = get_nfts_and_quantity(self.object)
 
         context = super().get_context_data(**kwargs)
 

@@ -1,8 +1,8 @@
 from django.views import generic as dj_generic
 from django.shortcuts import render
 
-from DesertTraders.web_generic_features.views.view_helpers.helpers import get_most_popular
-from DesertTraders.web_generic_features.views.view_helpers.mixins import SimpleStaticPageMixin
+from DesertTraders.web_generic_features.views.helpers import get_most_popular
+from DesertTraders.web_generic_features.views.mixins import SimpleStaticPageMixin
 
 
 class HomeView(dj_generic.TemplateView):
