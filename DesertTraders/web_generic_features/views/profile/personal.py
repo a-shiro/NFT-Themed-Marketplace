@@ -15,7 +15,7 @@ from DesertTraders.web_generic_features.views.mixins import OwnerAccessMixin, Co
 
 class PersonalProfileWorkshopView(dj_generic.DetailView):
     model = Profile
-    template_name = 'web_generic_features/profile/personal_profile/personal_workshop.html'
+    template_name = 'web_generic_features/profile/personal/personal_workshop.html'
 
     def get_context_data(self, **kwargs):
         collections = Collection.objects.filter(user=self.object.user).order_by('-posted_for_sale')
@@ -31,7 +31,7 @@ class PersonalProfileWorkshopView(dj_generic.DetailView):
 
 class PersonalProfileCollectionView(dj_generic.DetailView):
     model = Profile
-    template_name = 'web_generic_features/profile/personal_profile/personal_collection.html'
+    template_name = 'web_generic_features/profile/personal/personal_collection.html'
 
     def get_context_data(self, **kwargs):
         nft_and_quantity_pair = get_nfts_and_quantity(self.object)
@@ -46,7 +46,7 @@ class PersonalProfileCollectionView(dj_generic.DetailView):
 
 class PersonalProfileFavoriteView(dj_generic.DetailView):
     model = Profile
-    template_name = 'web_generic_features/profile/personal_profile/personal_favorite.html'
+    template_name = 'web_generic_features/profile/personal/personal_favorite.html'
 
     def get_context_data(self, **kwargs):
         favorite_nfts = NFT.objects.filter(favorite__profile_id=self.object, favorite__favorite=True)
@@ -61,7 +61,7 @@ class PersonalProfileFavoriteView(dj_generic.DetailView):
 
 
 class PersonalProfileCollectionDetailsView(OwnerAccessMixin, CollectionContentMixin):
-    template_name = 'web_generic_features/profile/personal_profile/workshop_collection_details.html'
+    template_name = 'web_generic_features/profile/personal/workshop_collection_details.html'
 
     def get(self, request, *args, **kwargs):
         return super().get(request, pk=kwargs['pk'], posted_for_sale=False)
@@ -74,18 +74,18 @@ class PersonalProfileCollectionDetailsView(OwnerAccessMixin, CollectionContentMi
 
 class CreateCollectionView(CreateViewMixin):
     form_class = CreateCollectionForm
-    template_name = 'web_generic_features/profile/personal_profile/create_collection.html'
+    template_name = 'web_generic_features/profile/personal/create_collection.html'
 
 
 class CreateNFTView(CreateViewMixin):
     form_class = CreateNFTForm
-    template_name = 'web_generic_features/profile/personal_profile/create_nft.html'
+    template_name = 'web_generic_features/profile/personal/create_nft.html'
 
 
 class EditProfileView(dj_mixins.LoginRequiredMixin, OwnerAccessMixin, dj_generic.UpdateView):
     model = Profile
     form_class = EditProfileForm
-    template_name = 'web_generic_features/profile/personal_profile/edit_profile.html'
+    template_name = 'web_generic_features/profile/personal/edit_profile.html'
 
     def get_success_url(self):
         profile_pk = self.object.pk

@@ -6,7 +6,7 @@ from DesertTraders.web_generic_features.views.helpers import get_nfts_and_quanti
 
 class PublicProfileWorkshopView(dj_generic.DetailView):
     model = Profile
-    template_name = 'web_generic_features/profile/public_profile/public_workshop.html'
+    template_name = 'web_generic_features/profile/public/public_workshop.html'
 
     def get_context_data(self, **kwargs):
         collections = Collection.objects.filter(user=self.object.user, posted_for_sale=True)
@@ -20,7 +20,7 @@ class PublicProfileWorkshopView(dj_generic.DetailView):
 
 class PublicProfileCollectionView(dj_generic.DetailView):
     model = Profile
-    template_name = 'web_generic_features/profile/public_profile/public_collection.html'
+    template_name = 'web_generic_features/profile/public/public_collection.html'
 
     def get_context_data(self, **kwargs):
         nft_and_quantity_pair = get_nfts_and_quantity(self.object)
@@ -34,7 +34,7 @@ class PublicProfileCollectionView(dj_generic.DetailView):
 
 class PublicProfileFavoriteView(dj_generic.DetailView):
     model = Profile
-    template_name = 'web_generic_features/profile/public_profile/public_favorite.html'
+    template_name = 'web_generic_features/profile/public/public_favorite.html'
 
     def get_context_data(self, **kwargs):
         favorite_nfts = NFT.objects.filter(favorite__profile_id=self.object, favorite__favorite=True)

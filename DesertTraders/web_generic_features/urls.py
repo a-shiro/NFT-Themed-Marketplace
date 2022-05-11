@@ -1,13 +1,12 @@
 from django.urls import path
 
-from DesertTraders.web_generic_features.views.main import HomeView, PrivacyPolicyView, \
-    TermsOfServiceView, bad_request_view, not_found_view
+from DesertTraders.web_generic_features.views.main import HomeView, PrivacyPolicyView, TermsOfServiceView
 from DesertTraders.web_generic_features.views.marketplace import MarketplaceView, CollectionDetailsView, \
     FavoriteNFTView, SortCollectionView, BuyNFTView, SearchMarketplaceView
 from DesertTraders.web_generic_features.views.profile.personal import CreateCollectionView, CreateNFTView, \
     EditProfileView, PersonalProfileCollectionDetailsView, SellOnMarketView, RemoveCollectionView, \
     RemoveNFTView
-from DesertTraders.web_generic_features.views.profile.base import ProfileView, ProfileCollectionView, \
+from DesertTraders.web_generic_features.views.profile.dispatchers import ProfileView, ProfileCollectionView, \
     ProfileFavoriteView
 
 urlpatterns = [
@@ -15,8 +14,6 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('privacy-policy', PrivacyPolicyView.as_view(), name='privacy policy'),
     path('terms-of-service', TermsOfServiceView.as_view(), name='terms of service'),
-    path('not-found', not_found_view, name='404'),
-    path('bad-request', bad_request_view, name='400'),
 
     # Marketplace
     path('marketplace', MarketplaceView.as_view(), name='marketplace'),

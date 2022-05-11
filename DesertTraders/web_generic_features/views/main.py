@@ -2,7 +2,7 @@ from django.views import generic as dj_generic
 from django.shortcuts import render
 
 from DesertTraders.web_generic_features.views.helpers import get_most_popular
-from DesertTraders.web_generic_features.views.mixins import SimpleStaticPageMixin
+from DesertTraders.web_generic_features.views.mixins import ShowFooterMixin
 
 
 class HomeView(dj_generic.TemplateView):
@@ -24,11 +24,11 @@ class HomeView(dj_generic.TemplateView):
         return context
 
 
-class PrivacyPolicyView(dj_generic.TemplateView, SimpleStaticPageMixin):
+class PrivacyPolicyView(dj_generic.TemplateView, ShowFooterMixin):
     template_name = 'web_generic_features/main/privacy_policy.html'
 
 
-class TermsOfServiceView(dj_generic.TemplateView, SimpleStaticPageMixin):
+class TermsOfServiceView(dj_generic.TemplateView, ShowFooterMixin):
     template_name = 'web_generic_features/main/terms_of_service.html'
 
 

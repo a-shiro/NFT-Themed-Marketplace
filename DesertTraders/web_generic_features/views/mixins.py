@@ -84,7 +84,7 @@ class OwnerAccessMixin(dj_views.View):
         return requested_user_pk
 
 
-class SimpleStaticPageMixin(dj_generic.base.ContextMixin):
+class ShowFooterMixin(dj_generic.base.ContextMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
