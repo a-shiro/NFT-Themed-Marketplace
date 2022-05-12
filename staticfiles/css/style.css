@@ -1,5 +1,6 @@
 body {
     font-family: Poppins, sans-serif;
+    color: #313131
 }
 
 .brand-image {
@@ -11,14 +12,14 @@ body {
     padding-left: 18px;
     font-size: 21px;
     font-weight: bold;
-    color: #262626;
+    color:  #313131;
 }
 
 .brand-name-base {
     padding-left: 18px;
     font-size: 21px;
     font-weight: bold;
-    color: #262626;
+    color:  #313131;
 }
 
 @media (min-width: 360px) and (max-width: 767px) {
@@ -96,15 +97,19 @@ ul li {
     }
 }
 
-.shadow-panel {
-    background-color: #e7e7e7;
-    box-shadow: 0 0 15px #a3a3a3
+.panel {
+    padding-top: 100px;
+    padding-bottom: 180px;
 }
 
-/* left off here */
+.panel-2 {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
 
-.custom-section-home {
-    padding: 50px 0 70px;
+.shadow-background {
+    background-color: #e7e7e7;
+    box-shadow: 0 0 15px #a3a3a3
 }
 
 .custom-form-box {

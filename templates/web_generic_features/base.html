@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-md navbar-light sticky-top py-md-0 shadow-panel">
+<nav class="navbar navbar-expand-md navbar-light sticky-top py-md-0 shadow-background">
     <div class="container-fluid px-3 mx-xl-3">
         <div>
             <div class="row">
@@ -35,13 +35,8 @@
         </div>
 
         <div>
-            <button class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#main-nav"
-                    aria-controls="#main-nav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav"
+                    aria-controls="#main-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
@@ -50,8 +45,8 @@
                 <li class="nav-item d-none d-md-block me-3">
                     <form method="get" action="{% url 'search marketplace' %}">
                         {% csrf_token %}
-                        <input name="searched" class="form-control search-bar" type="search" placeholder="Search NFTs . . ."
-                               aria-label="Search">
+                        <input name="searched" class="form-control search-bar" type="search"
+                               placeholder="Search NFTs . . ." aria-label="Search">
                     </form>
                 </li>
                 {% if request.user.is_staff %}
@@ -109,7 +104,7 @@
                         </a>
                     </li>
                 {% endif %}
-                <li class="d-md-none ms-1 pb-4" style="padding-top: 13px">
+                <li class="d-md-none ms-1 pb-4 pt-2">
                     <form action="{% url 'search marketplace' %}" class="d-flex" method="get">
                         {% csrf_token %}
                         <input name="searched" class="form-control" style="border-radius: 10px; width: 300px"

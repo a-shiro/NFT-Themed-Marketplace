@@ -23,7 +23,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-md navbar-light sticky-top py-md-0 shadow-panel">
+<nav class="navbar navbar-expand-md navbar-light sticky-top py-md-0 shadow-background">
     <div class="container-fluid mx-xl-3">
         <div>
             <div class="row">
@@ -39,15 +39,9 @@
                 </div>
             </div>
         </div>
-
         <div>
-            <button class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#main-nav"
-                    aria-controls="#main-nav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav"
+                    aria-controls="#main-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
@@ -56,8 +50,8 @@
                 <li class="nav-item d-none d-md-block mr-3">
                     <form method="get" action="{% url 'search marketplace' %}">
                         {% csrf_token %}
-                        <input name="searched" class="form-control search-bar" type="search" placeholder="Search NFTs . . ."
-                               aria-label="Search">
+                        <input name="searched" class="form-control search-bar" type="search"
+                               placeholder="Search NFTs . . ." aria-label="Search">
                     </form>
                 </li>
                 {% if request.user.is_staff %}
@@ -115,7 +109,7 @@
                         </a>
                     </li>
                 {% endif %}
-                <li class="d-md-none ml-1 pb-4" style="padding-top: 13px">
+                <li class="d-md-none ml-1 pb-4 pt-2">
                     <form action="{% url 'search marketplace' %}" class="d-flex" method="get">
                         {% csrf_token %}
                         <input name="searched" class="form-control" style="border-radius: 10px; width: 300px"
@@ -127,40 +121,47 @@
     </div>
 </nav>
 
-<section class="custom-section-home">
-    <div class="container-lg py-5">
+<section class="panel">
+    <div class="container-lg">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-6 text-center text-lg-left">
                 <h1>
-                    <div class="display-3">Welcome to the desert traveler</div>
-                    <div class="display-6 mt-1 mb-5 text-muted">
-                        <small>Explore the marketplace to find many traders with unique and valuable NFTs</small>
+                    <div class="display-3" style="font-size: 50px;">Welcome to the desert traveler</div>
+                    <div class="mt-4 mb-5 text-muted">
+                        <p class="px-2 px-sm-5 px-lg-0" style="font-size: 30px">
+                            Explore the marketplace to find many traders with unique and valuable NFTs
+                        </p>
+                        <div class="mt-5">
+                            <a class="btn btn-lg text-light custom-btn-desert"
+                               href="{% url 'marketplace' %}">
+                                Marketplace
+                            </a>
+                            {% if not request.user.is_authenticated %}
+                                <a class="btn btn-secondary btn-lg text-light ml-1"
+                                   style="border-radius: 10px;"
+                                   href="{% url 'register' %}">
+                                    Create
+                                </a>
+                            {% endif %}
+                        </div>
                     </div>
                 </h1>
-                <a class="btn btn-lg text-light custom-btn-desert"
-                   href="{% url 'marketplace' %}">
-                    Marketplace
-                </a>
-                {% if not request.user.is_authenticated %}
-                    <a class="btn btn-secondary btn-lg text-light ml-1"
-                       style="border-radius: 10px;"
-                       href="{% url 'register' %}">
-                        Create
-                    </a>
-                {% endif %}
             </div>
             <div class="col-lg-6 d-none d-lg-block">
                 <img class="img-fluid" src="{% static 'images/Desert-Pyramids-Image.png' %}" alt="desert">
             </div>
         </div>
+        <div>
+
+        </div>
     </div>
 </section>
 
-<section class="custom-section-home shadow-panel">
-    <div class="container my-5">
+<section class="panel-2 shadow-background">
+    <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-6">
-                <h3 class="mb-3">The Top Collections</h3>
+                <h3 class="mb-3" style="font-size: 35px">The Top Collections</h3>
             </div>
             <div class="col-6 text-right">
                 <a class="btn text-white mb-3 mr-1 custom-btn-desert"
@@ -401,11 +402,11 @@
             </div>
 </section>
 
-<section class="custom-section-home">
-    <div class="container-lg my-5">
+<section class="panel">
+    <div class="container-lg">
         <div class="row text-center">
 
-            <h3 class="mb-4">Create and sell your NFTs</h3>
+            <h3 class="mb-4" style="font-size: 35px">Create and sell your NFTs</h3>
 
             <div class="col-12 col-sm-6 col-lg-4 mt-5">
                 <div>
@@ -448,8 +449,8 @@
     </div>
 </section>
 
-<section class="custom-section-home shadow-panel">
-    <div class="container pt-5 pb-3">
+<section class="panel-2 shadow-background">
+    <div class="container">
         <div class="row">
             <div class="col-12 col-lg-6 px-1">
                 <img class="img-fluid custom-border-radius-home-img-first"
@@ -474,8 +475,8 @@
     </div>
 </section>
 
-<section class="custom-section-home">
-    <div class="container py-5">
+<section class="panel">
+    <div class="container">
         <div class="row">
             <div class="col-12 col-lg-6 text-center text-lg-left">
                 <h3>Stay up to date &nbsp;<i class="bi bi-newspaper"></i></h3>
@@ -520,8 +521,8 @@
     </div>
 </section>
 
-<footer class="bg-light shadow-panel">
-    <div class="container-fluid px-5 py-3">
+<footer class="panel-2 shadow-background" style="padding-top: 1px; padding-bottom: 1px">
+    <div class="container-fluid px-5 py-2">
         <div class="row align-items-center">
             <div class="col-12 col-md-6 text-center text-md-left">
                 <p class="my-2">&copy; 2021-2022 Big Desert, Inc</p>
