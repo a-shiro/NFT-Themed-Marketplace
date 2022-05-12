@@ -7,15 +7,26 @@ body {
     height: 45px;
 }
 
-.brand-name {
-    padding-left: 12px;
+.brand-name-home {
+    padding-left: 18px;
+    font-size: 21px;
+    font-weight: bold;
+    color: #262626;
+}
+
+.brand-name-base {
+    padding-left: 18px;
     font-size: 21px;
     font-weight: bold;
     color: #262626;
 }
 
 @media (min-width: 360px) and (max-width: 767px) {
-    .brand-name {
+    .brand-name-home {
+        padding-left: 8px;
+    }
+
+    .brand-name-base {
         padding-left: 8px;
     }
 }
@@ -35,7 +46,7 @@ ul li {
     height: 45px;
 }
 
-.nav-icon{
+.nav-icon {
     margin-top: 1px;
 }
 
@@ -46,6 +57,10 @@ ul li {
 
     .nav-icon {
         margin-top: 3px;
+    }
+
+    .brand-name-base {
+        padding-left: 8px;
     }
 }
 
@@ -58,6 +73,14 @@ ul li {
 @media (min-width: 992px) and (max-width: 1999px ) {
     .search-bar {
         width: 350px;
+    }
+
+    .brand-name-home {
+        padding-left: 16px;
+    }
+
+    .brand-name-base {
+        padding-left: 11px;
     }
 }
 
