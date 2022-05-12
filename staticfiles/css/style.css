@@ -8,13 +8,13 @@ body {
 }
 
 .brand-name {
-    padding-left: 16px;
+    padding-left: 12px;
     font-size: 21px;
     font-weight: bold;
     color: #262626;
 }
 
-@media (min-width: 360px) and (max-width: 768px) {
+@media (min-width: 360px) and (max-width: 767px) {
     .brand-name {
         padding-left: 8px;
     }
@@ -37,6 +37,40 @@ ul li {
 
 .nav-icon{
     margin-top: 1px;
+}
+
+@media (min-width: 768px) and (max-width: 991px ) {
+    .search-bar {
+        width: 120px;
+    }
+
+    .nav-icon {
+        margin-top: 3px;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 991px ) {
+    .search-bar {
+        width: 250px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1999px ) {
+    .search-bar {
+        width: 350px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1599px ) {
+    .search-bar {
+        width: 500px;
+    }
+}
+
+@media (min-width: 1600px) and (max-width: 2500px ) {
+    .search-bar {
+        width: 850px;
+    }
 }
 
 .shadow-panel {
