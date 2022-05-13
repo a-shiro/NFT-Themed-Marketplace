@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-    <section class="custom-section-home">
+    <section class="panel-2">
         <div class="container">
             <div class="row text-center">
                 <div class="mb-2">
@@ -25,22 +25,20 @@
         </div>
     </section>
 
-    <section class="custom-section-home shadow-background">
+    <section class="shadow-background">
         <div class="container-fluid">
             <div class="row p-3">
                 {% for collection in marketplace_collections %}
                     {% if collection.posted_for_sale %}
                         <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
                             <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
-                                <img class="custom-img-height-marketplace"
-                                     style="border-radius: 10px 10px 0 0;"
-                                     alt="100%x280"
+                                <img class="marketplace-image" alt="{{ collection.title }}"
                                      src="{{ collection.image.url }}">
 
                                 <div class="card-body text-center">
                                     <a class="text-decoration-none custom-link-desert"
                                        href="{% url 'collection details' collection.pk %}" title="View collection">
-                                        <h4 class="mt-2"> {{ collection.title|truncatechars:22 }}</h4>
+                                        <h4 class="mt-2"> {{ collection.title|truncatechars:25 }}</h4>
                                     </a>
                                     <p class="mb-4 text-secondary">by
                                         <a class="text-decoration-none custom-link-desert"
@@ -49,7 +47,7 @@
                                         </a>
                                     </p>
                                     <hr class="text-secondary">
-                                    <p class="card-text text-secondary">{{ collection.description|truncatechars:30 }}</p>
+                                    <p class="card-text text-secondary">{{ collection.description|truncatechars:25 }}</p>
                                 </div>
                             </div>
                         </div>

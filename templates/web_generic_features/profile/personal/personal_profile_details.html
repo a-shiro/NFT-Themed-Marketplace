@@ -2,158 +2,154 @@
 {% load static %}
 
 {% block profile_buttons %}
-    <div class="container-fluid">
-        <div class="dropdown text-center mt-5 d-lg-none">
-            <button class="btn btn-lg dropdown-toggle" style="border-bottom: 5px solid #F2B851;"
-                    type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                Profile
-            </button>
-            <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
-                <li>
-                    <a class="dropdown-item" href="{% url 'profile collection' request.user.pk %}">
+    <section>
+        <div class="container-fluid">
+            <div class="dropdown text-center mt-5 d-lg-none">
+                <button class="btn btn-lg dropdown-toggle" style="border-bottom: 5px solid #F2B851;"
+                        type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    Profile
+                </button>
+                <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
+                    <li>
+                        <a class="dropdown-item" href="{% url 'profile collection' request.user.pk %}">
                             <span>
                                 <i class="bi bi-folder-check"></i>
                                 Collected
-                            </span>
-                    </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{% url 'profile' request.user.pk %}">
-                            <span>
-                                <i class="bi bi-brush"></i>
-                                Created
-                            </span>
-                    </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{% url 'profile favorite' request.user.pk %}">
-                            <span>
-                                <i class="bi bi-bookmark-heart"></i>
-                                Favorite
-                            </span>
-                    </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{% url 'create collection' %}">
-                            <span>
-                                <i class="bi bi-folder-plus"></i>
-                                Add Collection
-                            </span>
-                    </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                {% if add_nft %}
-                    <li>
-                        <a class="dropdown-item" href="{% url 'create nft' %}">
-                            <span>
-                                <i class="bi bi-file-earmark-plus"></i>
-                                Add NFT
                             </span>
                         </a>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                {% endif %}
-                <li>
-                    <a class="dropdown-item" href="{% url 'edit profile' request.user.pk %}">
-                            <span>
-                                <i class="bi bi-pencil-square"></i>
-                                Edit Profile
-                            </span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-
-        <div class="text-center mt-5 d-none d-lg-block">
-            <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
-                <a class="text-dark text-decoration-none"
-                   href="{% url 'profile collection' request.user.pk %}">
-                            <span>
-                                <i class="bi bi-folder-check"></i>
-                                Collected
-                            </span>
-                </a>
-            </button>
-
-            <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851">
-                <a class="text-dark text-decoration-none"
-                   href="{% url 'profile' request.user.pk %}">
+                    <li>
+                        <a class="dropdown-item" href="{% url 'profile' request.user.pk %}">
                             <span>
                                 <i class="bi bi-brush"></i>
                                 Created
                             </span>
-                </a>
-            </button>
-
-            <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
-                <a class="text-dark text-decoration-none"
-                   href="{% url 'profile favorite' request.user.pk %}">
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'profile favorite' request.user.pk %}">
                             <span>
                                 <i class="bi bi-bookmark-heart"></i>
                                 Favorite
                             </span>
-                </a>
-            </button>
-
-            <button type="button" class="btn btn-lg mx-2" data-bs-toggle="modal"
-                    data-bs-target="#create-collection-modal" style="border-bottom: 5px solid #F2B851">
-                <a class="text-dark text-decoration-none"
-                   href="{% url 'create collection' %}">
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'create collection' %}">
                             <span>
                                 <i class="bi bi-folder-plus"></i>
                                 Add Collection
                             </span>
-                </a>
-            </button>
-
-            {% if add_nft %}
-                <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
-                    <a class="text-dark text-decoration-none"
-                       href="{% url 'create nft' %}">
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    {% if add_nft %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'create nft' %}">
                             <span>
                                 <i class="bi bi-file-earmark-plus"></i>
                                 Add NFT
                             </span>
-                    </a>
-                </button>
-            {% else %}
-                <button title="Add a collection first" type="button" class="btn btn-lg mx-2"
-                        style="border-bottom: 5px solid #6f6f6f;">
-                    <a class="text-dark text-decoration-none">
-                            <span>
-                                <i class="bi bi-file-earmark-plus"></i>
-                                Add NFT
-                            </span>
-                    </a>
-                </button>
-            {% endif %}
-
-            <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
-                <a class="text-dark text-decoration-none"
-                   href="{% url 'edit profile' request.user.pk %}">
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a class="dropdown-item" href="{% url 'edit profile' request.user.pk %}">
                             <span>
                                 <i class="bi bi-pencil-square"></i>
                                 Edit Profile
                             </span>
-                </a>
-            </button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="text-center d-none d-lg-block" style="margin-top: 80px">
+                <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
+                    <a class="text-dark text-decoration-none"
+                       href="{% url 'profile collection' request.user.pk %}">
+                            <span>
+                                <i class="bi bi-folder-check"></i>
+                                Collected
+                            </span>
+                    </a>
+                </button>
+                <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851">
+                    <a class="text-dark text-decoration-none"
+                       href="{% url 'profile' request.user.pk %}">
+                            <span>
+                                <i class="bi bi-brush"></i>
+                                Created
+                            </span>
+                    </a>
+                </button>
+                <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
+                    <a class="text-dark text-decoration-none"
+                       href="{% url 'profile favorite' request.user.pk %}">
+                            <span>
+                                <i class="bi bi-bookmark-heart"></i>
+                                Favorite
+                            </span>
+                    </a>
+                </button>
+                <button type="button" class="btn btn-lg mx-2" data-bs-toggle="modal"
+                        data-bs-target="#create-collection-modal" style="border-bottom: 5px solid #F2B851">
+                    <a class="text-dark text-decoration-none"
+                       href="{% url 'create collection' %}">
+                            <span>
+                                <i class="bi bi-folder-plus"></i>
+                                Add Collection
+                            </span>
+                    </a>
+                </button>
+                {% if add_nft %}
+                    <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
+                        <a class="text-dark text-decoration-none"
+                           href="{% url 'create nft' %}">
+                            <span>
+                                <i class="bi bi-file-earmark-plus"></i>
+                                Add NFT
+                            </span>
+                        </a>
+                    </button>
+                {% else %}
+                    <button title="Add a collection first" type="button" class="btn btn-lg mx-2"
+                            style="border-bottom: 5px solid #6f6f6f;">
+                        <a class="text-dark text-decoration-none">
+                            <span>
+                                <i class="bi bi-file-earmark-plus"></i>
+                                Add NFT
+                            </span>
+                        </a>
+                    </button>
+                {% endif %}
+                <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
+                    <a class="text-dark text-decoration-none"
+                       href="{% url 'edit profile' request.user.pk %}">
+                            <span>
+                                <i class="bi bi-pencil-square"></i>
+                                Edit Profile
+                            </span>
+                    </a>
+                </button>
+            </div>
         </div>
-    </div>
+    </section>
 {% endblock %}
 
 {% block profile_content %}

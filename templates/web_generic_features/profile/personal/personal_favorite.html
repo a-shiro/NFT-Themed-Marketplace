@@ -1,30 +1,28 @@
 {% extends 'web_generic_features/profile/personal/personal_profile_details.html' %}
 
 {% block profile_content %}
-    {% if favorite_nfts %}
-        <div class="container-fluid">
-            <div class="row p-3">
-                {% for nft in favorite_nfts %}
-                    <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
-                        <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
-                            <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;"
-                                 alt="100%x280"
-                                 src="{{ nft.image.url }}">
-                            <div class="card-body text-center">
-                                <h4 class="mt-2" style="color: #F2B851">
-                                    {{ nft.title|truncatechars:22 }}
-                                </h4>
+    <section class="shadow-background">
+        {% if favorite_nfts %}
+            <div class="container-fluid">
+                <div class="row p-3">
+                    {% for nft in favorite_nfts %}
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
+                            <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
+                                <img class="nft-image" alt="{{ nft.title}}" src="{{ nft.image.url }}">
+                                <div class="card-body text-center">
+                                    <h4 class="mt-2" style="color: #F2B851">{{ nft.title|truncatechars:22 }}</h4>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    {% else %}
-        <div class="container">
-            <div class="text-center" style="margin-top: 80px">
-                <h1>No Favorites Yet</h1>
+        {% else %}
+            <div class="container panel-2">
+                <div class="text-center" style="margin-top: 20px">
+                    <h1>No Favorites Yet</h1>
+                </div>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
+    </section>
 {% endblock %}

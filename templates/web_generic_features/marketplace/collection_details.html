@@ -2,17 +2,14 @@
 {% load static %}
 
 {% block content %}
-    <section class="text-center pt-0 custom-section-home">
+    <section class="text-center pt-0 panel-2">
         <div style="margin-bottom: 50px">
             {% if collection.cover_image %}
-                <img width="100%"
-                     height="350px"
-                     style="object-fit: cover" src="{{ collection.cover_image.url }}"
+                <img width="100%" height="350px" style="object-fit: cover" src="{{ collection.cover_image.url }}"
                      alt="cover-img">
             {% else %}
                 <img width="100%"
-                     height="350px"
-                     style="object-fit: cover" src="{% static 'images/default_cover_pic.png' %}"
+                     height="350px" style="object-fit: cover" src="{% static 'images/default_cover_pic.png' %}"
                      alt="cover-img">
             {% endif %}
         </div>
@@ -21,7 +18,8 @@
                 <div class="col-12">
                     <h1>{{ collection.title }}</h1>
                     <h5 class="mb-4 text-secondary"> Created by
-                        <a class="text-decoration-none" style="color: #F2B851" href="{% url 'profile' collection.user.pk %}">{{ collection.user.profile.username }}</a>
+                        <a class="text-decoration-none" style="color: #F2B851"
+                           href="{% url 'profile' collection.user.pk %}">{{ collection.user.profile.username }}</a>
                     </h5>
                 </div>
 
@@ -53,14 +51,13 @@
         </div>
     </section>
 
-    <section class="custom-section-home shadow-background pt-4">
+    <section class="pt-4 shadow-background">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12 text-end px-5">
+                <div class="col-12 px-5 text-end">
                     <div class="dropdown">
                         <button class="btn dropdown-toggle text-light custom-btn-desert" type="button"
-                                id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Order By
                         </button>
                         <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuButton1">
@@ -93,10 +90,7 @@
                 {% for nft, favorite in nfts_and_favorite_pair %}
                     <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 my-2">
                         <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
-                            <img class="custom-img-height-collection" style="border-radius: 10px 10px 0 0;"
-                                 alt="100%x280"
-                                 src="{{ nft.image.url }}">
-
+                            <img class="nft-image" alt="{{ nft.title }}" src="{{ nft.image.url }}">
                             <div class="card-body text-center">
                                 <h4 class="mt-2" style="color: #F2B851"> {{ nft.title|truncatechars:22 }}</h4>
                             </div>

@@ -2,54 +2,48 @@
 {% load static %}
 
 {% block content %}
-    <section style="margin: 0 0 50px 0">
+    <section style="margin: 0 0 40px 0">
         <div class="container-fluid p-0">
             <div style="margin-bottom: 100px">
                 {% if profile.cover_image %}
-                    <img width="100%"
-                         height="250px"
-                         style="object-fit: cover" src="{{ profile.cover_image.url }}"
+                    <img width="100%" height="250px" style="object-fit: cover" src="{{ profile.cover_image.url }}"
                          alt="cover-img">
                 {% else %}
-                    <img width="100%"
-                         height="250px"
-                         style="object-fit: cover" src="{% static 'images/default_cover_pic.png' %}"
-                         alt="cover-img">
+                    <img width="100%" height="250px" style="object-fit: cover"
+                         src="{% static 'images/default_cover_pic.png' %}" alt="cover-img">
                 {% endif %}
             </div>
             <div class="text-center" style="margin-top: -195px">
                 {% if profile.profile_image %}
                     <img src="{{ profile.profile_image.url }}"
                          style="border-radius: 50%; object-fit: cover; height: 180px; width: 180px;
-                         box-shadow: 0 1px 10px #666666"
-                         alt="profile-image">
+                         box-shadow: 0 1px 10px #666666" alt="profile-img">
                 {% else %}
                     <img src="{% static 'images/default_profile_pic.png' %}"
                          style="border: 2px; border-radius: 50%; object-fit: cover; height: 180px; width: 180px;
-                         box-shadow: 0 1px 10px #666666"
-                         alt="profile-image">
+                         box-shadow: 0 1px 10px #666666" alt="profile-img">
                 {% endif %}
             </div>
         </div>
         <div class="container text-center">
-            <div class="my-4">
+            <div class="mt-4">
                 <div>
                     <h1>{{ profile.username }}</h1>
                 </div>
                 <div>
-                    <h5 class="text-secondary">Joined {{ profile.user.date_joined|date:'F Y' }}</h5>
+                    <h5 class="text-secondary" style="font-size: 22px">
+                        Joined {{ profile.user.date_joined|date:'F Y' }}
+                    </h5>
                 </div>
-                {% block profile_buttons %}
 
+                {% block profile_buttons %}
                 {% endblock %}
+
             </div>
         </div>
     </section>
 
-    <section class="shadow-background custom-section-home">
-        {% block profile_content %}
-
-        {% endblock %}
-    </section>
+    {% block profile_content %}
+    {% endblock %}
 
 {% endblock %}

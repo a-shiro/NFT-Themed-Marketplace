@@ -3,38 +3,39 @@
 
 
 {% block profile_buttons %}
-    <div class="mt-5">
-        <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
-            <a class="text-dark text-decoration-none"
-               href="{% url 'profile collection' object.pk %}">
+    <section>
+        <div style="margin-top: 80px">
+            <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
+                <a class="text-dark text-decoration-none"
+                   href="{% url 'profile collection' object.pk %}">
                 <span>
                     <i class="bi bi-folder-check"></i>
                     Collected
                 </span>
-            </a>
-        </button>
-
-        <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
-            <a class="text-dark text-decoration-none"
-               href="{% url 'profile'  object.pk %}">
+                </a>
+            </button>
+            <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
+                <a class="text-dark text-decoration-none"
+                   href="{% url 'profile'  object.pk %}">
                 <span>
                     <i class="bi bi-brush"></i>
                     Created
                 </span>
-            </a>
-        </button>
-
-        <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
-            <a class="text-dark text-decoration-none"
-               href="{% url 'profile favorite' object.pk %}">
+                </a>
+            </button>
+            <button type="button" class="btn btn-lg mx-2" style="border-bottom: 5px solid #F2B851;">
+                <a class="text-dark text-decoration-none"
+                   href="{% url 'profile favorite' object.pk %}">
                 <span>
                     <i class="bi bi-bookmark-heart"></i>
                     Favorite
                 </span>
-            </a>
-        </button>
-    </div>
+                </a>
+            </button>
+        </div>
+    </section>
 {% endblock %}
+
 
 {% block profile_content %}
 {% endblock %}
