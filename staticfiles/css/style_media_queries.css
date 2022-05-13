@@ -10,7 +10,7 @@
 }
 
 @media (min-width: 360px) and (max-width: 370px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 215px;
     }
 
@@ -24,7 +24,7 @@
 }
 
 @media (min-width: 370px) and (max-width: 400px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 220px;
     }
 
@@ -38,7 +38,7 @@
 }
 
 @media (min-width: 400px) and (max-width: 420px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 225px;
     }
 
@@ -52,7 +52,7 @@
 }
 
 @media (min-width: 420px) and (max-width: 450px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 250px;
     }
 
@@ -66,7 +66,7 @@
 }
 
 @media (min-width: 450px) and (max-width: 480px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 260px;
     }
 
@@ -80,7 +80,7 @@
 }
 
 @media (min-width: 480px) and (max-width: 500px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 270px;
     }
 
@@ -94,7 +94,7 @@
 }
 
 @media (min-width: 500px) and (max-width: 540px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 290px;
     }
 
@@ -108,7 +108,7 @@
 }
 
 @media (min-width: 540px) and (max-width: 576px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 300px;
     }
 
@@ -123,7 +123,7 @@
 
 /* Small */
 @media (min-width: 576px) and (max-width: 600px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 305px;
     }
 
@@ -137,7 +137,7 @@
 }
 
 @media (min-width: 600px) and (max-width: 630px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 310px;
     }
 
@@ -151,7 +151,7 @@
 }
 
 @media (min-width: 630px) and (max-width: 660px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 315px;
     }
 
@@ -165,7 +165,7 @@
 }
 
 @media (min-width: 660px) and (max-width: 700px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 320px;
     }
 
@@ -179,7 +179,7 @@
 }
 
 @media (min-width: 700px) and (max-width: 730px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 325px;
     }
 
@@ -193,7 +193,7 @@
 }
 
 @media (min-width: 730px) and (max-width: 768px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 330px;
     }
 
@@ -209,7 +209,7 @@
 /* Medium */
 
 @media (min-width: 768px) and (max-width: 800px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 220px;
     }
 
@@ -223,7 +223,7 @@
 }
 
 @media (min-width: 800px) and (max-width: 840px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 220px;
     }
 
@@ -238,7 +238,7 @@
 
 
 @media (min-width: 840px) and (max-width: 880px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 220px;
     }
 
@@ -252,7 +252,7 @@
 }
 
 @media (min-width: 880px) and (max-width: 920px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 220px;
     }
 
@@ -266,7 +266,7 @@
 }
 
 @media (min-width: 920px) and (max-width: 960px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 220px;
     }
 
@@ -280,7 +280,7 @@
 }
 
 @media (min-width: 960px) and (max-width: 992px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 220px;
     }
 
@@ -296,7 +296,7 @@
 
 /* Large */
 @media (min-width: 992px) and (max-width: 1030px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 190px;
     }
 
@@ -310,7 +310,7 @@
 }
 
 @media (min-width: 1030px) and (max-width: 1080px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 190px;
     }
 
@@ -324,7 +324,7 @@
 }
 
 @media (min-width: 1080px) and (max-width: 1120px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 190px;
     }
 
@@ -338,7 +338,7 @@
 }
 
 @media (min-width: 1120px) and (max-width: 1160px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 190px;
     }
 
@@ -352,7 +352,7 @@
 }
 
 @media (min-width: 1160px) and (max-width: 1200px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 190px;
     }
 
@@ -367,7 +367,7 @@
 
 /* X-Large */
 @media (min-width: 1200px) and (max-width: 1230px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 240px;
     }
 
@@ -375,13 +375,13 @@
         height: 245px;
     }
 
-     .custom-img-height-collection {
+    .custom-img-height-collection {
         height: 390px;
     }
 }
 
 @media (min-width: 1230px) and (max-width: 1280px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 240px;
     }
 
@@ -396,7 +396,7 @@
 
 
 @media (min-width: 1280px) and (max-width: 1320px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 240px;
     }
 
@@ -404,13 +404,13 @@
         height: 255px;
     }
 
-        .custom-img-height-collection {
+    .custom-img-height-collection {
         height: 430px;
     }
 }
 
 @media (min-width: 1320px) and (max-width: 1400px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 240px;
     }
 
@@ -425,7 +425,7 @@
 
 /* XX-Large */
 @media (min-width: 1400px) and (max-width: 1440px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 260px;
     }
 
@@ -439,7 +439,7 @@
 }
 
 @media (min-width: 1440px) and (max-width: 1550px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 260px;
     }
 
@@ -453,7 +453,7 @@
 }
 
 @media (min-width: 1550px) and (max-width: 1600px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 260px;
     }
 
@@ -467,7 +467,7 @@
 }
 
 @media (min-width: 1600px) and (max-width: 1640px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 260px;
     }
 
@@ -482,7 +482,7 @@
 
 
 @media (min-width: 1640px) and (max-width: 1680px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 260px;
     }
 
@@ -497,7 +497,7 @@
 
 
 @media (min-width: 1680px) and (max-width: 1780px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 260px;
     }
 
@@ -511,7 +511,7 @@
 }
 
 @media (min-width: 1780px) and (max-width: 2080px) {
-    .custom-img-height-carousel {
+    .carousel-image {
         height: 260px;
     }
 
@@ -525,19 +525,13 @@
 }
 
 /* Custom IMG Border Home Page */
-@media (min-width: 360px) and (max-width: 992px) {
-    .custom-border-radius-home-img-first {
-        border-radius: 10px 10px 10px 10px;
-    }
+.decorative-img {
+    border-radius: 10px 10px 10px 10px;
 }
 
 @media (min-width: 992px) and (max-width: 2080px) {
-    .custom-border-radius-home-img-first {
+    .decorative-img {
         border-radius: 10px 0 0 10px;
-    }
-
-    .custom-border-radius-home-img-second {
-        border-radius: 0 10px 10px 0;
     }
 }
 

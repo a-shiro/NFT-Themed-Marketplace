@@ -131,7 +131,7 @@
                         <p class="px-2 px-sm-5 px-lg-0" style="font-size: 30px">
                             Explore the marketplace to find many traders with unique and valuable NFTs
                         </p>
-                        <div class="mt-5">
+                        <div class="mt-5 pt-4">
                             <a class="btn btn-lg text-light custom-btn-desert"
                                href="{% url 'marketplace' %}">
                                 Marketplace
@@ -151,33 +151,23 @@
                 <img class="img-fluid" src="{% static 'images/Desert-Pyramids-Image.png' %}" alt="desert">
             </div>
         </div>
-        <div>
-
-        </div>
     </div>
 </section>
 
 <section class="panel-2 shadow-background">
     <div class="container">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-6">
-                <h3 class="mb-3" style="font-size: 35px">The Top Collections</h3>
+        <div class="row">
+            <div class="col-12 col-sm-8 mb-2 text-center text-sm-left">
+                <h3 style="font-size: 35px">The Top Collections</h3>
             </div>
-            <div class="col-6 text-right">
-                <a class="btn text-white mb-3 mr-1 custom-btn-desert"
-                   href="#main-carousel"
-                   role="button"
-                   data-slide="prev">
+            <div class="col-12 col-sm-4 mb-3 text-center text-sm-right">
+                <a class="btn text-white mr-1 custom-btn-desert" href="#main-carousel" role="button" data-slide="prev">
                     <i class="bi bi-arrow-left"></i>
                 </a>
-                <a class="btn text-white mb-3 custom-btn-desert"
-                   href="#main-carousel"
-                   role="button"
-                   data-slide="next">
+                <a class="btn text-white custom-btn-desert" href="#main-carousel" role="button" data-slide="next">
                     <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
-
             <div class="col-12">
                 <div id="main-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
@@ -187,9 +177,27 @@
                                     {% if forloop.counter == 1 %}
                                         <div class="col-md-6 col-lg-4 mb-3">
                                             <div class="card" style="border-radius: 10px">
-                                                <img class="custom-img-height-carousel"
-                                                     style="border-radius: 10px 10px 0 0;"
-                                                     alt="100%x280"
+                                                <img class="carousel-image carousel-image"
+                                                     alt="{{ collection.title }}" src="{{ collection.image.url }}">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">
+                                                        <a class="text-decoration-none" style="color: #F2B851"
+                                                           href="{% url 'collection details' collection.pk %}">
+                                                            {{ collection.title|truncatechars:25 }}
+                                                        </a>
+                                                    </h4>
+                                                    <p class="card-text text-secondary"
+                                                       title="{{ collection.description }}">
+                                                        {{ collection.description|truncatechars:25 }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if forloop.counter == 2 %}
+                                        <div class="col-md-6 col-lg-4 d-none d-md-block mb-3">
+                                            <div class="card" style="border-radius: 10px">
+                                                <img class="carousel-image" alt="{{ collection.title }}"
                                                      src="{{ collection.image.url }}">
                                                 <div class="card-body">
                                                     <h4 class="card-title">
@@ -200,29 +208,7 @@
                                                     </h4>
                                                     <p class="card-text text-secondary"
                                                        title="{{ collection.description }}">
-                                                        {{ collection.description|truncatechars:40 }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endif %}
-                                    {% if forloop.counter == 2 %}
-                                        <div class="col-md-6 col-lg-4 d-none d-md-block mb-3">
-                                            <div class="card" style="border-radius: 10px">
-                                                <img class="custom-img-height-carousel"
-                                                     style="border-radius: 10px 10px 0 0;"
-                                                     alt="100%x280"
-                                                     src="{{ collection.image.url }}">
-                                                <div class="card-body">
-                                                    <h4 class="card-title" style="color: #F2B851">
-                                                        <a class="text-decoration-none" style="color: #F2B851"
-                                                           href="{% url 'collection details' collection.pk %}">
-                                                            {{ collection.title|truncatechars:25 }}
-                                                        </a>
-                                                    </h4>
-                                                    <p class="card-text text-secondary"
-                                                       title="{{ collection.description }}">
-                                                        {{ collection.description|truncatechars:40 }}
+                                                        {{ collection.description|truncatechars:25 }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -231,12 +217,10 @@
                                     {% if forloop.counter == 3 %}
                                         <div class="col-lg-4 d-none d-lg-block mb-3">
                                             <div class="card" style="border-radius: 10px">
-                                                <img class="custom-img-height-carousel"
-                                                     style="border-radius: 10px 10px 0 0;"
-                                                     alt="100%x280"
+                                                <img class="carousel-image" alt="{{ collection.title }}"
                                                      src="{{ collection.image.url }}">
                                                 <div class="card-body">
-                                                    <h4 class="card-title" style="color: #F2B851">
+                                                    <h4 class="card-title">
                                                         <a class="text-decoration-none" style="color: #F2B851"
                                                            href="{% url 'collection details' collection.pk %}">
                                                             {{ collection.title|truncatechars:25 }}
@@ -244,7 +228,7 @@
                                                     </h4>
                                                     <p class="card-text text-secondary"
                                                        title="{{ collection.description }}">
-                                                        {{ collection.description|truncatechars:40 }}
+                                                        {{ collection.description|truncatechars:25 }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -259,12 +243,10 @@
                                     {% if forloop.counter == 1 %}
                                         <div class="col-md-6 col-lg-4 mb-3">
                                             <div class="card" style="border-radius: 10px">
-                                                <img class="custom-img-height-carousel"
-                                                     style="border-radius: 10px 10px 0 0;"
-                                                     alt="100%x280"
+                                                <img class="carousel-image" alt="{{ collection.title }}"
                                                      src="{{ collection.image.url }}">
                                                 <div class="card-body">
-                                                    <h4 class="card-title" style="color: #F2B851">
+                                                    <h4 class="card-title">
                                                         <a class="text-decoration-none" style="color: #F2B851"
                                                            href="{% url 'collection details' collection.pk %}">
                                                             {{ collection.title|truncatechars:25 }}
@@ -272,7 +254,7 @@
                                                     </h4>
                                                     <p class="card-text text-secondary"
                                                        title="{{ collection.description }}">
-                                                        {{ collection.description|truncatechars:40 }}
+                                                        {{ collection.description|truncatechars:25 }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -281,12 +263,10 @@
                                     {% if forloop.counter == 2 %}
                                         <div class="col-md-6 col-lg-4 d-none d-md-block mb-3">
                                             <div class="card" style="border-radius: 10px">
-                                                <img class="custom-img-height-carousel"
-                                                     style="border-radius: 10px 10px 0 0;"
-                                                     alt="100%x280"
+                                                <img class="carousel-image" alt="{{ collection.title }}"
                                                      src="{{ collection.image.url }}">
                                                 <div class="card-body">
-                                                    <h4 class="card-title" style="color: #F2B851">
+                                                    <h4 class="card-title">
                                                         <a class="text-decoration-none" style="color: #F2B851"
                                                            href="{% url 'collection details' collection.pk %}">
                                                             {{ collection.title|truncatechars:25 }}
@@ -294,7 +274,7 @@
                                                     </h4>
                                                     <p class="card-text text-secondary"
                                                        title="{{ collection.description }}">
-                                                        {{ collection.description|truncatechars:40 }}
+                                                        {{ collection.description|truncatechars:25 }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -303,12 +283,10 @@
                                     {% if forloop.counter == 3 %}
                                         <div class="col-lg-4 d-none d-lg-block mb-3">
                                             <div class="card" style="border-radius: 10px">
-                                                <img class="custom-img-height-carousel"
-                                                     style="border-radius: 10px 10px 0 0;"
-                                                     alt="100%x280"
+                                                <img class="carousel-image" alt="{{ collection.title }}"
                                                      src="{{ collection.image.url }}">
                                                 <div class="card-body">
-                                                    <h4 class="card-title" style="color: #F2B851">
+                                                    <h4 class="card-title">
                                                         <a class="text-decoration-none" style="color: #F2B851"
                                                            href="{% url 'collection details' collection.pk %}">
                                                             {{ collection.title|truncatechars:25 }}
@@ -316,7 +294,7 @@
                                                     </h4>
                                                     <p class="card-text text-secondary"
                                                        title="{{ collection.description }}">
-                                                        {{ collection.description|truncatechars:40 }}
+                                                        {{ collection.description|truncatechars:25 }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -331,12 +309,10 @@
                                     {% if forloop.counter == 1 %}
                                         <div class="col-md-6 col-lg-4 mb-3">
                                             <div class="card" style="border-radius: 10px">
-                                                <img class="custom-img-height-carousel"
-                                                     style="border-radius: 10px 10px 0 0;"
-                                                     alt="100%x280"
+                                                <img class="carousel-image" alt="{{ collection.title }}"
                                                      src="{{ collection.image.url }}">
                                                 <div class="card-body">
-                                                    <h4 class="card-title" style="color: #F2B851">
+                                                    <h4 class="card-title">
                                                         <a class="text-decoration-none" style="color: #F2B851"
                                                            href="{% url 'collection details' collection.pk %}">
                                                             {{ collection.title|truncatechars:25 }}
@@ -344,7 +320,7 @@
                                                     </h4>
                                                     <p class="card-text text-secondary"
                                                        title="{{ collection.description }}">
-                                                        {{ collection.description|truncatechars:40 }}
+                                                        {{ collection.description|truncatechars:25 }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -353,12 +329,10 @@
                                     {% if forloop.counter == 2 %}
                                         <div class="col-md-6 col-lg-4 d-none d-md-block mb-3">
                                             <div class="card" style="border-radius: 10px">
-                                                <img class="custom-img-height-carousel"
-                                                     style="border-radius: 10px 10px 0 0;"
-                                                     alt="100%x280"
+                                                <img class="carousel-image" alt="{{ collection.title }}"
                                                      src="{{ collection.image.url }}">
                                                 <div class="card-body">
-                                                    <h4 class="card-title" style="color: #F2B851">
+                                                    <h4 class="card-title">
                                                         <a class="text-decoration-none" style="color: #F2B851"
                                                            href="{% url 'collection details' collection.pk %}">
                                                             {{ collection.title|truncatechars:25 }}
@@ -366,7 +340,7 @@
                                                     </h4>
                                                     <p class="card-text text-secondary"
                                                        title="{{ collection.description }}">
-                                                        {{ collection.description|truncatechars:40 }}
+                                                        {{ collection.description|truncatechars:25 }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -375,12 +349,10 @@
                                     {% if forloop.counter == 3 %}
                                         <div class="col-lg-4 d-none d-lg-block mb-3">
                                             <div class="card" style="border-radius: 10px">
-                                                <img class="custom-img-height-carousel"
-                                                     style="border-radius: 10px 10px 0 0;"
-                                                     alt="100%x280"
+                                                <img class="carousel-image" alt="{{ collection.title }}"
                                                      src="{{ collection.image.url }}">
                                                 <div class="card-body">
-                                                    <h4 class="card-title" style="color: #F2B851">
+                                                    <h4 class="card-title">
                                                         <a class="text-decoration-none" style="color: #F2B851"
                                                            href="{% url 'collection details' collection.pk %}">
                                                             {{ collection.title|truncatechars:25 }}
@@ -388,7 +360,7 @@
                                                     </h4>
                                                     <p class="card-text text-secondary"
                                                        title="{{ collection.description }}">
-                                                        {{ collection.description|truncatechars:40 }}
+                                                        {{ collection.description|truncatechars:25 }}
                                                     </p>
                                                 </div>
                                             </div>
@@ -400,51 +372,50 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 </section>
 
 <section class="panel">
-    <div class="container-lg">
+    <div class="container-md">
         <div class="row text-center">
-
             <h3 class="mb-4" style="font-size: 35px">Create and sell your NFTs</h3>
-
-            <div class="col-12 col-sm-6 col-lg-4 mt-5">
+            <div class="col-12 col-lg-4 mt-5">
                 <div>
                     <h1><i class="bi bi-folder-plus"></i></h1>
-                    <h5>Create your collections</h5>
-                    <p class="mt-3">
+                    <h5 style="font-size: 22px">Create your collections</h5>
+                    <p class="mt-4">
                         To start selling first you will need to create a profile. After that go to your profile page.
-                        Click <b style="color: #F2B851">'Add Collection'</b> and set up your collection details.
+                        Click <b style="color: #F2B851">"Add Collection"</b> and set up your collection details.
                         Now you have an empty collection and it's time to go to the next step - Adding NFTs to it.
                     </p>
                 </div>
             </div>
-            <div class="col-12 col-sm-6 col-lg-4 mt-5">
+            <div class="col-12 col-lg-4 mt-5">
                 <div>
                     <h1><i class="bi bi-image"></i></h1>
-                    <h5>Add your NFTs</h5>
-                    <p class="mt-3">
+                    <h5 style="font-size: 22px">Add your NFTs</h5>
+                    <p class="mt-4">
                         To add an NFT to a collection you have to click <b style="color: #F2B851">
-                        'Add NFT'</b>, then as you set up its details you will have a dropdown with your collection
+                        "Add NFT"</b>, then as you set up its details you will have a dropdown with your collection
                         choices. A minimum of 4 NFTs are required in a collection in order for you to be able to sell
                         it. Simple as
                         that. You are done here so lets move to posting them live on the market.
                     </p>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-lg-4 mt-5">
+            <div class="col-12 col-lg-4 mt-5">
                 <div>
                     <h1><i class="bi bi-tags"></i></h1>
-                    <h5>List them for sale</h5>
-                    <p class="mt-3">
+                    <h5 style="font-size: 22px">List them for sale</h5>
+                    <p class="mt-4">
                         After you are done with the 2 previous steps your will see that the <b style="color: #F2B851">
-                        'Post on Market'</b> button is now active. Once you click and confirm you are done. You can
+                        "Post on Market"</b> button is now active. Once you click and confirm you are done. You can
                         monitor how the collection is doing on the market and how much are sold. After every purchase
                         the crypto is send directly to your balance.
                     </p>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
@@ -453,16 +424,12 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-6 px-1">
-                <img class="img-fluid custom-border-radius-home-img-first"
-                     src="{% static 'images/Marketplace.png' %}"
-                     height="300px"
-                     alt="marketplace_1">
+                <img class="img-fluid decorative-img" height="300px" alt="marketplace-img"
+                     src="{% static 'images/Marketplace.png' %}">
             </div>
             <div class="col-lg-6 d-none d-lg-inline-block px-1">
-                <img class="img-fluid custom-border-radius-home-img-second"
-                     src="{% static 'images/Marketplace-2.png' %}"
-                     height="300px"
-                     alt="marketplace_2">
+                <img class="img-fluid" style="border-radius: 0 10px 10px 0;" height="300px" alt="marketplace-img"
+                     src="{% static 'images/Marketplace-2.png' %}">
             </div>
         </div>
         <div class="my-5"></div>
@@ -479,8 +446,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-6 text-center text-lg-left">
-                <h3>Stay up to date &nbsp;<i class="bi bi-newspaper"></i></h3>
-                <h5 class="text-secondary">Join our mailing list to stay updated with our newest feature releases,
+                <h3 style="font-size: 28px">Stay up to date &nbsp;<i class="bi bi-newspaper"></i></h3>
+                <h5 class="my-4 my-lg-3 text-secondary">Join our mailing list to stay updated with our newest feature releases,
                     NFT drops, and tips and
                     tricks for navigating DesertTraders.</h5>
                 <div class="row mt-4 text-left">
@@ -498,7 +465,7 @@
             <div class="col-12 col-lg-1 my-4 my-lg-0"></div>
 
             <div class="col-12 col-lg-5 text-center text-md-start">
-                <h3>Join the community &nbsp;<i class="bi bi-people-fill"></i></h3>
+                <h3 style="font-size: 28px">Join the community &nbsp;<i class="bi bi-people-fill"></i></h3>
                 <div class="mt-3 pl-1">
                     <button class="btn btn-lg text-white custom-btn-desert">
                         <i class="bi bi-twitter"></i>
