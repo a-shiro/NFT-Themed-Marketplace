@@ -42,9 +42,8 @@
                                 <div class="card-body text-center">
                                     <h4 class="mt-2" style="color: #F2B851"> {{ nft.title|truncatechars:22 }}</h4>
                                     <p class="mb-4 text-secondary">from
-                                        <a class="text-decoration-none custom-link-desert"
-                                           href="{% url 'collection details' nft.collection.pk %}"
-                                           title="View owner's profile">
+                                        <a class="link-desert" title="View Collection"
+                                           href="{% url 'collection details' nft.collection.pk %}">
                                             <span>{{ nft.collection.title|truncatechars:22 }}</span>
                                         </a>
                                     </p>
@@ -56,7 +55,7 @@
             </div>
         {% else %}
             <div class="container">
-                <div class="text-center" style="padding-top: 200px; min-height: 450px">
+                <div class="text-center" style="padding-top: 150px; min-height: 350px">
                     <h1>No Results Found</h1>
                 </div>
             </div>
