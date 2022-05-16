@@ -40,12 +40,12 @@
                                      src="{{ collection.image.url }}">
 
                                 <div class="card-body text-center">
-                                    <a class="text-decoration-none custom-link-desert"
+                                    <a class="text-decoration-none link-desert"
                                        href="{% url 'collection details' collection.pk %}" title="View collection">
                                         <h4 class="mt-2"> {{ collection.title|truncatechars:25 }}</h4>
                                     </a>
                                     <p class="mb-4 text-secondary">by
-                                        <a class="text-decoration-none custom-link-desert"
+                                        <a class="text-decoration-none link-desert"
                                            href="{% url 'profile' collection.user.pk %}" title="View owner's profile">
                                             <span>{{ collection.user.profile.username }}</span>
                                         </a>

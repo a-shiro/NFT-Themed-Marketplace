@@ -18,7 +18,7 @@
                 <div class="col-12">
                     <h1>{{ collection.title }}</h1>
                     <h5 class="mb-4 text-secondary"> Created by
-                        <a class="text-decoration-none" style="color: #F2B851"
+                        <a class="link-desert"
                            href="{% url 'profile' collection.user.pk %}">{{ collection.user.profile.username }}</a>
                     </h5>
                 </div>
@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-12 px-5 text-end">
                     <div class="dropdown">
-                        <button class="btn dropdown-toggle text-light custom-btn-desert" type="button"
+                        <button class="dropdown-toggle text-light btn-desert" type="button"
                                 id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             Order By
                         </button>
@@ -105,29 +105,25 @@
                                     {% else %}
                                         <div class="col-6">
                                             {% if not request.user.is_authenticated or request.user.profile.balance.balance >= nft.price %}
-                                                <button class="btn custom-btn-desert">
-                                                    <a class="text-decoration-none text-light"
-                                                       href="{% url 'buy nft' nft.pk %}">Buy</a>
-                                                </button>
+                                                <a class="btn-desert text-light"
+                                                   href="{% url 'buy nft' nft.pk %}">Buy</a>
                                             {% else %}
-                                                <button class="btn btn-secondary text-light" style="border-radius: 10px"
+                                                <button class="btn-desert text-light" style="border-radius: 10px; background-color: #787878"
                                                         title="Insufficient Balance">
                                                     Buy
                                                 </button>
                                             {% endif %}
-                                            <button class="btn px-2 pt-3">
-                                                <a class=" custom-like-link" href="{% url 'favorite nft' nft.pk %}">
-                                                    {% if favorite %}
-                                                        <h4>
-                                                            <i class="bi bi-heart-fill" style="color: #e43f3f"></i>
-                                                        </h4>
-                                                    {% else %}
-                                                        <h4>
-                                                            <i class="bi bi-heart"></i>
-                                                        </h4>
-                                                    {% endif %}
-                                                </a>
-                                            </button>
+                                            <a class="btn-like" href="{% url 'favorite nft' nft.pk %}">
+                                                {% if favorite %}
+                                                    <h4>
+                                                        <i class="bi bi-heart-fill" style="color: #e43f3f"></i>
+                                                    </h4>
+                                                {% else %}
+                                                    <h4>
+                                                        <i class="bi bi-heart"></i>
+                                                    </h4>
+                                                {% endif %}
+                                            </a>
                                         </div>
                                         <div class="col-6 text-end">
                                             <p class="m-0">Blockchain: {{ nft.blockchain }}</p>
