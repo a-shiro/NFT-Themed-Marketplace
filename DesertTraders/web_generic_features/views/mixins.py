@@ -6,6 +6,7 @@ from django.views import generic as dj_generic
 from django.urls import reverse_lazy
 
 from DesertTraders.web_generic_features.models import Collection
+from DesertTraders.web_generic_features.views.helpers import check_if_button_active
 
 
 class ActionMixin(dj_generic.View):
@@ -33,6 +34,17 @@ class CreateViewMixin(dj_mixins.LoginRequiredMixin, dj_generic.CreateView):
         kwargs['user'] = self.request.user
 
         return kwargs
+
+    def get_context_data(self, **kwargs):
+        profile = self.request.user.profile
+        add_nft = check_if_button_active(self.request.user)
+
+        context = super().get_context_data()
+
+        context['profile'] = profile
+        context['add_nft'] = add_nft
+
+        return context
 
     def get_success_url(self):
         profile_pk = self.request.user.pk

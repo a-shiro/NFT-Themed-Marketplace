@@ -17,10 +17,24 @@ class UserRegistrationView(generic_views.CreateView):
         login(self.request, self.object)
         return result
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['show_footer'] = True
+
+        return context
+
 
 class UserLoginView(auth_views.LoginView):
     template_name = 'users/user_auth/login.html'
     form_class = CustomUserLoginForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['show_footer'] = True
+
+        return context
 
     def get_success_url(self):
         return reverse_lazy('home')

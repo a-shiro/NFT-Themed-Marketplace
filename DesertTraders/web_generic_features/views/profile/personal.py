@@ -87,6 +87,14 @@ class EditProfileView(dj_mixins.LoginRequiredMixin, OwnerAccessMixin, dj_generic
     form_class = EditProfileForm
     template_name = 'web_generic_features/profile/personal/edit_profile.html'
 
+    def get_context_data(self, **kwargs):
+        add_nft = check_if_button_active(self.object.user)
+
+        context = super().get_context_data(**kwargs)
+
+        context['add_nft'] = add_nft
+        return context
+
     def get_success_url(self):
         profile_pk = self.object.pk
 

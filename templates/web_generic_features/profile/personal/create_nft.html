@@ -1,10 +1,10 @@
-{% extends 'web_generic_features/base.html' %}
+{% extends 'web_generic_features/profile/personal/personal_profile_details.html' %}
 
-{% block content %}
-    <section style="margin-top: 50px">
+{% block profile_content %}
+    <section class="panel-2 shadow-background">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-10 col-sm-9 col-md-7 col-lg-5 col-xl-4 py-4 p-sm-5 custom-form-box">
+                <div class="col-11 col-sm-9 col-md-7 col-lg-5 col-xl-4 box-form">
                     <div class="text-center mb-3 mb-sm-4">
                         <h2>Create NFT</h2>
                     </div>
@@ -16,14 +16,14 @@
                                 {{ form.title }}
                             </div>
                         </div>
-                        <div class="mt-3">
+                        <div class="my-4">
                             <label for="image" class="form-label">NFT Image:</label>
                             <div class="input-group">
                                 {{ form.image }}
                             </div>
                             <div class="text-danger mt-2">{{ form.image.errors }}</div>
                         </div>
-                        <div class="mt-3">
+                        <div>
                             <label for="price" class="form-label">Price:</label>
                             <div class="input-group">
                                 {{ form.price }}
@@ -31,20 +31,20 @@
                             <div class="text-danger mt-2">{{ form.price.errors }}</div>
 
                         </div>
-                        <div class="mt-3">
+                        <div class="my-4">
                             <label for="quantity" class="form-label">Quantity:</label>
                             <div class="input-group">
                                 {{ form.quantity }}
                             </div>
                             <div class="text-danger mt-2">{{ form.quantity.errors }}</div>
                         </div>
-                        <div class="mt-3">
+                        <div>
                             <label for="currency_type" class="form-label">Blockchain:</label>
                             <div class="input-group">
                                 {{ form.blockchain }}
                             </div>
                         </div>
-                        <div class="mt-3">
+                        <div class="my-4">
                             <label for="collection" class="form-label">Collection:</label>
                             <div class="input-group">
                                 {{ form.collection }}

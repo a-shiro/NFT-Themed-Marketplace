@@ -120,6 +120,75 @@
 {% endblock %}
 
 {% if show_footer %}
+    <section class="panel-2 shadow-background">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6 px-1">
+                    <img class="img-fluid decorative-img" height="300px" alt="marketplace-img"
+                         src="{% static 'images/Marketplace.png' %}">
+                </div>
+                <div class="col-lg-6 d-none d-lg-inline-block px-1">
+                    <img class="img-fluid" style="border-radius: 0 10px 10px 0;" height="300px" alt="marketplace-img"
+                         src="{% static 'images/Marketplace-2.png' %}">
+                </div>
+            </div>
+            <div class="my-5"></div>
+            <div class="text-center">
+                <button class="btn btn-lg custom-btn-desert">
+                    <a class="text-light custom-link-desert" href="{% url 'marketplace' %}">Explore the
+                        marketplace</a>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6 text-center text-lg-left">
+                    <h3 style="font-size: 28px">Stay up to date &nbsp;<i class="bi bi-newspaper"></i></h3>
+                    <h5 class="my-4 my-lg-3 text-secondary">Join our mailing list to stay updated with our newest
+                        feature releases,
+                        NFT drops, and tips and
+                        tricks for navigating DesertTraders.</h5>
+                    <div class="row mt-4 text-left">
+                        <div class="col-1 col-sm-2 d-lg-none"></div>
+                        <div class="col-7 col-sm-6 pl-sm-0 pl-lg-3">
+                            <input type="email" class="form-control" style="border-radius: 10px; padding: 11px"
+                                   placeholder="Your email address">
+                        </div>
+                        <div class="col-4 col-sm-3 pl-0">
+                            <button class="btn btn-lg text-light custom-button-size custom-btn-desert">Sign up</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-1 my-4 my-lg-0"></div>
+
+                <div class="col-12 col-lg-5 text-center text-md-start">
+                    <h3 style="font-size: 28px">Join the community &nbsp;<i class="bi bi-people-fill"></i></h3>
+                    <div class="mt-3 pl-1">
+                        <button class="btn btn-lg text-white custom-btn-desert">
+                            <i class="bi bi-twitter"></i>
+                        </button>
+                        <button class="btn btn-lg text-white custom-btn-desert">
+                            <i class="bi bi-instagram"></i>
+                        </button>
+                        <button class="btn btn-lg text-white custom-btn-desert">
+                            <i class="bi bi-tiktok"></i>
+                        </button>
+                        <button class="btn btn-lg text-white custom-btn-desert">
+                            <i class="bi bi-discord"></i>
+                        </button>
+                        <button class="btn btn-lg text-white custom-btn-desert">
+                            <i class="bi bi-reddit"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="panel-2 shadow-background" style="padding-top: 1px; padding-bottom: 1px">
         <div class="container-fluid px-5 py-3">
             <div class="row align-items-center">

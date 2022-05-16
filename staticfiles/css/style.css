@@ -149,13 +149,24 @@ ul li {
 }
 
 
-.custom-form-box {
+.box-form {
     border-width: 3px;
     border-radius: 10px;
     border-style: solid;
-    border-color: lightgrey;
+    border-color: #ffffff;
+    background-color: white;
     box-shadow: 0 1px 10px #a3a3a3;
+    padding-top: 20px;
 }
+
+@media (min-width: 576px) and (max-width: 2000px ) {
+    .box-form {
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+    }
+}
+
 
 .custom-btn-desert {
     background-color: #F2B851;
