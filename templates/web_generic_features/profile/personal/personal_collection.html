@@ -10,10 +10,10 @@
                             <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
                                 <img class="nft-image" alt="{{ nft.title }}" src="{{ nft.image.url }}">
                                 <div class="card-body text-center">
-                                    <h4 class="mt-2" style="color: #F2B851;"> {{ nft.title|truncatechars:22 }}
-                                        <span title="Owned quantity" class="text-secondary">
-                                            &nbsp x{{ nft_quantity }}
-                                        </span>
+                                    <h4 class="mt-2">
+                                        <a class="link-desert" href="{% url 'collection details' nft.collection.pk %}">
+                                            {{ nft.title|truncatechars:22 }}
+                                            <span title="Owned quantity" class="text-secondary">&nbsp x{{ nft_quantity }}</span></a>
                                     </h4>
                                 </div>
                             </div>
