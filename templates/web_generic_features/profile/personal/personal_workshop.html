@@ -10,24 +10,35 @@
                             <div class="card" style="box-shadow: 0 1px 10px #a3a3a3; border-radius: 10px">
                                 <img class="marketplace-image" style="border-radius: 10px 10px 0 0;" alt="100%x280"
                                      src="{{ collection.image.url }}">
-                                <div class="card-body text-center">
-                                    <h4 class="mt-2">
-                                        <a class="link-desert"
-                                           href="{% url 'personal collection details' collection.pk %}">
-                                            {{ collection.title|truncatechars:22 }}
-                                        </a>
-                                    </h4>
-                                    <p class="mb-2 text-secondary">
-                                        by <span class="link-desert">{{ profile.username }}</span>
-                                    </p>
-                                </div>
                                 {% if collection.posted_for_sale %}
+                                    <div class="card-body text-center">
+                                        <h4 class="mt-2">
+                                            <a class="link-desert"
+                                               href="{% url 'collection details' collection.pk %}">
+                                                {{ collection.title|truncatechars:22 }}
+                                            </a>
+                                        </h4>
+                                        <p class="mb-2 text-secondary">
+                                            by <span class="link-desert">{{ profile.username }}</span>
+                                        </p>
+                                    </div>
                                     <div class="card-footer">
                                         <div class="text-center my-2">
                                             <p class="card-text text-secondary">{{ collection.description|truncatechars:30 }}</p>
                                         </div>
                                     </div>
                                 {% else %}
+                                    <div class="card-body text-center">
+                                        <h4 class="mt-2">
+                                            <a class="link-desert"
+                                               href="{% url 'personal collection details' collection.pk %}">
+                                                {{ collection.title|truncatechars:22 }}
+                                            </a>
+                                        </h4>
+                                        <p class="mb-2 text-secondary">
+                                            by <span class="link-desert">{{ profile.username }}</span>
+                                        </p>
+                                    </div>
                                     <div class="card-footer">
                                         <div class="row my-1">
                                             {% if collection.nft_set.all|length_is:4 %}
