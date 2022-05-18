@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from DesertTraders.web_generic_features.models import Collection, NFT, Profile, Balance
+from DesertTraders.web_generic_features.models import Collection, NFT, Profile
 
 
 @admin.register(Collection)
@@ -21,12 +21,6 @@ class NFTAdmin(admin.ModelAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'username')
     sortable_by = ('username', )
-
-
-@admin.register(Balance)
-class BalanceAdmin(admin.ModelAdmin):
-    list_display = ('profile', 'balance')
-    sortable_by = ('balance',)
 
 
 

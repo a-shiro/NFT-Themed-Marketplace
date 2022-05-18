@@ -108,10 +108,16 @@ class NFT(models.Model):
 class Profile(models.Model):
     USERNAME_MAX_LEN = 30
 
+    DEFAULT_PROFILE_BALANCE = 10000
+
     UPLOAD_TO_PATH = 'profile/'
 
     username = models.CharField(
         max_length=USERNAME_MAX_LEN,
+    )
+
+    balance = models.FloatField(
+        default=DEFAULT_PROFILE_BALANCE
     )
 
     profile_image = models.ImageField(
@@ -142,7 +148,7 @@ class Profile(models.Model):
 
 
 class Favorite(models.Model):
-    __FAVORITE_DEFAULT = False
+    FAVORITE_DEFAULT = False
 
     profile = models.ForeignKey(
         Profile,
@@ -157,7 +163,7 @@ class Favorite(models.Model):
     )
 
     favorite = models.BooleanField(
-        default=__FAVORITE_DEFAULT
+        default=FAVORITE_DEFAULT
     )
 
 
@@ -180,23 +186,6 @@ class Collected(models.Model):
         default=DEFAULT_COLLECTED_QUANTITY
     )
 
-    favorite = models.BooleanField(
-        default=DEFAULT_FAVORITE_VALUE
-    )
-
     class Meta:
         verbose_name_plural = "Profile's collection"
 
-
-class Balance(models.Model):
-    DEFAULT_PROFILE_BALANCE = 10000
-
-    balance = models.FloatField(
-        default=DEFAULT_PROFILE_BALANCE
-    )
-
-    profile = models.OneToOneField(
-        Profile,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )

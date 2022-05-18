@@ -1,12 +1,12 @@
-from django.contrib.auth import forms as auth_forms
+from django.contrib.auth import forms as dj_auth_forms
 from django import forms
 
 from DesertTraders.users.models import CustomUser
-from DesertTraders.web_generic_features.models import Profile, Balance
+from DesertTraders.web_generic_features.models import Profile
 from DesertTraders.users.validators import alphanumeric_validator
 
 
-class CustomUserRegisterForm(auth_forms.UserCreationForm):
+class CustomUserRegisterForm(dj_auth_forms.UserCreationForm):
     USERNAME_MAX_LENGTH_VALUE = 25
 
     username = forms.CharField(
@@ -61,18 +61,13 @@ class CustomUserRegisterForm(auth_forms.UserCreationForm):
             user=user,
         )
 
-        balance = Balance(
-            profile=profile
-        )
-
         if commit:
             profile.save()
-            balance.save()
 
         return user
 
 
-class CustomUserLoginForm(auth_forms.AuthenticationForm):
+class CustomUserLoginForm(dj_auth_forms.AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(CustomUserLoginForm, self).__init__(*args, **kwargs)
 

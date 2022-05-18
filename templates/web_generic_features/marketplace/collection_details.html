@@ -104,7 +104,7 @@
                                         </div>
                                     {% else %}
                                         <div class="col-6">
-                                            {% if not request.user.is_authenticated or request.user.profile.balance.balance >= nft.price %}
+                                            {% if not request.user.is_authenticated or request.user.profile.balance >= nft.price %}
                                                 <a class="btn-desert text-light"
                                                    href="{% url 'buy nft' nft.pk %}">Buy</a>
                                             {% else %}

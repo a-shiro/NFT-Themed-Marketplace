@@ -112,17 +112,17 @@ class BuyNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
             profile_collection = Collected(profile=profile, NFT=nft, quantity=1)
             profile_collection.save()
 
-        profile.balance.balance -= nft.price
+        profile.balance -= nft.price
         nft.quantity -= 1
 
-        profile.balance.save()
+        profile.save()
         nft.save()
 
         return None
 
     def get_instance(self, **kwargs):
         try:
-            profile_balance = self.request.user.profile.balance.balance
+            profile_balance = self.request.user.profile.balance
             nft_pk = kwargs['pk']
 
             instance = NFT.objects.get(pk=nft_pk, collection__posted_for_sale=True)
