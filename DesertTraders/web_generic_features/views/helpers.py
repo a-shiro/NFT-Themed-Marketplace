@@ -1,6 +1,6 @@
 from django.core import exceptions as dj_exceptions
 
-from DesertTraders.web_generic_features.models import Collection, Collected, Favorite
+from DesertTraders.web_generic_features.models import Collection, Collected, Favorite, NFT
 
 ORDER_BY_VALUES = ['-price', 'price', 'quantity']
 
@@ -25,10 +25,12 @@ def get_most_popular():
 def get_nfts_and_quantity(profile):
     result = []
 
-    collections = profile.collection.all()
+    collections = profile.collected_set.all()
     for collected_nft in collections:
-        nft_quantity = Collected.objects.get(profile=profile, NFT=collected_nft).quantity
-        result.append((collected_nft, nft_quantity))
+        nft = collected_nft.NFT
+        nft_quantity = collected_nft.quantity
+
+        result.append((nft, nft_quantity))
 
     return result
 

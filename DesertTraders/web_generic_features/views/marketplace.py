@@ -104,8 +104,8 @@ class BuyNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
     def action(self, request, nft):
         profile = request.user.profile
 
-        if nft in profile.collection.all():
-            collected_nft = Collected.objects.get(profile=profile, NFT=nft)
+        if nft.pk in profile.collected_set.values_list('NFT', flat=True):
+            collected_nft = profile.collected_set.get(NFT=nft)
             collected_nft.quantity += 1
             collected_nft.save()
         else:
@@ -163,10 +163,9 @@ class FavoriteNFTView(dj_mixins.LoginRequiredMixin, ActionMixin):
     def get_instance(self, **kwargs):
         try:
             nft_pk = kwargs['pk']
-            nft = NFT.objects.get(pk=nft_pk, collection__posted_for_sale=True)
             profile = self.request.user.profile
 
-            instance = Favorite.objects.get(nft=nft, profile=profile)
+            instance = profile.favorite_set.get(nft_id=nft_pk)
 
             return instance
         except dj_exceptions.ObjectDoesNotExist:
