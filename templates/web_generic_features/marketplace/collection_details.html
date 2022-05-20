@@ -108,19 +108,52 @@
                                                 <a class="btn-desert text-light"
                                                    href="{% url 'buy nft' nft.pk %}">Buy</a>
                                             {% else %}
-                                                <button class="btn-desert text-light" style="border-radius: 10px; background-color: #787878"
-                                                        title="Insufficient Balance">
+                                                <button class="btn-desert text-light"
+                                                        style="border-radius: 10px; background-color: #787878"
+                                                        title="Insufficient Balance" data-bs-toggle="modal"
+                                                        data-bs-target="#no-funds-modal">
                                                     Buy
                                                 </button>
+
+                                                <div class="modal fade" id="no-funds-modal" tabindex="-1"
+                                                     aria-labelledby="modal-title" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h3 class="modal-title" id="modal-title">
+                                                                    Insufficient Funds!
+                                                                </h3>
+                                                                <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Close">
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p class="text-start">
+                                                                    You don't have enough funds to purchase this NFT!
+                                                                    Please add to your balance and try again.
+                                                                </p>
+                                                                <h4 class="mt-5">
+                                                                    Current Balance: {{ request.user.profile.balance}}
+                                                                </h4>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-secondary" style="border-radius: 10px"
+                                                                        data-bs-dismiss="modal">
+                                                                    Close
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             {% endif %}
                                             <a class="btn-like" href="{% url 'favorite nft' nft.pk %}">
                                                 {% if favorite %}
                                                     <h4>
-                                                        <i class="bi bi-heart-fill" style="color: #e43f3f"></i>
+                                                        <i class="bi bi-heart-fill" style="color: #e43f3f" title="Unfavorite"></i>
                                                     </h4>
                                                 {% else %}
                                                     <h4>
-                                                        <i class="bi bi-heart"></i>
+                                                        <i class="bi bi-heart" title="Favorite"></i>
                                                     </h4>
                                                 {% endif %}
                                             </a>
