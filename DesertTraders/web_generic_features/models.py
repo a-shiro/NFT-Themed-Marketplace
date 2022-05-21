@@ -8,23 +8,23 @@ UserModel = get_user_model()
 
 
 class Collection(models.Model):
-    TITLE_MAX_LEN = 50
+    __TITLE_MAX_LEN = 50
 
-    UPLOAD_TO_PATH = 'collections/'
+    __UPLOAD_TO_PATH = 'collections/'
 
     title = models.CharField(
-        max_length=TITLE_MAX_LEN,
+        max_length=__TITLE_MAX_LEN,
     )
 
     image = models.ImageField(
-        upload_to=UPLOAD_TO_PATH,
+        upload_to=__UPLOAD_TO_PATH,
         validators=(
             max_image_size,
         )
     )
 
     cover_image = models.ImageField(
-        upload_to=UPLOAD_TO_PATH,
+        upload_to=__UPLOAD_TO_PATH,
         validators=(
             max_image_size,
         ),
@@ -48,25 +48,25 @@ class Collection(models.Model):
 
 
 class NFT(models.Model):
-    TITLE_MAX_LEN = 50
+    __TITLE_MAX_LEN = 50
 
-    UPLOAD_TO_PATH = 'nfts/'
+    __UPLOAD_TO_PATH = 'nfts/'
 
-    MIN_VALIDATOR_VALUE = 0.000001
+    __MIN_VALIDATOR_VALUE = 0.000001
 
-    CURRENCY_TYPE_CHOICES = [(type, type) for type in ['BTC', 'ETH', 'SOL']]
-    CURRENCY_TYPE_MAX_LEN = 6
+    __CURRENCY_TYPE_CHOICES = [(type, type) for type in ['BTC', 'ETH', 'SOL']]
+    __CURRENCY_TYPE_MAX_LEN = 6
 
-    MIN_QUANTITY_VALUE = 1
+    __MIN_QUANTITY_VALUE = 1
 
-    DEFAULT_LIKES_VALUE = 0
+    __DEFAULT_LIKES_VALUE = 0
 
     title = models.CharField(
-        max_length=TITLE_MAX_LEN,
+        max_length=__TITLE_MAX_LEN,
     )
 
     image = models.ImageField(
-        upload_to=UPLOAD_TO_PATH,
+        upload_to=__UPLOAD_TO_PATH,
         validators=(
             max_image_size,
         )
@@ -74,18 +74,18 @@ class NFT(models.Model):
 
     price = models.FloatField(
         validators=(
-            MinValueValidator(MIN_VALIDATOR_VALUE),
+            MinValueValidator(__MIN_VALIDATOR_VALUE),
         ),
     )
 
     blockchain = models.CharField(
-        max_length=CURRENCY_TYPE_MAX_LEN,
-        choices=CURRENCY_TYPE_CHOICES,
+        max_length=__CURRENCY_TYPE_MAX_LEN,
+        choices=__CURRENCY_TYPE_CHOICES,
     )
 
     quantity = models.IntegerField(
         validators=(
-            MinValueValidator(MIN_QUANTITY_VALUE),
+            MinValueValidator(__MIN_QUANTITY_VALUE),
         ),
     )
 
@@ -95,7 +95,7 @@ class NFT(models.Model):
     )
 
     likes = models.IntegerField(
-        default=DEFAULT_LIKES_VALUE
+        default=__DEFAULT_LIKES_VALUE
     )
 
     def __str__(self):
@@ -103,28 +103,28 @@ class NFT(models.Model):
 
 
 class Profile(models.Model):
-    USERNAME_MAX_LEN = 30
+    __USERNAME_MAX_LEN = 30
 
-    DEFAULT_BALANCE_VALUE = 10000
+    __DEFAULT_BALANCE_VALUE = 10000
 
-    UPLOAD_TO_PATH = 'profile/'
+    __UPLOAD_TO_PATH = 'profile/'
 
     username = models.CharField(
-        max_length=USERNAME_MAX_LEN,
+        max_length=__USERNAME_MAX_LEN,
     )
 
     balance = models.FloatField(
-        default=DEFAULT_BALANCE_VALUE
+        default=__DEFAULT_BALANCE_VALUE
     )
 
     profile_image = models.ImageField(
-        upload_to=UPLOAD_TO_PATH,
+        upload_to=__UPLOAD_TO_PATH,
         blank=True,
         null=True,
     )
 
     cover_image = models.ImageField(
-        upload_to=UPLOAD_TO_PATH,
+        upload_to=__UPLOAD_TO_PATH,
         blank=True,
         null=True,
     )
@@ -140,9 +140,7 @@ class Profile(models.Model):
 
 
 class Collected(models.Model):
-    DEFAULT_COLLECTED_QUANTITY = 0
-
-    DEFAULT_FAVORITE_VALUE = False
+    __DEFAULT_COLLECTED_QUANTITY = 0
 
     profile = models.ForeignKey(
         Profile,
@@ -155,12 +153,12 @@ class Collected(models.Model):
     )
 
     quantity = models.IntegerField(
-        default=DEFAULT_COLLECTED_QUANTITY
+        default=__DEFAULT_COLLECTED_QUANTITY
     )
 
 
 class Favorite(models.Model):
-    FAVORITE_DEFAULT = False
+    __FAVORITE_DEFAULT = False
 
     profile = models.ForeignKey(
         Profile,
@@ -175,5 +173,5 @@ class Favorite(models.Model):
     )
 
     favorite = models.BooleanField(
-        default=FAVORITE_DEFAULT
+        default=__FAVORITE_DEFAULT
     )
