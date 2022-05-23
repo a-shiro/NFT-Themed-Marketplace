@@ -9,21 +9,21 @@ from DesertTraders.users.managers import CustomUserManager
 class CustomUser(base_user.AbstractBaseUser, auth_models.PermissionsMixin):
     USERNAME_FIELD = 'email'
 
-    ERROR_MESSAGE_FOR_UNIQUE = 'This email has already been registered.'
+    __ERROR_MESSAGE_FOR_UNIQUE = 'This email has already been registered.'
 
-    REGEX_PATTERN_FOR_EMAIL_VALIDATOR = "^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$"
-    REGEX_ERROR_MESSAGE = 'Please enter a valid email address.'
+    __REGEX_PATTERN_FOR_EMAIL_VALIDATOR = "^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$"
+    __REGEX_ERROR_MESSAGE = 'Please enter a valid email address.'
 
     email = models.EmailField(
         unique=True,
         validators=(
             django_validators.RegexValidator(
-                REGEX_PATTERN_FOR_EMAIL_VALIDATOR,
-                REGEX_ERROR_MESSAGE
+                __REGEX_PATTERN_FOR_EMAIL_VALIDATOR,
+                __REGEX_ERROR_MESSAGE
             ),
         ),
         error_messages={
-            'unique': ERROR_MESSAGE_FOR_UNIQUE,
+            'unique': __ERROR_MESSAGE_FOR_UNIQUE,
         },
     )
 
