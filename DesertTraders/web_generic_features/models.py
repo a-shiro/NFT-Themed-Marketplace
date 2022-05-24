@@ -156,6 +156,9 @@ class Collected(models.Model):
         default=__DEFAULT_COLLECTED_QUANTITY
     )
 
+    def __str__(self):
+        return f'{self.profile.username} {self.NFT.title}'
+
 
 class Favorite(models.Model):
     __FAVORITE_DEFAULT = False
@@ -175,3 +178,6 @@ class Favorite(models.Model):
     favorite = models.BooleanField(
         default=__FAVORITE_DEFAULT
     )
+
+    def __str__(self):
+        return f'{self.profile.username} {self.nft.title}'

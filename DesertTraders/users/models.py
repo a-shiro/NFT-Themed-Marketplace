@@ -37,8 +37,5 @@ class CustomUser(base_user.AbstractBaseUser, auth_models.PermissionsMixin):
 
     objects = CustomUserManager()
 
-    class Meta:
-        verbose_name = 'User'
-
     def __str__(self):
         return self.email
