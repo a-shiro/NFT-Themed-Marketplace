@@ -27,7 +27,7 @@ def get_nfts_and_quantity(profile):
 
     collections = profile.collected_set.all()
     for collected_nft in collections:
-        nft = collected_nft.NFT
+        nft = collected_nft.nft
         nft_quantity = collected_nft.quantity
 
         result.append((nft, nft_quantity))

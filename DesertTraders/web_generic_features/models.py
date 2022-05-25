@@ -147,7 +147,7 @@ class Collected(models.Model):
         on_delete=models.CASCADE,
     )
 
-    NFT = models.ForeignKey(
+    nft = models.ForeignKey(
         NFT,
         on_delete=models.CASCADE,
     )
@@ -157,7 +157,7 @@ class Collected(models.Model):
     )
 
     def __str__(self):
-        return f'{self.profile.username} {self.NFT.title}'
+        return f'{self.profile.username} {self.nft.title}'
 
 
 class Favorite(models.Model):
